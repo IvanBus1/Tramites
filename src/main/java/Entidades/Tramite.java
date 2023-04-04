@@ -15,13 +15,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author icedo
+ * @author Hector e Ivan
  */
 @Entity(name="Tramite")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -43,6 +45,10 @@ public class Tramite implements Serializable {
     @Column(name="FechaSolicitud")
     @Temporal(TemporalType.DATE)
     private Date fecha_solicitud;
+    
+    @ManyToOne
+    @JoinColumn(name="id_persona")
+    private Persona persona;
 
     public Integer getId_tramite() {
         return id_tramite;
@@ -68,16 +74,25 @@ public class Tramite implements Serializable {
         this.fecha_solicitud = fecha_solicitud;
     }
 
-    public Tramite(Integer id_tramite, int precio, Date fecha_solicitud) {
+    public Tramite(Integer id_tramite, int precio, Date fecha_solicitud, Persona persona) {
         this.id_tramite = id_tramite;
         this.precio = precio;
         this.fecha_solicitud = fecha_solicitud;
+        this.persona = persona;
+    }
+
+    
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     public Tramite() {
     }
-
-    
     
     
     

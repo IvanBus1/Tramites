@@ -5,20 +5,24 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author icedo
+ * @author Hector e Ivan
  */
 @Entity
 @Table(name="Persona")
@@ -59,6 +63,14 @@ public class Persona implements Serializable {
     @Column(name="EsDiscapacitado")
     private boolean discapacitado;
 
+   
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private List<Tramite> tramites;
+    
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private List<Vehiculo> vehiculos;
+    
     public Integer getId_persona() {
         return id_persona;
     }
@@ -123,6 +135,14 @@ public class Persona implements Serializable {
         this.discapacitado = discapacitado;
     }
 
+    public List<Tramite> getTramites() {
+        return tramites;
+    }
+
+    public void setTramites(List<Tramite> tramites) {
+        this.tramites = tramites;
+    }
+
     public Persona(Integer id_persona, String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, boolean discapacitado) {
         this.id_persona = id_persona;
         this.rfc = rfc;
@@ -132,11 +152,28 @@ public class Persona implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
         this.telefono = telefono;
         this.discapacitado = discapacitado;
+        this.tramites=new ArrayList<>();
+        this.vehiculos=new ArrayList<>();
     }
 
+    
+   
     public Persona() {
     }
+
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public void setVehiculos(List<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+
     
+    
+    
+}
+
    
 
     
@@ -145,4 +182,4 @@ public class Persona implements Serializable {
     
     
     
-}
+
