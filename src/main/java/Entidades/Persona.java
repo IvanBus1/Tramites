@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 @Table(name="Persona")
 public class Persona implements Serializable {
 
-    
+   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="IdPersona")
