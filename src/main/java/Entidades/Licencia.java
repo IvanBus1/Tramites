@@ -40,12 +40,17 @@ public class Licencia extends Tramite {
     @Column(name="Tipo")
     private String tipo;
 
-    public Licencia(Date vigencia, String tipo, Integer id_tramite, int precio, Date fecha_solicitud) {
-        super(id_tramite, precio, fecha_solicitud);
+    public Licencia(Date vigencia, String tipo, Integer id_tramite, int precio, Date fecha_solicitud, Persona persona) {
+        super(id_tramite, precio, fecha_solicitud, persona);
         this.vigencia = vigencia;
         this.tipo = tipo;
     }
 
+    public Licencia(Date vigencia, String tipo) {
+        this.vigencia = vigencia;
+        this.tipo = tipo;
+    }
+    
     public Date getVigencia() {
         return vigencia;
     }
