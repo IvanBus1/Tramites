@@ -2,6 +2,7 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -99,16 +100,36 @@ public class Vehiculo implements Serializable {
         this.modelo = modelo;
     }
 
-    public Vehiculo(Integer id_vehiculo, int num_serie, String linea, String marca, String color, String modelo) {
+    public Vehiculo(Integer id_vehiculo, int num_serie, String linea, String marca, String color, String modelo, Persona persona) {
         this.id_vehiculo = id_vehiculo;
         this.num_serie = num_serie;
         this.linea = linea;
         this.marca = marca;
         this.color = color;
         this.modelo = modelo;
+        this.persona = persona;
+        this.placas= new ArrayList<>();
     }
 
+   
+
     public Vehiculo() {
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    public List<Placa> getPlacas() {
+        return placas;
+    }
+
+    public void setPlacas(List<Placa> placas) {
+        this.placas = placas;
     }
     
     
@@ -117,6 +138,7 @@ public class Vehiculo implements Serializable {
     private Persona persona;
   
    
-    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vehiculo")
+    private List<Placa> placas;
     
 }

@@ -4,13 +4,14 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Entidades.Tramite</class>
     <class>Entidades.Licencia</class>
-    <class>Entidades.Persona</class>
+    <class>Entidades.Placa</class>
     <class>Entidades.Vehiculo</class>
+    <class>Entidades.Persona</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tramites?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="1234"/>
+      <property name="javax.persistence.jdbc.password" value="2003"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
