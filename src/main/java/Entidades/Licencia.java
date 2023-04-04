@@ -17,59 +17,109 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author icedo
+ * @author Hector e Ivan
  */
+/**
+
+Clase que representa una licencia como tipo de Tramite.
+
+La clase Licencia es una subclase de Tramite y se utiliza para representar un trámite de solicitud de licencia.
+
+Licencia es una entidad mapeada con la anotación @Entity y su tabla en la base de datos es "Licencia".
+
+La clase Licencia tiene dos constructores, uno con los parámetros de vigencia, tipo, id_tramite, precio, fecha_solicitud, persona
+
+y otro con los parámetros de vigencia y tipo.
+
+También tiene los métodos getters y setters correspondientes para cada uno de sus atributos.
+
+@see Tramite
+*/
 @Entity
 @PrimaryKeyJoinColumn(name="IdLicencia")
 @DiscriminatorValue(value="Licencia")
 @Table(name="Licencia")
 public class Licencia extends Tramite {
 
-  
+/**
 
-    @Basic
-    @Temporal(TemporalType.DATE)
-    @Column(name="Vigencia")
-    private Date vigencia;
-    
-    
-    @Basic
-    @Column(name="Tipo")
-    private String tipo;
+Atributo que representa la fecha de vigencia de la licencia.
+*/
+@Basic
+@Temporal(TemporalType.DATE)
+@Column(name="Vigencia")
+private Date vigencia;
+/**
 
-    public Licencia(Date vigencia, String tipo, Integer id_tramite, int precio, Date fecha_solicitud, Persona persona) {
-        super(id_tramite, precio, fecha_solicitud, persona);
-        this.vigencia = vigencia;
-        this.tipo = tipo;
-    }
+Atributo que representa el tipo de la licencia.
+*/
+@Basic
+@Column(name="Tipo")
+private String tipo;
+/**
 
-    public Licencia(Date vigencia, String tipo) {
-        this.vigencia = vigencia;
-        this.tipo = tipo;
-    }
-    
-    public Date getVigencia() {
-        return vigencia;
-    }
+Constructor de la clase Licencia con los parámetros de vigencia, tipo, id_tramite, precio, fecha_solicitud, persona.
+@param vigencia Fecha de vigencia de la licencia.
+@param tipo Tipo de la licencia.
+@param id_tramite Identificador del trámite.
+@param precio Precio del trámite.
+@param fecha_solicitud Fecha de solicitud del trámite.
+@param persona Persona que solicita el trámite.
+*/
+public Licencia(Date vigencia, String tipo, Integer id_tramite, int precio, Date fecha_solicitud, Persona persona) {
+super(id_tramite, precio, fecha_solicitud, persona);
+this.vigencia = vigencia;
+this.tipo = tipo;
+}
+/**
 
-    public void setVigencia(Date vigencia) {
-        this.vigencia = vigencia;
-    }
+Constructor de la clase Licencia con los parámetros de vigencia y tipo.
+@param vigencia Fecha de vigencia de la licencia.
+@param tipo Tipo de la licencia.
+*/
+public Licencia(Date vigencia, String tipo) {
+this.vigencia = vigencia;
+this.tipo = tipo;
+}
+/**
 
-    public String getTipo() {
-        return tipo;
-    }
+Método getter para el atributo vigencia.
+@return Fecha de vigencia de la licencia.
+*/
+public Date getVigencia() {
+return vigencia;
+}
+/**
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+Método setter para el atributo vigencia.
+@param vigencia Fecha de vigencia de la licencia.
+*/
+public void setVigencia(Date vigencia) {
+this.vigencia = vigencia;
+}
+/**
 
-    public Licencia(){
-        
-    }
-    
-    
-    
+Método getter para el atributo tipo.
+@return Tipo de la licencia.
+*/
+public String getTipo() {
+return tipo;
+}
+/**
+
+Método setter para el atributo tipo.
+@param tipo Tipo de la licencia.
+*/
+public void setTipo(String tipo) {
+this.tipo = tipo;
+}
+/**
+
+Constructor vacío de la clase Licencia.
+*/
+public Licencia(){
+}
+
 
   
     
