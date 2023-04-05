@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -56,6 +58,15 @@ Atributo que representa el tipo de la licencia.
 @Basic
 @Column(name="Tipo")
 private String tipo;
+
+    
+
+@ManyToOne
+@JoinColumn(name="id_persona")
+    private Persona persona;
+
+
+
 /**
 
 Constructor de la clase Licencia con los parámetros de vigencia, tipo, id_tramite, precio, fecha_solicitud, persona.
@@ -119,6 +130,16 @@ Constructor vacío de la clase Licencia.
 */
 public Licencia(){
 }
+
+@Override
+    public Persona getPersona() {
+        return persona;
+    }
+
+@Override
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
 
 
   

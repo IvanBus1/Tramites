@@ -67,6 +67,9 @@ public class Persona implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<Tramite> tramites;
     
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
+    private List<Licencia> licencias;
+    
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<Vehiculo> vehiculos;
@@ -153,6 +156,7 @@ public class Persona implements Serializable {
         this.telefono = telefono;
         this.discapacitado = discapacitado;
         this.tramites=new ArrayList<>();
+        this.licencias=new ArrayList<>();
         this.vehiculos=new ArrayList<>();
     }
 
@@ -167,6 +171,14 @@ public class Persona implements Serializable {
 
     public void setVehiculos(List<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
+    }
+
+    public List<Licencia> getLicencias() {
+        return licencias;
+    }
+
+    public void setLicencias(List<Licencia> licencias) {
+        this.licencias = licencias;
     }
 
     
