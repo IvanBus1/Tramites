@@ -1,7 +1,9 @@
 package Persistencia;
 
 import Entidades.Persona;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -51,5 +53,22 @@ public class PersonaDAO implements IPersonaDAO {
         }
 
     }
+    
+    public List<Persona> obtenerTodos() {
+       try{
+       EntityManager emf = conexionbd.crearcone();
+       emf.getTransaction().begin();
+       
+       Query query = emf.createQuery("SELECT p FROM Persona p", Persona.class);
+   
+       emf.getTransaction().commit();
+       
+       return query.getResultList();
+       
+       }catch (Exception ex){
+           System.out.println(ex);
+           return null;
+       }
+   }
 
 }
