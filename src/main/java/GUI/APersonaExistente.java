@@ -4,6 +4,13 @@
  */
 package GUI;
 
+import Entidades.Persona;
+import Persistencia.ConexionBD;
+import Persistencia.IConexionBD;
+import Persistencia.IPersonaDAO;
+import Persistencia.PersonaDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author IVAN
@@ -33,9 +40,9 @@ public class APersonaExistente extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtFolio1 = new javax.swing.JTextField();
+        txtrfc = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtFolio2 = new javax.swing.JTextField();
+        txtnombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +81,11 @@ public class APersonaExistente extends javax.swing.JFrame {
         btnAceptar.setBorder(null);
         btnAceptar.setContentAreaFilled(false);
         btnAceptar.setOpaque(true);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 88, 37));
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
@@ -95,30 +107,30 @@ public class APersonaExistente extends javax.swing.JFrame {
         jLabel4.setText("Ingrese el RFC de la persona:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
-        txtFolio1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio1.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtFolio1.addActionListener(new java.awt.event.ActionListener() {
+        txtrfc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtrfc.setForeground(new java.awt.Color(0, 153, 204));
+        txtrfc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtrfc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFolio1ActionPerformed(evt);
+                txtrfcActionPerformed(evt);
             }
         });
-        jPanel1.add(txtFolio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 210, 28));
+        jPanel1.add(txtrfc, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 210, 28));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 204));
         jLabel5.setText("Ingrese el nombre de la persona:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
-        txtFolio2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio2.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtFolio2.addActionListener(new java.awt.event.ActionListener() {
+        txtnombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtnombre.setForeground(new java.awt.Color(0, 153, 204));
+        txtnombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFolio2ActionPerformed(evt);
+                txtnombreActionPerformed(evt);
             }
         });
-        jPanel1.add(txtFolio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 210, 28));
+        jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 210, 28));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,23 +154,42 @@ public class APersonaExistente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void txtFolio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFolio1ActionPerformed
+    private void txtrfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtrfcActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFolio1ActionPerformed
+    }//GEN-LAST:event_txtrfcActionPerformed
 
-    private void txtFolio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFolio2ActionPerformed
+    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFolio2ActionPerformed
+    }//GEN-LAST:event_txtnombreActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        Inicial a= new Inicial();
+        Inicial a = new Inicial();
         a.setVisible(true);
-         this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        
+buscarperso();
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    public void buscarperso() {
+        IConexionBD conexionbd = new ConexionBD();
+        IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
+
+        Persona personaencon = personaDAO.buscarRFC(txtnombre.getText(), txtrfc.getText());
+        if (personaencon == null) {
+            JOptionPane.showMessageDialog(null, "no");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "si");
+            Menu a = new Menu(personaencon);
+            a.setVisible(true);
+            this.dispose();
+        }
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -200,7 +231,7 @@ public class APersonaExistente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtFolio1;
-    private javax.swing.JTextField txtFolio2;
+    private javax.swing.JTextField txtnombre;
+    private javax.swing.JTextField txtrfc;
     // End of variables declaration//GEN-END:variables
 }

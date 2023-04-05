@@ -4,17 +4,19 @@
  */
 package GUI;
 
+import Entidades.Persona;
+
 /**
  *
  * @author IVAN
  */
 public class Placas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Placas
-     */
-    public Placas() {
+       private Persona persona;
+    public Placas(Persona persona) {
+       this.persona=persona;
         initComponents();
+        
     }
 
     /**
@@ -201,7 +203,7 @@ public class Placas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptar2ActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-   Menu m= new Menu();
+   Menu m= new Menu(persona);
       m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -236,7 +238,7 @@ public class Placas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Placas().setVisible(true);
+           //     new Placas().setVisible(true);
             }
         });
     }

@@ -4,17 +4,19 @@
  */
 package GUI;
 
+import Entidades.Persona;
+
 /**
  *
  * @author IVAN
  */
 public class SolicitarPlacas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SolicitarPlacas
-     */
-    public SolicitarPlacas() {
+     private Persona persona;
+    public SolicitarPlacas(Persona persona) {
+       this.persona=persona;
         initComponents();
+        
     }
 
     /**
@@ -152,7 +154,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptar1ActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-      Menu m= new Menu();
+      Menu m= new Menu(persona);
       m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -187,7 +189,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SolicitarPlacas().setVisible(true);
+              //  new SolicitarPlacas().setVisible(true);
             }
         });
     }

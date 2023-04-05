@@ -1,8 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI;
+
+import Entidades.Persona;
+import Entidades.Vehiculo;
+import Persistencia.IVehiculoDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,11 +11,18 @@ package GUI;
  */
 public class RegistrarVehiculo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistrarVehiculo
-     */
-    public RegistrarVehiculo() {
+    IVehiculoDAO vehiculoDAO;
+    
+     private Persona persona;
+    
+   
+    
+    public RegistrarVehiculo(IVehiculoDAO vehiculoDAO,Persona persona) {
+       this.persona=persona;
+      
         initComponents();
+          lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+        this.vehiculoDAO = vehiculoDAO;
     }
 
     /**
@@ -29,20 +37,20 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblperso = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtFolio1 = new javax.swing.JTextField();
+        txtNumeroSerie = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtFolio2 = new javax.swing.JTextField();
-        txtFolio3 = new javax.swing.JTextField();
+        txtMarca = new javax.swing.JTextField();
+        txtLinea = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtFolio4 = new javax.swing.JTextField();
+        txtModelo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtFolio5 = new javax.swing.JTextField();
+        txtColor = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,10 +69,10 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 70));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel3.setText(".......");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 130, -1));
+        lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblperso.setForeground(new java.awt.Color(0, 102, 204));
+        lblperso.setText(".......");
+        jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 130, -1));
 
         btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -82,6 +90,11 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         btnAceptar.setBorder(null);
         btnAceptar.setContentAreaFilled(false);
         btnAceptar.setOpaque(true);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 550, 88, 37));
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
@@ -103,10 +116,10 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         jLabel4.setText("Número serie:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
-        txtFolio1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio1.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        jPanel1.add(txtFolio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 250, 28));
+        txtNumeroSerie.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtNumeroSerie.setForeground(new java.awt.Color(0, 153, 204));
+        txtNumeroSerie.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        jPanel1.add(txtNumeroSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 250, 28));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 204));
@@ -118,40 +131,40 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         jLabel6.setText("Línea:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
-        txtFolio2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio2.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        jPanel1.add(txtFolio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 250, 28));
+        txtMarca.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtMarca.setForeground(new java.awt.Color(0, 153, 204));
+        txtMarca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        jPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 250, 28));
 
-        txtFolio3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio3.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        jPanel1.add(txtFolio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 250, 28));
+        txtLinea.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtLinea.setForeground(new java.awt.Color(0, 153, 204));
+        txtLinea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        jPanel1.add(txtLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 250, 28));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("Modelo:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
 
-        txtFolio4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio4.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        jPanel1.add(txtFolio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 250, 28));
+        txtModelo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtModelo.setForeground(new java.awt.Color(0, 153, 204));
+        txtModelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        jPanel1.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 250, 28));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 102, 204));
         jLabel8.setText("Color:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
 
-        txtFolio5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio5.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtFolio5.addActionListener(new java.awt.event.ActionListener() {
+        txtColor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtColor.setForeground(new java.awt.Color(0, 153, 204));
+        txtColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFolio5ActionPerformed(evt);
+                txtColorActionPerformed(evt);
             }
         });
-        jPanel1.add(txtFolio5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 250, 28));
+        jPanel1.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 250, 28));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 102, 204));
@@ -176,19 +189,48 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFolio5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFolio5ActionPerformed
+    private void txtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFolio5ActionPerformed
+    }//GEN-LAST:event_txtColorActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-     Menu m= new Menu();
-      m.setVisible(true);
+        Menu m = new Menu(persona);
+        m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+       guardarVehiculo();
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    public void guardarVehiculo() {
+        try {
+            if (txtColor.getText().isEmpty() || txtLinea.getText().isEmpty()
+                    || txtMarca.getText().isEmpty() || txtModelo.getText().isEmpty()
+                    || txtNumeroSerie.getText().isEmpty()) {
+                return;
+            }
+
+            Vehiculo vehi = new Vehiculo();
+            int nSerie = Integer.valueOf(this.txtNumeroSerie.getText());
+            vehi.setNum_serie(nSerie);
+            vehi.setMarca(txtMarca.getText());
+            vehi.setLinea(txtLinea.getText());
+            vehi.setModelo(txtModelo.getText());
+            vehi.setColor(txtColor.getText());
+            vehi.setPersona(persona);
+
+            Vehiculo vehiculoguardar = vehiculoDAO.agregar(vehi);
+            if (vehiculoguardar == null) {
+                JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+            } else {
+                JOptionPane.showMessageDialog(null, "Se ha registrado un vehiculo");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -216,7 +258,7 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistrarVehiculo().setVisible(true);
+                // new RegistrarVehiculo().setVisible(true);
             }
         });
     }
@@ -226,7 +268,6 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -235,10 +276,11 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtFolio1;
-    private javax.swing.JTextField txtFolio2;
-    private javax.swing.JTextField txtFolio3;
-    private javax.swing.JTextField txtFolio4;
-    private javax.swing.JTextField txtFolio5;
+    private javax.swing.JLabel lblperso;
+    private javax.swing.JTextField txtColor;
+    private javax.swing.JTextField txtLinea;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtModelo;
+    private javax.swing.JTextField txtNumeroSerie;
     // End of variables declaration//GEN-END:variables
 }

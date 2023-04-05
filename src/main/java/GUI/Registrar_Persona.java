@@ -4,17 +4,24 @@
  */
 package GUI;
 
+import Entidades.Persona;
+import Persistencia.IPersonaDAO;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author IVAN
  */
 public class Registrar_Persona extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Registrar_Persona
-     */
-    public Registrar_Persona() {
+    IPersonaDAO personaDAO;
+
+    public Registrar_Persona(IPersonaDAO personaDAO) {
         initComponents();
+        this.personaDAO = personaDAO;
     }
 
     /**
@@ -30,20 +37,22 @@ public class Registrar_Persona extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtFolio = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtFolio1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtFolio2 = new javax.swing.JTextField();
-        txtFolio3 = new javax.swing.JTextField();
+        txtAPaterno = new javax.swing.JTextField();
+        txtAMaterno = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtFolio4 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        txtRFC = new javax.swing.JTextField();
+        chxDis = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtFecha = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,15 +75,15 @@ public class Registrar_Persona extends javax.swing.JFrame {
         jLabel3.setText("¿Es discapacitado?");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
-        txtFolio.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtFolio.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefono.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtTelefono.setForeground(new java.awt.Color(0, 153, 204));
+        txtTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFolioActionPerformed(evt);
+                txtTelefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(txtFolio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 250, 28));
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 250, 28));
 
         btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -92,6 +101,11 @@ public class Registrar_Persona extends javax.swing.JFrame {
         btnAceptar.setBorder(null);
         btnAceptar.setContentAreaFilled(false);
         btnAceptar.setOpaque(true);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, 88, 37));
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
@@ -113,10 +127,10 @@ public class Registrar_Persona extends javax.swing.JFrame {
         jLabel4.setText("Nombre: ");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
-        txtFolio1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio1.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        jPanel1.add(txtFolio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 250, 28));
+        txtNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(0, 153, 204));
+        txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 250, 28));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 204));
@@ -128,33 +142,44 @@ public class Registrar_Persona extends javax.swing.JFrame {
         jLabel6.setText("Apellido Materno:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
-        txtFolio2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio2.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        jPanel1.add(txtFolio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 250, 28));
+        txtAPaterno.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtAPaterno.setForeground(new java.awt.Color(0, 153, 204));
+        txtAPaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtAPaterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAPaternoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtAPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 250, 28));
 
-        txtFolio3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio3.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        jPanel1.add(txtFolio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 250, 28));
+        txtAMaterno.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtAMaterno.setForeground(new java.awt.Color(0, 153, 204));
+        txtAMaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        jPanel1.add(txtAMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 250, 28));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("RFC:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
 
-        txtFolio4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio4.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        jPanel1.add(txtFolio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 250, 28));
+        txtRFC.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtRFC.setForeground(new java.awt.Color(0, 153, 204));
+        txtRFC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        jPanel1.add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 250, 28));
 
-        jCheckBox1.setText("Marque la casilla para indicar que si");
-        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 230, -1));
+        chxDis.setText("Marque la casilla para indicar que si");
+        jPanel1.add(chxDis, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 230, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel8.setText("Teléfono:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
+        jLabel8.setText("Fecha do nacimiento:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel9.setText("Teléfono:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
+        jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 530, 230, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -174,15 +199,63 @@ public class Registrar_Persona extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFolioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFolioActionPerformed
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFolioActionPerformed
+    }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-   Inicial a= new Inicial();
+        Inicial a = new Inicial();
         a.setVisible(true);
-          this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        guardarPersona();
+
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txtAPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAPaternoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAPaternoActionPerformed
+
+    public void guardarPersona() {
+        try {
+            boolean dis = true;
+
+            if (txtAMaterno.getText().isEmpty() || txtAPaterno.getText().isEmpty()
+                    || txtRFC.getText().isEmpty() || txtTelefono.getText().isEmpty()
+                    || txtNombre.getText().isEmpty()) {
+                return;
+            }
+
+            if (chxDis.isSelected()) {
+                dis = true;
+            } else {
+                dis = false;
+            }
+
+            Persona nuevaPersona = new Persona();
+            nuevaPersona.setRfc(txtRFC.getText());
+            nuevaPersona.setNombre(txtNombre.getText());
+            nuevaPersona.setApellidoPaterno(txtAPaterno.getText());
+            nuevaPersona.setApellidoMaterno(txtAMaterno.getText());
+            nuevaPersona.setTelefono(txtTelefono.getText());
+            long date = this.txtFecha.getDate().getTime();
+            java.sql.Date fechaInicioDate = new java.sql.Date(date);
+            String fechaNacimiento = fechaInicioDate.toString();
+            nuevaPersona.setDiscapacitado(dis);
+            nuevaPersona.setFechaNacimiento(fechaInicioDate);
+
+            Persona personaguardar = personaDAO.agregar(nuevaPersona);
+            if (personaguardar == null) {
+                JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+            } else {
+                JOptionPane.showMessageDialog(null, "Se ha registrado una persona");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -214,7 +287,7 @@ public class Registrar_Persona extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Registrar_Persona().setVisible(true);
+                // new Registrar_Persona().setVisible(true);
             }
         });
     }
@@ -223,7 +296,7 @@ public class Registrar_Persona extends javax.swing.JFrame {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox chxDis;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -231,12 +304,14 @@ public class Registrar_Persona extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtFolio;
-    private javax.swing.JTextField txtFolio1;
-    private javax.swing.JTextField txtFolio2;
-    private javax.swing.JTextField txtFolio3;
-    private javax.swing.JTextField txtFolio4;
+    private javax.swing.JTextField txtAMaterno;
+    private javax.swing.JTextField txtAPaterno;
+    private com.toedter.calendar.JDateChooser txtFecha;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRFC;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,10 @@
 package GUI;
 
 import Entidades.Main;
+import Persistencia.ConexionBD;
+import Persistencia.IConexionBD;
+import Persistencia.IPersonaDAO;
+import Persistencia.PersonaDAO;
 
 
 public class Inicial extends javax.swing.JFrame {
@@ -28,10 +32,10 @@ public class Inicial extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnAceptar = new javax.swing.JButton();
+        btnRegistrarVariasPersonas = new javax.swing.JButton();
         btnOpciones = new javax.swing.JButton();
-        btnAceptar3 = new javax.swing.JButton();
-        btnAceptar4 = new javax.swing.JButton();
+        btnRegistrarPersona = new javax.swing.JButton();
+        btnAceptarPersona = new javax.swing.JButton();
         btnAceptar5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,19 +54,19 @@ public class Inicial extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 70));
 
-        btnAceptar.setBackground(new java.awt.Color(0, 102, 204));
-        btnAceptar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAceptar.setText("Registrar Varias Personas");
-        btnAceptar.setBorder(null);
-        btnAceptar.setContentAreaFilled(false);
-        btnAceptar.setOpaque(true);
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrarVariasPersonas.setBackground(new java.awt.Color(0, 102, 204));
+        btnRegistrarVariasPersonas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnRegistrarVariasPersonas.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarVariasPersonas.setText("Registrar Varias Personas");
+        btnRegistrarVariasPersonas.setBorder(null);
+        btnRegistrarVariasPersonas.setContentAreaFilled(false);
+        btnRegistrarVariasPersonas.setOpaque(true);
+        btnRegistrarVariasPersonas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
+                btnRegistrarVariasPersonasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 230, 37));
+        jPanel1.add(btnRegistrarVariasPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 230, 37));
 
         btnOpciones.setBackground(new java.awt.Color(0, 102, 204));
         btnOpciones.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -78,33 +82,33 @@ public class Inicial extends javax.swing.JFrame {
         });
         jPanel1.add(btnOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 210, 37));
 
-        btnAceptar3.setBackground(new java.awt.Color(0, 102, 204));
-        btnAceptar3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnAceptar3.setForeground(new java.awt.Color(255, 255, 255));
-        btnAceptar3.setText("Registrar Persona Nueva");
-        btnAceptar3.setBorder(null);
-        btnAceptar3.setContentAreaFilled(false);
-        btnAceptar3.setOpaque(true);
-        btnAceptar3.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrarPersona.setBackground(new java.awt.Color(0, 102, 204));
+        btnRegistrarPersona.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnRegistrarPersona.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarPersona.setText("Registrar Persona Nueva");
+        btnRegistrarPersona.setBorder(null);
+        btnRegistrarPersona.setContentAreaFilled(false);
+        btnRegistrarPersona.setOpaque(true);
+        btnRegistrarPersona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptar3ActionPerformed(evt);
+                btnRegistrarPersonaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 230, 37));
+        jPanel1.add(btnRegistrarPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 230, 37));
 
-        btnAceptar4.setBackground(new java.awt.Color(0, 102, 204));
-        btnAceptar4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnAceptar4.setForeground(new java.awt.Color(255, 255, 255));
-        btnAceptar4.setText("Atender Persona Existente");
-        btnAceptar4.setBorder(null);
-        btnAceptar4.setContentAreaFilled(false);
-        btnAceptar4.setOpaque(true);
-        btnAceptar4.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptarPersona.setBackground(new java.awt.Color(0, 102, 204));
+        btnAceptarPersona.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnAceptarPersona.setForeground(new java.awt.Color(255, 255, 255));
+        btnAceptarPersona.setText("Atender Persona Existente");
+        btnAceptarPersona.setBorder(null);
+        btnAceptarPersona.setContentAreaFilled(false);
+        btnAceptarPersona.setOpaque(true);
+        btnAceptarPersona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptar4ActionPerformed(evt);
+                btnAceptarPersonaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 210, 37));
+        jPanel1.add(btnAceptarPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 210, 37));
 
         btnAceptar5.setBackground(new java.awt.Color(0, 102, 204));
         btnAceptar5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -136,32 +140,35 @@ public class Inicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+    private void btnRegistrarVariasPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVariasPersonasActionPerformed
   RegistrarVariosUsuarios ase= new RegistrarVariosUsuarios();
   ase.setVisible(true);
     this.dispose();
-    }//GEN-LAST:event_btnAceptarActionPerformed
+    }//GEN-LAST:event_btnRegistrarVariasPersonasActionPerformed
 
     private void btnOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpcionesActionPerformed
-    Menu a= new  Menu();
+    
+        /*Menu a= new  Menu();
     a.setVisible(true);
     this.dispose();
-    
+    */
       
       
     }//GEN-LAST:event_btnOpcionesActionPerformed
 
-    private void btnAceptar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar3ActionPerformed
-   Registrar_Persona rp= new  Registrar_Persona();
+    private void btnRegistrarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPersonaActionPerformed
+   IConexionBD conexionbd= new ConexionBD();
+   IPersonaDAO personaDAO= new PersonaDAO(conexionbd);
+        Registrar_Persona rp= new  Registrar_Persona(personaDAO);
    rp.setVisible(true);
      this.dispose();
-    }//GEN-LAST:event_btnAceptar3ActionPerformed
+    }//GEN-LAST:event_btnRegistrarPersonaActionPerformed
 
-    private void btnAceptar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar4ActionPerformed
+    private void btnAceptarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarPersonaActionPerformed
       APersonaExistente as= new  APersonaExistente();
       as.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnAceptar4ActionPerformed
+    }//GEN-LAST:event_btnAceptarPersonaActionPerformed
 
     private void btnAceptar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar5ActionPerformed
         // TODO add your handling code here:
@@ -203,11 +210,11 @@ public class Inicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
-    private javax.swing.JButton btnAceptar3;
-    private javax.swing.JButton btnAceptar4;
     private javax.swing.JButton btnAceptar5;
+    private javax.swing.JButton btnAceptarPersona;
     private javax.swing.JButton btnOpciones;
+    private javax.swing.JButton btnRegistrarPersona;
+    private javax.swing.JButton btnRegistrarVariasPersonas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

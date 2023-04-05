@@ -4,17 +4,19 @@
  */
 package GUI;
 
+import Entidades.Persona;
+
 /**
  *
  * @author IVAN
  */
 public class Licencias extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Placas
-     */
-    public Licencias() {
+      private Persona persona;
+    public Licencias(Persona persona) {
+       this.persona=persona;
         initComponents();
+        
     }
 
     /**
@@ -141,7 +143,7 @@ public class Licencias extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-    Menu m= new Menu();
+    Menu m= new Menu(persona);
       m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed

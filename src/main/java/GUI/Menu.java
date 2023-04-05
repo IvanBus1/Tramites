@@ -1,17 +1,24 @@
 
 package GUI;
 
+import Entidades.Persona;
+import Persistencia.ConexionBD;
+import Persistencia.IConexionBD;
+import Persistencia.IVehiculoDAO;
+import Persistencia.VehiculoDAO;
+
 /**
  *
  * @author IVAN
  */
 public class Menu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Menu
-     */
-    public Menu() {
+    private Persona persona;
+    public Menu(Persona persona) {
+        this.persona=persona;
         initComponents();
+        lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+
     }
 
     /**
@@ -32,10 +39,11 @@ public class Menu extends javax.swing.JFrame {
         btnHistorial = new javax.swing.JButton();
         btnSolicitarPlacas = new javax.swing.JButton();
         btnAceptar6 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        lblperso = new javax.swing.JLabel();
         btnRenovarLicencia = new javax.swing.JButton();
         btnRegistrarV = new javax.swing.JButton();
         btnRenovarPlacas = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -124,9 +132,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel6.setText("Nombre cliente:");
+        lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblperso.setForeground(new java.awt.Color(0, 102, 204));
+        lblperso.setText("a");
 
         btnRenovarLicencia.setBackground(new java.awt.Color(0, 102, 204));
         btnRenovarLicencia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -167,6 +175,10 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel7.setText("Nombre cliente:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -193,16 +205,21 @@ public class Menu extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(363, 363, 363))
+                .addComponent(lblperso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(350, 350, 350)
+                    .addComponent(jLabel7)
+                    .addContainerGap(395, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addGap(29, 29, 29)
+                .addGap(22, 22, 22)
+                .addComponent(lblperso)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSolicitarPlacas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRenovarPlacas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,6 +232,11 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(btnConsultarPrecios, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAceptar6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(154, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(91, 91, 91)
+                    .addComponent(jLabel7)
+                    .addContainerGap(281, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 394));
@@ -233,37 +255,39 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptar6ActionPerformed
 
     private void btnRenovarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarLicenciaActionPerformed
-    RenovarLicencia rl= new RenovarLicencia();
+    RenovarLicencia rl= new RenovarLicencia(persona);
     rl.setVisible(true);
       this.dispose();
     }//GEN-LAST:event_btnRenovarLicenciaActionPerformed
 
     private void btnRegistrarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVActionPerformed
-     RegistrarVehiculo ve= new RegistrarVehiculo();
+    IConexionBD conexionbd= new ConexionBD();
+   IVehiculoDAO vehiculodao= new VehiculoDAO(conexionbd);
+    RegistrarVehiculo ve= new RegistrarVehiculo(vehiculodao,persona);
      ve.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_btnRegistrarVActionPerformed
 
     private void btnRenovarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarPlacasActionPerformed
-     Placas pl= new Placas();
+     Placas pl= new Placas(persona);
      pl.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_btnRenovarPlacasActionPerformed
 
     private void btnSolicitarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarPlacasActionPerformed
-       SolicitarPlacas sp= new SolicitarPlacas();
+       SolicitarPlacas sp= new SolicitarPlacas(persona);
        sp.setVisible(true);
          this.dispose();
     }//GEN-LAST:event_btnSolicitarPlacasActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-      Historial hs= new Historial();
+      Historial hs= new Historial(persona);
       hs.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHistorialActionPerformed
 
     private void btnSolicitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarLicenciaActionPerformed
-       Licencias li= new Licencias();
+       Licencias li= new Licencias(persona);
        li.setVisible(true);
          this.dispose();
     }//GEN-LAST:event_btnSolicitarLicenciaActionPerformed
@@ -314,8 +338,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnSolicitarPlacas;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblperso;
     // End of variables declaration//GEN-END:variables
 }

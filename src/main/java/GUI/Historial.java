@@ -4,19 +4,20 @@
  */
 package GUI;
 
+import Entidades.Persona;
+
 /**
  *
  * @author IVAN
  */
 public class Historial extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Historial
-     */
-    public Historial() {
+       private Persona persona;
+    public Historial(Persona persona) {
+       this.persona=persona;
         initComponents();
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,7 +138,7 @@ public class Historial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolver1ActionPerformed
-      Menu m= new Menu();
+      Menu m= new Menu(persona);
       m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolver1ActionPerformed
@@ -172,7 +173,7 @@ public class Historial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Historial().setVisible(true);
+             //   new Historial().setVisible(true);
             }
         });
     }
