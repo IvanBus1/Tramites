@@ -16,7 +16,7 @@ public class Licencias extends javax.swing.JFrame {
     public Licencias(Persona persona) {
        this.persona=persona;
         initComponents();
-        
+          lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
     }
 
     /**
@@ -35,7 +35,7 @@ public class Licencias extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        lblperso = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
 
@@ -97,10 +97,10 @@ public class Licencias extends javax.swing.JFrame {
         });
         jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 88, 37));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel4.setText(".................");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 110, -1));
+        lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblperso.setForeground(new java.awt.Color(0, 102, 204));
+        lblperso.setText(".................");
+        jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 300, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
@@ -191,9 +191,9 @@ public class Licencias extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblperso;
     // End of variables declaration//GEN-END:variables
 }

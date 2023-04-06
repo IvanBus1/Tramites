@@ -72,7 +72,7 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblperso.setForeground(new java.awt.Color(0, 102, 204));
         lblperso.setText(".......");
-        jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 130, -1));
+        jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 260, -1));
 
         btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

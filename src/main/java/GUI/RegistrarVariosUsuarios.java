@@ -1,8 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI;
+
+import Entidades.Persona;
+import Persistencia.IPersonaDAO;
+import Persistencia.PersonaDAO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -10,11 +17,11 @@ package GUI;
  */
 public class RegistrarVariosUsuarios extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistrarVariosUsuarios
-     */
+    
+
     public RegistrarVariosUsuarios() {
         initComponents();
+    
     }
 
     /**
@@ -33,7 +40,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jt = new javax.swing.JTable();
         prueba1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -94,7 +101,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         });
         jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 550, 88, 37));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -129,7 +136,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jt);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 740, 350));
 
@@ -160,13 +167,15 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        // TODO add your handling code here:
+       
+ 
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-     Inicial a= new Inicial();
+        Inicial a = new Inicial();
         a.setVisible(true);
-          this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
@@ -199,7 +208,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistrarVariosUsuarios().setVisible(true);
+               // new RegistrarVariosUsuarios().setVisible(true);
             }
         });
     }
@@ -212,7 +221,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jt;
     private javax.swing.JLabel prueba1;
     // End of variables declaration//GEN-END:variables
 }
