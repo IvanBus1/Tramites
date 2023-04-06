@@ -2,6 +2,7 @@ package GUI;
 
 import Entidades.Persona;
 import Persistencia.IPersonaDAO;
+<<<<<<< HEAD
 import Persistencia.PersonaDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+=======
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+>>>>>>> 786465aec14a4253a6e55d669ba05e6ab4a70497
 
 /**
  *
@@ -17,11 +25,23 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RegistrarVariosUsuarios extends javax.swing.JFrame {
 
+<<<<<<< HEAD
     
 
     public RegistrarVariosUsuarios() {
         initComponents();
     
+=======
+    /**
+     * Creates new form RegistrarVariosUsuarios
+     */
+    
+    IPersonaDAO personaDAO;
+
+    public RegistrarVariosUsuarios(IPersonaDAO personaDAO) {
+        initComponents();
+        this.personaDAO = personaDAO;
+>>>>>>> 786465aec14a4253a6e55d669ba05e6ab4a70497
     }
 
     /**
@@ -40,7 +60,11 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
+<<<<<<< HEAD
         jt = new javax.swing.JTable();
+=======
+        tablaPersonas = new javax.swing.JTable();
+>>>>>>> 786465aec14a4253a6e55d669ba05e6ab4a70497
         prueba1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -101,44 +125,52 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         });
         jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 550, 88, 37));
 
+<<<<<<< HEAD
         jt.setModel(new javax.swing.table.DefaultTableModel(
+=======
+        tablaPersonas.setModel(new javax.swing.table.DefaultTableModel(
+>>>>>>> 786465aec14a4253a6e55d669ba05e6ab4a70497
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido Paterno", "Apellido Materno", "RFC", "Teléfono", "¿Es discapacitado?"
+                "Nombre", "Apellido Paterno", "Apellido Materno", "RFC", "Teléfono", "Fecha Nacimiento", "¿Es discapacitado?"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+<<<<<<< HEAD
         jScrollPane1.setViewportView(jt);
+=======
+        jScrollPane1.setViewportView(tablaPersonas);
+>>>>>>> 786465aec14a4253a6e55d669ba05e6ab4a70497
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 740, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 780, 350));
 
         prueba1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         prueba1.setForeground(new java.awt.Color(0, 102, 204));
@@ -162,14 +194,82 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    public void agregarVariasPersonas (){
+        
+        try{
+            
+        boolean dis = true;
+        
+        
+        
+        int rowCount= tablaPersonas.getRowCount();
+        
+        int colCount =tablaPersonas.getColumnCount();
+        
+        List<Persona> personas = new ArrayList<Persona>();
+        
+        for (int i = 0; i < rowCount; i++) {
+        
+           String nombre = (String) tablaPersonas.getValueAt(i, 0);
+           String apellidoPaterno = (String) tablaPersonas.getValueAt(i, 1);
+           String apellidoMaterno = (String) tablaPersonas.getValueAt(i, 2);
+           String rfc =(String) tablaPersonas.getValueAt(i, 3);
+           String telefono = (String) tablaPersonas.getValueAt(i, 4);
+           String fechaNacimiento = (String) tablaPersonas.getValueAt(i, 5);
+           
+          if (tablaPersonas.getValueAt(i, 6)=="Si" || tablaPersonas.getValueAt(i, 6)=="si"){
+                dis = true;
+            } else if(tablaPersonas.getValueAt(i, 6)==null) {
+                dis = false;
+            }
+           
+          Persona nuevaPersona = new Persona();
+          
+          
+          nuevaPersona.setRfc(rfc);
+          nuevaPersona.setNombre(nombre);
+          nuevaPersona.setApellidoPaterno(apellidoPaterno);
+          nuevaPersona.setApellidoMaterno(apellidoMaterno);
+          nuevaPersona.setTelefono(telefono);
+          
+          SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+          Date fecha = dateFormat.parse(fechaNacimiento);
+          
+          nuevaPersona.setFechaNacimiento(fecha);
+          nuevaPersona.setDiscapacitado(dis);
+          
+          Persona personaguardar = personaDAO.agregar(nuevaPersona);
+            
+          
+          if (personaguardar == null) {
+                JOptionPane.showMessageDialog(null, "Datos vacios");
+            } else {
+                JOptionPane.showMessageDialog(null, "Se ha registrado una persona");
+            }
+          
+        }
+       }catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+        }
+        
+    }
+    
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+<<<<<<< HEAD
        
  
 
+=======
+           agregarVariasPersonas();
+>>>>>>> 786465aec14a4253a6e55d669ba05e6ab4a70497
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -208,7 +308,11 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+<<<<<<< HEAD
                // new RegistrarVariosUsuarios().setVisible(true);
+=======
+//                new RegistrarVariosUsuarios().setVisible(true);
+>>>>>>> 786465aec14a4253a6e55d669ba05e6ab4a70497
             }
         });
     }
@@ -221,7 +325,11 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+<<<<<<< HEAD
     private javax.swing.JTable jt;
+=======
+>>>>>>> 786465aec14a4253a6e55d669ba05e6ab4a70497
     private javax.swing.JLabel prueba1;
+    private javax.swing.JTable tablaPersonas;
     // End of variables declaration//GEN-END:variables
 }
