@@ -21,6 +21,7 @@ public class PersonaDAO implements IPersonaDAO {
     @Override
     public Persona agregar(Persona persona) {
         try {
+            
             EntityManager emf = conexionbd.crearcone();
             emf.getTransaction().begin();
             emf.persist(persona);
@@ -32,6 +33,7 @@ public class PersonaDAO implements IPersonaDAO {
             System.out.println(ex);
             return null;
         }
+        
     }
 
     @Override

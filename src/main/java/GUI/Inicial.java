@@ -136,7 +136,7 @@ public class Inicial extends javax.swing.JFrame {
     private void btnRegistrarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPersonaActionPerformed
    IConexionBD conexionbd= new ConexionBD();
    IPersonaDAO personaDAO= new PersonaDAO(conexionbd);
-        Registrar_Persona rp= new  Registrar_Persona(personaDAO);
+        Registrar_Persona rp= new   Registrar_Persona(personaDAO);
    rp.setVisible(true);
      this.dispose();
     }//GEN-LAST:event_btnRegistrarPersonaActionPerformed
