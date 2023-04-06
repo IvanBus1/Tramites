@@ -184,8 +184,8 @@
                     <Column editable="true" title="Apellido Materno" type="java.lang.String"/>
                     <Column editable="true" title="RFC" type="java.lang.String"/>
                     <Column editable="true" title="Tel&#xe9;fono" type="java.lang.String"/>
-                    <Column editable="true" title="Fecha Nacimiento" type="java.lang.Object"/>
-                    <Column editable="true" title="&#xbf;Es discapacitado?" type="java.lang.Boolean"/>
+                    <Column editable="true" title="Fecha Nacimiento" type="java.lang.String"/>
+                    <Column editable="true" title="&#xbf;Es discapacitado?" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

@@ -6,7 +6,7 @@ package GUI;
 
 import Entidades.Persona;
 import Persistencia.IPersonaDAO;
-import jTable.DateCellEditor;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,10 +23,9 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
      */
     
     IPersonaDAO personaDAO;
-    public RegistrarVariosUsuarios() {
+
+    public RegistrarVariosUsuarios(IPersonaDAO personaDAO) {
         initComponents();
-        
-        tablaPersonas.getColumnModel().getColumn(5).setCellEditor(new DateCellEditor());
         this.personaDAO = personaDAO;
     }
 
@@ -135,7 +134,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -174,9 +173,10 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         
         try{
             
+        boolean dis = true;
         
-            
-            
+        
+        
         int rowCount= tablaPersonas.getRowCount();
         
         int colCount =tablaPersonas.getColumnCount();
@@ -184,34 +184,47 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         List<Persona> personas = new ArrayList<Persona>();
         
         for (int i = 0; i < rowCount; i++) {
+        
            String nombre = (String) tablaPersonas.getValueAt(i, 0);
            String apellidoPaterno = (String) tablaPersonas.getValueAt(i, 1);
            String apellidoMaterno = (String) tablaPersonas.getValueAt(i, 2);
            String rfc =(String) tablaPersonas.getValueAt(i, 3);
            String telefono = (String) tablaPersonas.getValueAt(i, 4);
-           Date   fechaNacimiento = (Date) tablaPersonas.getValueAt(i, 5);
-           boolean discapacitado = (boolean) tablaPersonas.getValueAt(i, 6);
+           String fechaNacimiento = (String) tablaPersonas.getValueAt(i, 5);
+           
+          if (tablaPersonas.getValueAt(i, 6)=="Si" || tablaPersonas.getValueAt(i, 6)=="si"){
+                dis = true;
+            } else if(tablaPersonas.getValueAt(i, 6)==null) {
+                dis = false;
+            }
            
           Persona nuevaPersona = new Persona();
+          
           
           nuevaPersona.setRfc(rfc);
           nuevaPersona.setNombre(nombre);
           nuevaPersona.setApellidoPaterno(apellidoPaterno);
           nuevaPersona.setApellidoMaterno(apellidoMaterno);
           nuevaPersona.setTelefono(telefono);
-          nuevaPersona.setFechaNacimiento(fechaNacimiento);
-          nuevaPersona.setDiscapacitado(discapacitado);
+          
+          SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+          Date fecha = dateFormat.parse(fechaNacimiento);
+          
+          nuevaPersona.setFechaNacimiento(fecha);
+          nuevaPersona.setDiscapacitado(dis);
           
           Persona personaguardar = personaDAO.agregar(nuevaPersona);
+            
           
           if (personaguardar == null) {
-                JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+                JOptionPane.showMessageDialog(null, "Datos vacios");
             } else {
                 JOptionPane.showMessageDialog(null, "Se ha registrado una persona");
             }
           
         }
        }catch (Exception e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "No se ha podido registrar");
         }
         
@@ -262,7 +275,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistrarVariosUsuarios().setVisible(true);
+//                new RegistrarVariosUsuarios().setVisible(true);
             }
         });
     }
