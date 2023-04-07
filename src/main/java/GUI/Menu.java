@@ -4,7 +4,9 @@ package GUI;
 import Entidades.Persona;
 import Persistencia.ConexionBD;
 import Persistencia.IConexionBD;
+import Persistencia.ILicenciaDAO;
 import Persistencia.IVehiculoDAO;
+import Persistencia.LicenciaDAO;
 import Persistencia.VehiculoDAO;
 
 /**
@@ -287,7 +289,10 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHistorialActionPerformed
 
     private void btnSolicitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarLicenciaActionPerformed
-       Licencias li= new Licencias(persona);
+       IConexionBD conexionbd= new ConexionBD();
+   ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
+        
+        Licencias li= new Licencias(licenciadao,persona);
        li.setVisible(true);
          this.dispose();
     }//GEN-LAST:event_btnSolicitarLicenciaActionPerformed

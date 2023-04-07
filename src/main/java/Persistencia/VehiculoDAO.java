@@ -17,9 +17,6 @@ public class VehiculoDAO implements IVehiculoDAO{
         this.conexionbd = conexionbd;
     }
     
-    
-  
-
 
     @Override
     public Vehiculo agregar(Vehiculo vehiculo) {

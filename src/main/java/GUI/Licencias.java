@@ -4,7 +4,12 @@
  */
 package GUI;
 
+import Entidades.Licencia;
 import Entidades.Persona;
+import Persistencia.ILicenciaDAO;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,10 +17,18 @@ import Entidades.Persona;
  */
 public class Licencias extends javax.swing.JFrame {
 
+    
+    ILicenciaDAO licenciaDAO;
+    
       private Persona persona;
-    public Licencias(Persona persona) {
+      
+    public Licencias(ILicenciaDAO licenciaDAO, Persona persona) {
        this.persona=persona;
+       
+       
         initComponents();
+        lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+        this.licenciaDAO=licenciaDAO;
         
     }
 
@@ -35,8 +48,8 @@ public class Licencias extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        lblperso = new javax.swing.JLabel();
+        cmbVigencia = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -81,6 +94,11 @@ public class Licencias extends javax.swing.JFrame {
         btnAceptar.setBorder(null);
         btnAceptar.setContentAreaFilled(false);
         btnAceptar.setOpaque(true);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 88, 37));
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
@@ -97,19 +115,19 @@ public class Licencias extends javax.swing.JFrame {
         });
         jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 88, 37));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel4.setText(".................");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 110, -1));
+        lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblperso.setForeground(new java.awt.Color(0, 102, 204));
+        lblperso.setText(".................");
+        jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 110, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cmbVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        cmbVigencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
+        cmbVigencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cmbVigenciaActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 230, -1));
+        jPanel1.add(cmbVigencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 230, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 204));
@@ -134,19 +152,102 @@ public class Licencias extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void guardarLicencia(){
+        
+        try{
+        
+        Licencia licencia = new Licencia();
+        
+    Calendar cal = Calendar.getInstance();
+    
+    
+    
+    
+    
+        
+        
+        
+        
+        
+        
+        licencia.setPersona(persona);
+        
+     
+        String opcion = (String) cmbVigencia.getSelectedItem();
+
+
+        if (opcion.equals("1")) {
+    
+            cal.add(Calendar.YEAR, 1);
+            Date fechaVigencia = cal.getTime();
+            licencia.setVigencia(fechaVigencia);
+            
+        } else if (opcion.equals("2")) {
+    
+            cal.add(Calendar.YEAR, 2);
+            Date fechaVigencia = cal.getTime();
+            licencia.setVigencia(fechaVigencia);
+            
+        } else if (opcion.equals("3")) {
+    
+            cal.add(Calendar.YEAR, 3);
+            Date fechaVigencia = cal.getTime();
+            licencia.setVigencia(fechaVigencia);
+            
+        }
+        
+        if(persona.isDiscapacitado()==true){
+            
+            String tipo= "Discapacitado";
+            licencia.setTipo(tipo);
+        }
+        else{
+            String tipo= "No Discapacitado";
+            licencia.setTipo(tipo);
+        }
+        
+        
+        
+        
+        Licencia licenciaguardar = licenciaDAO.agregar(licencia);
+        
+        
+        if (licenciaguardar == null) {
+                JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+            } else {
+                JOptionPane.showMessageDialog(null, "Se ha registrado una licencia");
+            }
+        
+        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+        }
+    }
+    
+    
+    
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cmbVigenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbVigenciaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cmbVigenciaActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
     Menu m= new Menu(persona);
       m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        
+        
+        
+        
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,12 +289,12 @@ public class Licencias extends javax.swing.JFrame {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbVigencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblperso;
     // End of variables declaration//GEN-END:variables
 }
