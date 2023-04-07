@@ -27,9 +27,13 @@ public class Licencias extends javax.swing.JFrame {
        
        
         initComponents();
-        lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+
+        
         this.licenciaDAO=licenciaDAO;
         
+
+          lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+
     }
 
     /**
@@ -49,7 +53,11 @@ public class Licencias extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         lblperso = new javax.swing.JLabel();
+<<<<<<< HEAD
         cmbVigencia = new javax.swing.JComboBox<>();
+=======
+        jComboBox1 = new javax.swing.JComboBox<>();
+>>>>>>> 4b898479c575bff8c0b46afb7ae5e6811647448b
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -118,7 +126,11 @@ public class Licencias extends javax.swing.JFrame {
         lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblperso.setForeground(new java.awt.Color(0, 102, 204));
         lblperso.setText(".................");
+<<<<<<< HEAD
         jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 110, -1));
+=======
+        jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 300, -1));
+>>>>>>> 4b898479c575bff8c0b46afb7ae5e6811647448b
 
         cmbVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
         cmbVigencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
@@ -164,13 +176,7 @@ public class Licencias extends javax.swing.JFrame {
     
     
     
-    
-        
-        
-        
-        
-        
-        
+  
         licencia.setPersona(persona);
         
      
@@ -207,7 +213,7 @@ public class Licencias extends javax.swing.JFrame {
             licencia.setTipo(tipo);
         }
         
-        
+       
         
         
         Licencia licenciaguardar = licenciaDAO.agregar(licencia);

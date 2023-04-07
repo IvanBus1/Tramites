@@ -16,7 +16,7 @@ public class Placas extends javax.swing.JFrame {
     public Placas(Persona persona) {
        this.persona=persona;
         initComponents();
-        
+          lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
     }
 
     /**
@@ -33,7 +33,7 @@ public class Placas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        lblperso = new javax.swing.JLabel();
         btnAceptar1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -91,10 +91,10 @@ public class Placas extends javax.swing.JFrame {
         });
         jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 320, 88, 37));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel4.setText("......");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 120, -1));
+        lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblperso.setForeground(new java.awt.Color(0, 102, 204));
+        lblperso.setText("......");
+        jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 390, -1));
 
         btnAceptar1.setBackground(new java.awt.Color(0, 102, 204));
         btnAceptar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -252,7 +252,6 @@ public class Placas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -260,6 +259,7 @@ public class Placas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblperso;
     private javax.swing.JTextField txtFolio1;
     private javax.swing.JTextField txtFolio2;
     // End of variables declaration//GEN-END:variables

@@ -16,7 +16,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     public SolicitarPlacas(Persona persona) {
        this.persona=persona;
         initComponents();
-        
+          lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
     }
 
     /**
@@ -33,7 +33,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        lblperso = new javax.swing.JLabel();
         btnAceptar1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -85,10 +85,10 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         });
         jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 88, 37));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel4.setText("......");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 120, -1));
+        lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblperso.setForeground(new java.awt.Color(0, 102, 204));
+        lblperso.setText("......");
+        jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 280, -1));
 
         btnAceptar1.setBackground(new java.awt.Color(0, 102, 204));
         btnAceptar1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -104,6 +104,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         });
         jPanel1.add(btnAceptar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 88, 37));
 
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 250, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -159,6 +164,10 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+       
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,11 +210,11 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblperso;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,7 +6,6 @@ GUI\RegistrarVehiculo.class
 GUI\SolicitarPlacas.class
 GUI\APersonaExistente$5.class
 GUI\Reporte$1.class
-GUI\Inicial$6.class
 GUI\RenovarLicencia$3.class
 Entidades\Vehiculo_.class
 GUI\Inicial$2.class
@@ -35,9 +34,9 @@ Entidades\Placa_.class
 Entidades\Placa.class
 GUI\Registrar_Persona$4.class
 GUI\Registrar_Persona.class
-jTable\DateCellEditor.class
 GUI\Licencias$3.class
 GUI\APersonaExistente$6.class
+GUI\SolicitarPlacas$5.class
 Persistencia\IConexionBD.class
 GUI\RegistrarVehiculo$4.class
 GUI\Menu$3.class
@@ -72,7 +71,6 @@ Entidades\Licencia.class
 GUI\Inicial$3.class
 GUI\APersonaExistente$2.class
 Persistencia\IPersonaDAO.class
-jTable\DateCellEditor$1.class
 GUI\Menu$8.class
 GUI\RegistrarVariosUsuarios.class
 GUI\Menu$1.class

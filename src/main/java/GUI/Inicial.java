@@ -33,7 +33,6 @@ public class Inicial extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnRegistrarVariasPersonas = new javax.swing.JButton();
-        btnOpciones = new javax.swing.JButton();
         btnRegistrarPersona = new javax.swing.JButton();
         btnAceptarPersona = new javax.swing.JButton();
         btnAceptar5 = new javax.swing.JButton();
@@ -67,20 +66,6 @@ public class Inicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnRegistrarVariasPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 230, 37));
-
-        btnOpciones.setBackground(new java.awt.Color(0, 102, 204));
-        btnOpciones.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnOpciones.setForeground(new java.awt.Color(255, 255, 255));
-        btnOpciones.setText("Menu opciones");
-        btnOpciones.setBorder(null);
-        btnOpciones.setContentAreaFilled(false);
-        btnOpciones.setOpaque(true);
-        btnOpciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOpcionesActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 210, 37));
 
         btnRegistrarPersona.setBackground(new java.awt.Color(0, 102, 204));
         btnRegistrarPersona.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -148,20 +133,10 @@ public class Inicial extends javax.swing.JFrame {
     this.dispose();
     }//GEN-LAST:event_btnRegistrarVariasPersonasActionPerformed
 
-    private void btnOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpcionesActionPerformed
-    
-        /*Menu a= new  Menu();
-    a.setVisible(true);
-    this.dispose();
-    */
-      
-      
-    }//GEN-LAST:event_btnOpcionesActionPerformed
-
     private void btnRegistrarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPersonaActionPerformed
    IConexionBD conexionbd= new ConexionBD();
    IPersonaDAO personaDAO= new PersonaDAO(conexionbd);
-        Registrar_Persona rp= new  Registrar_Persona(personaDAO);
+        Registrar_Persona rp= new   Registrar_Persona(personaDAO);
    rp.setVisible(true);
      this.dispose();
     }//GEN-LAST:event_btnRegistrarPersonaActionPerformed
@@ -214,7 +189,6 @@ public class Inicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar5;
     private javax.swing.JButton btnAceptarPersona;
-    private javax.swing.JButton btnOpciones;
     private javax.swing.JButton btnRegistrarPersona;
     private javax.swing.JButton btnRegistrarVariasPersonas;
     private javax.swing.JLabel jLabel1;

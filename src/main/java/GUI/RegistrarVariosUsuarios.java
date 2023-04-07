@@ -1,16 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI;
 
 import Entidades.Persona;
 import Persistencia.IPersonaDAO;
+import Persistencia.PersonaDAO;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,12 +25,12 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarVariosUsuarios
      */
-    
     IPersonaDAO personaDAO;
 
     public RegistrarVariosUsuarios(IPersonaDAO personaDAO) {
         initComponents();
         this.personaDAO = personaDAO;
+
     }
 
     /**
@@ -45,7 +49,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaPersonas = new javax.swing.JTable();
+        jt = new javax.swing.JTable();
         prueba1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,31 +110,12 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         });
         jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 550, 88, 37));
 
-        tablaPersonas.setModel(new javax.swing.table.DefaultTableModel(
+        jt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido Paterno", "Apellido Materno", "RFC", "Teléfono", "Fecha Nacimiento", "¿Es discapacitado?"
+                "Nombre", "Apellido Paterno", "Apellido Materno", "RFC", "Teléfono", "¿Es discapacitado?", "Fecha"
             }
         ) {
             Class[] types = new Class [] {
@@ -141,9 +126,9 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tablaPersonas);
+        jScrollPane1.setViewportView(jt);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 780, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 740, 350));
 
         prueba1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         prueba1.setForeground(new java.awt.Color(0, 102, 204));
@@ -167,82 +152,96 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
-    public void agregarVariasPersonas (){
-        
-        try{
-            
+    public void agregarVariasPersonas() {
+
+        //try{
         boolean dis = true;
+
+        for (int i = 0; i < jt.getRowCount(); i++) {
+            for (int j = 0; j < jt.getColumnCount(); j++) {
+                if(jt.getValueAt(i, j)==null){
+                    JOptionPane.showMessageDialog(null, "Falta una casilla");
+                    return;
+                }
+               
+                
+            }
+      
+        }
+
+        int rowCount = jt.getRowCount();
         
-        
-        
-        int rowCount= tablaPersonas.getRowCount();
-        
-        int colCount =tablaPersonas.getColumnCount();
-        
-        List<Persona> personas = new ArrayList<Persona>();
+        int colCount = jt.getColumnCount();
+
+      //  List<Persona> personas = new ArrayList<Persona>();
         
         for (int i = 0; i < rowCount; i++) {
-        
-           String nombre = (String) tablaPersonas.getValueAt(i, 0);
-           String apellidoPaterno = (String) tablaPersonas.getValueAt(i, 1);
-           String apellidoMaterno = (String) tablaPersonas.getValueAt(i, 2);
-           String rfc =(String) tablaPersonas.getValueAt(i, 3);
-           String telefono = (String) tablaPersonas.getValueAt(i, 4);
-           String fechaNacimiento = (String) tablaPersonas.getValueAt(i, 5);
-           
-          if (tablaPersonas.getValueAt(i, 6)=="Si" || tablaPersonas.getValueAt(i, 6)=="si"){
+
+            String nombre = (String) jt.getValueAt(i, 0);
+            String apellidoPaterno = (String) jt.getValueAt(i, 1);
+            String apellidoMaterno = (String) jt.getValueAt(i, 2);
+            String rfc = (String) jt.getValueAt(i, 3);
+            String telefono = (String) jt.getValueAt(i, 4);
+            String fechaNacimiento = (String) jt.getValueAt(i, 6);
+
+            if (jt.getValueAt(i, 5) == "Si" || jt.getValueAt(i, 5) == "si") {
                 dis = true;
-            } else if(tablaPersonas.getValueAt(i, 6)==null) {
+            } else if (jt.getValueAt(i, 5) == null) {
                 dis = false;
             }
-           
-          Persona nuevaPersona = new Persona();
-          
-          
-          nuevaPersona.setRfc(rfc);
-          nuevaPersona.setNombre(nombre);
-          nuevaPersona.setApellidoPaterno(apellidoPaterno);
-          nuevaPersona.setApellidoMaterno(apellidoMaterno);
-          nuevaPersona.setTelefono(telefono);
-          
-          SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-          Date fecha = dateFormat.parse(fechaNacimiento);
-          
-          nuevaPersona.setFechaNacimiento(fecha);
-          nuevaPersona.setDiscapacitado(dis);
-          
-          Persona personaguardar = personaDAO.agregar(nuevaPersona);
-            
-          
-          if (personaguardar == null) {
+
+            Persona nuevaPersona = new Persona();
+
+            nuevaPersona.setRfc(rfc);
+            nuevaPersona.setNombre(nombre);
+            nuevaPersona.setApellidoPaterno(apellidoPaterno);
+            nuevaPersona.setApellidoMaterno(apellidoMaterno);
+            nuevaPersona.setTelefono(telefono);
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date fecha = null;
+            try {
+                fecha = dateFormat.parse(fechaNacimiento);
+            } catch (ParseException ex) {
+               // Logger.getLogger(RegistrarVariosUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Fecha incorrecta para el usuario: "+ nuevaPersona.getNombre());
+                return;
+            }
+
+            nuevaPersona.setFechaNacimiento(fecha);
+            nuevaPersona.setDiscapacitado(dis);
+            System.out.println(nuevaPersona.getNombre());
+            Persona personaguardar = personaDAO.agregar(nuevaPersona);
+
+            if (personaguardar == null) {
                 JOptionPane.showMessageDialog(null, "Datos vacios");
             } else {
                 JOptionPane.showMessageDialog(null, "Se ha registrado una persona");
             }
-          
+
         }
-       }catch (Exception e) {
-            System.out.println(e);
-            JOptionPane.showMessageDialog(null, "No se ha podido registrar");
-        }
-        
+        // }catch (Exception e) {
+        // System.out.println(e);
+        //  JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+        // }
+
     }
-    
-    
+
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-           agregarVariasPersonas();
+
+        agregarVariasPersonas();
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-     Inicial a= new Inicial();
+        Inicial a = new Inicial();
         a.setVisible(true);
-          this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
@@ -275,6 +274,8 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+
+                // new RegistrarVariosUsuarios().setVisible(true);
 //                new RegistrarVariosUsuarios().setVisible(true);
             }
         });
@@ -288,7 +289,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jt;
     private javax.swing.JLabel prueba1;
-    private javax.swing.JTable tablaPersonas;
     // End of variables declaration//GEN-END:variables
 }
