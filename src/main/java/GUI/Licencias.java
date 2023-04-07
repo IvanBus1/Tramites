@@ -53,11 +53,7 @@ public class Licencias extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         lblperso = new javax.swing.JLabel();
-<<<<<<< HEAD
-        cmbVigencia = new javax.swing.JComboBox<>();
-=======
-        jComboBox1 = new javax.swing.JComboBox<>();
->>>>>>> 4b898479c575bff8c0b46afb7ae5e6811647448b
+        cmbLicencia = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -126,20 +122,16 @@ public class Licencias extends javax.swing.JFrame {
         lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblperso.setForeground(new java.awt.Color(0, 102, 204));
         lblperso.setText(".................");
-<<<<<<< HEAD
-        jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 110, -1));
-=======
         jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 300, -1));
->>>>>>> 4b898479c575bff8c0b46afb7ae5e6811647448b
 
-        cmbVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
-        cmbVigencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
-        cmbVigencia.addActionListener(new java.awt.event.ActionListener() {
+        cmbLicencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        cmbLicencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
+        cmbLicencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbVigenciaActionPerformed(evt);
+                cmbLicenciaActionPerformed(evt);
             }
         });
-        jPanel1.add(cmbVigencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 230, -1));
+        jPanel1.add(cmbLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 230, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 204));
@@ -180,7 +172,7 @@ public class Licencias extends javax.swing.JFrame {
         licencia.setPersona(persona);
         
      
-        String opcion = (String) cmbVigencia.getSelectedItem();
+        String opcion = (String) cmbLicencia.getSelectedItem();
 
 
         if (opcion.equals("1")) {
@@ -238,9 +230,9 @@ public class Licencias extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void cmbVigenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbVigenciaActionPerformed
+    private void cmbLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLicenciaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbVigenciaActionPerformed
+    }//GEN-LAST:event_cmbLicenciaActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
     Menu m= new Menu(persona);
@@ -295,7 +287,7 @@ public class Licencias extends javax.swing.JFrame {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> cmbVigencia;
+    private javax.swing.JComboBox<String> cmbLicencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
