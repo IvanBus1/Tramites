@@ -166,7 +166,7 @@ public class Licencias extends javax.swing.JFrame {
         try{
         
         Licencia licencia = new Licencia();
-        Tramite tramite = new Tramite();
+        
         
     Calendar cal = Calendar.getInstance();
     
@@ -220,19 +220,18 @@ public class Licencias extends javax.swing.JFrame {
         
         
         licencia.setPersona(persona);
-        tramite.setId_tramite(persona.getId_persona());
-     
-        tramite.setFecha_solicitud(fechaActual);
+        
+        
+        licencia.setFecha_solicitud(fechaActual);
 
-        tramite.setPrecio(precioLicencia);
+        licencia.setPrecio(precioLicencia);
         
         
-        Tramite tramiteguardar= tramiteDAO.agregar(tramite);
         
         Licencia licenciaguardar = licenciaDAO.agregar(licencia);
         
         
-        if (licenciaguardar == null && tramiteguardar==null) {
+        if (licenciaguardar == null) {
                 JOptionPane.showMessageDialog(null, "No se ha podido registrar");
             } else {
                 JOptionPane.showMessageDialog(null, "Se ha registrado la licencia");
