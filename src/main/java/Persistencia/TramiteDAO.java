@@ -4,37 +4,37 @@
  */
 package Persistencia;
 
-import Entidades.Licencia;
+import Entidades.Tramite;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author icedo
  */
-public class LicenciaDAO implements ILicenciaDAO{
+public class TramiteDAO implements ITramiteDAO{
+    
     
     private IConexionBD conexionbd;
 
-    public LicenciaDAO(IConexionBD conexionbd) {
+    public TramiteDAO(IConexionBD conexionbd) {
         this.conexionbd = conexionbd;
     }
     
     @Override
-    public Licencia agregar(Licencia licencia) {
+    public Tramite agregar(Tramite tramite) {
         try {
             EntityManager emf = conexionbd.crearcone();
             emf.getTransaction().begin();
-            emf.persist(licencia);
+            emf.persist(tramite);
 
             emf.getTransaction().commit();
 
-            return licencia;
+            return tramite;
         } catch (Exception ex) {
             System.out.println(ex);
             return null;
         }
     }
     
-
     
 }
