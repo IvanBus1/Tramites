@@ -242,7 +242,7 @@ public class Licencias extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         
-        
+        guardarLicencia();
         
         
     }//GEN-LAST:event_btnAceptarActionPerformed
