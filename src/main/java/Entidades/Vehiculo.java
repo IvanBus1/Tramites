@@ -131,6 +131,13 @@ public class Vehiculo implements Serializable {
     public void setPlacas(List<Placa> placas) {
         this.placas = placas;
     }
+
+    @Override
+    public String toString() {
+        return "" + num_serie ;
+    }
+
+    
     
     
     @ManyToOne

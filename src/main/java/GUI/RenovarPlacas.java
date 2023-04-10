@@ -5,18 +5,27 @@
 package GUI;
 
 import Entidades.Persona;
+import Entidades.Vehiculo;
+import Persistencia.IVehiculoDAO;
+import Persistencia.VehiculoDAO;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
  * @author IVAN
  */
-public class Placas extends javax.swing.JFrame {
+public class RenovarPlacas extends javax.swing.JFrame {
 
        private Persona persona;
-    public Placas(Persona persona) {
+       private IVehiculoDAO vehiculo;
+    public RenovarPlacas(Persona persona,IVehiculoDAO vehiculo) {
        this.persona=persona;
+       this.vehiculo=vehiculo;
         initComponents();
           lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+           llenarCombo();
+          
     }
 
     /**
@@ -35,7 +44,7 @@ public class Placas extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         lblperso = new javax.swing.JLabel();
         btnAceptar1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxVehiculos = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -110,7 +119,12 @@ public class Placas extends javax.swing.JFrame {
         });
         jPanel1.add(btnAceptar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 88, 37));
 
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 250, -1));
+        cbxVehiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxVehiculosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbxVehiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 250, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 204));
@@ -208,9 +222,27 @@ public class Placas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void cbxVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxVehiculosActionPerformed
+   
+    }//GEN-LAST:event_cbxVehiculosActionPerformed
+
+    
+    public void llenarCombo(){
+      cbxVehiculos.removeAllItems();
+         List<Vehiculo> llenaCb=vehiculo.listaAutosCliente(persona.getRfc());
+        System.out.println(llenaCb.size());
+        if(llenaCb==null){
+           
+            
+        }else{
+            Iterator rp= llenaCb.iterator();
+            while(rp.hasNext()){
+                Vehiculo vehi=(Vehiculo)rp.next();
+                this.cbxVehiculos.addItem(vehi);
+            }
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -225,20 +257,21 @@ public class Placas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Placas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RenovarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Placas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RenovarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Placas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RenovarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Placas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RenovarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-           //     new Placas().setVisible(true);
+           //     new RenovarPlacas().setVisible(true);
             }
         });
     }
@@ -248,7 +281,7 @@ public class Placas extends javax.swing.JFrame {
     private javax.swing.JButton btnAceptar2;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Vehiculo> cbxVehiculos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

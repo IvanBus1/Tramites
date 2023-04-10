@@ -16,10 +16,12 @@ GUI\RenovarLicencia.class
 GUI\Registrar_Persona$1.class
 GUI\APersonaExistente$1.class
 GUI\RegistrarVariosUsuarios$4.class
+Persistencia\IPlacaDAO.class
 GUI\Placas$2.class
 Entidades\Main.class
 Entidades\Tramite.class
 Persistencia\PersonaDAO.class
+Persistencia\TramiteDAO.class
 GUI\Menu$7.class
 GUI\SolicitarPlacas$3.class
 GUI\Reporte.class
@@ -36,6 +38,7 @@ Entidades\Placa_.class
 Entidades\Placa.class
 GUI\Registrar_Persona$4.class
 GUI\Registrar_Persona.class
+Persistencia\PlacaDAO.class
 GUI\Licencias$3.class
 GUI\APersonaExistente$6.class
 GUI\SolicitarPlacas$5.class
@@ -84,6 +87,8 @@ GUI\RegistrarVariosUsuarios$2.class
 GUI\RegistrarVariosUsuarios$5.class
 Persistencia\VehiculoDAO.class
 GUI\Licencias$1.class
+GUI\Placas$6.class
 GUI\RegistrarVehiculo$2.class
 GUI\Reporte$2.class
 GUI\Inicial.class
+Persistencia\ITramiteDAO.class

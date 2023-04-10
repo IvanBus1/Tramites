@@ -7,8 +7,12 @@ package GUI;
 import Entidades.Licencia;
 import Entidades.Persona;
 import Entidades.Tramite;
+import Persistencia.ConexionBD;
+import Persistencia.IConexionBD;
 import Persistencia.ILicenciaDAO;
+import Persistencia.IPersonaDAO;
 import Persistencia.ITramiteDAO;
+import Persistencia.PersonaDAO;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -19,22 +23,19 @@ import javax.swing.JOptionPane;
  */
 public class Licencias extends javax.swing.JFrame {
 
-    
     private ILicenciaDAO licenciaDAO;
     private ITramiteDAO tramiteDAO;
-      private Persona persona;
-      
+    private Persona persona;
+
     public Licencias(ITramiteDAO tramiteDAO, ILicenciaDAO licenciaDAO, Persona persona) {
-       this.persona=persona;
-       
-       
+        this.persona = persona;
+
         initComponents();
 
-        this.tramiteDAO=tramiteDAO;
-        this.licenciaDAO=licenciaDAO;
-        
+        this.tramiteDAO = tramiteDAO;
+        this.licenciaDAO = licenciaDAO;
 
-          lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+        lblperso.setText(persona.getNombre() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
 
     }
 
@@ -158,96 +159,75 @@ public class Licencias extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void guardarLicencia(){
-        
-         
-        
-        try{
-        
-        Licencia licencia = new Licencia();
-        
-        
-    Calendar cal = Calendar.getInstance();
-    
-    Date fechaActual = cal.getTime();
-    
-        int precioLicencia =0;
-    
-    
-  
-                
-        
-        String opcion = (String) cmbLicencia.getSelectedItem();
+    public void guardarLicencia() {
 
+        try {
 
-        if (opcion.equals("1")) {
-    
-            cal.add(Calendar.YEAR, 1);
-            Date fechaVigencia = cal.getTime();
-            licencia.setVigencia(fechaVigencia);
-            precioLicencia = precioLicencia + 600;
-            
-        } else if (opcion.equals("2")) {
-    
-            cal.add(Calendar.YEAR, 2);
-            Date fechaVigencia = cal.getTime();
-            licencia.setVigencia(fechaVigencia);
-            
-            precioLicencia = precioLicencia + 900;
-            
-        } else if (opcion.equals("3")) {
-    
-            cal.add(Calendar.YEAR, 3);
-            Date fechaVigencia = cal.getTime();
-            licencia.setVigencia(fechaVigencia);
-            
-            precioLicencia = precioLicencia + 1100;
-        }
-        
-        if(persona.isDiscapacitado()==true){
-            
-            String tipo= "Discapacitado";
-            licencia.setTipo(tipo);
-            precioLicencia = precioLicencia-400;
-        }
-        else{
-            String tipo= "No Discapacitado";
-            licencia.setTipo(tipo);
-        }
-        
-       
-        
-        
-        licencia.setPersona(persona);
-        
-        
-        licencia.setFecha_solicitud(fechaActual);
+            Licencia licencia = new Licencia();
 
-        licencia.setPrecio(precioLicencia);
-        
-        
-        
-        Licencia licenciaguardar = licenciaDAO.agregar(licencia);
-        
-        
-        if (licenciaguardar == null) {
+            Calendar cal = Calendar.getInstance();
+
+            Date fechaActual = cal.getTime();
+
+            int precioLicencia = 0;
+
+            String opcion = (String) cmbLicencia.getSelectedItem();
+            String estado="Activa";
+            if (opcion.equals("1")) {
+
+                cal.add(Calendar.YEAR, 1);
+                Date fechaVigencia = cal.getTime();
+                licencia.setVigencia(fechaVigencia);
+                precioLicencia = precioLicencia + 600;
+
+            } else if (opcion.equals("2")) {
+
+                cal.add(Calendar.YEAR, 2);
+                Date fechaVigencia = cal.getTime();
+                licencia.setVigencia(fechaVigencia);
+
+                precioLicencia = precioLicencia + 900;
+
+            } else if (opcion.equals("3")) {
+
+                cal.add(Calendar.YEAR, 3);
+                Date fechaVigencia = cal.getTime();
+                licencia.setVigencia(fechaVigencia);
+
+                precioLicencia = precioLicencia + 1100;
+            }
+
+            if (persona.isDiscapacitado() == true) {
+
+                String tipo = "Discapacitado";
+                licencia.setTipo(tipo);
+                precioLicencia = precioLicencia - 400;
+            } else {
+                String tipo = "No Discapacitado";
+                licencia.setTipo(tipo);
+            }
+            licencia.setEstado(estado);
+            licencia.setPersona(persona);
+
+            licencia.setFecha_solicitud(fechaActual);
+
+            licencia.setPrecio(precioLicencia);
+
+            Licencia licenciaguardar = licenciaDAO.agregar(licencia);
+
+            if (licenciaguardar == null) {
                 JOptionPane.showMessageDialog(null, "No se ha podido registrar");
             } else {
                 JOptionPane.showMessageDialog(null, "Se ha registrado la licencia");
             }
-        
-        
-        }catch(Exception e){
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se ha podido registrar");
         }
-        
-        
+
     }
-    
-    
-    
-    
+
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -257,16 +237,21 @@ public class Licencias extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbLicenciaActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-    Menu m= new Menu(persona);
-      m.setVisible(true);
+        Menu m = new Menu(persona);
+        m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        
+
         guardarLicencia();
-        
-        
+        IConexionBD conexionbd = new ConexionBD();
+        IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
+        Reporte r = new Reporte(persona);
+        r.setVisible(true);
+        this.dispose();
+
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
@@ -300,7 +285,7 @@ public class Licencias extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-           //     new Licencias().setVisible(true);
+                //     new Licencias().setVisible(true);
             }
         });
     }

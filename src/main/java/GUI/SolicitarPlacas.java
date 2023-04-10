@@ -5,6 +5,10 @@
 package GUI;
 
 import Entidades.Persona;
+import Entidades.Vehiculo;
+import Persistencia.IVehiculoDAO;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -12,13 +16,17 @@ import Entidades.Persona;
  */
 public class SolicitarPlacas extends javax.swing.JFrame {
 
-     private Persona persona;
-    public SolicitarPlacas(Persona persona) {
+   
+       private Persona persona;
+       private IVehiculoDAO vehiculo;
+    public SolicitarPlacas(Persona persona,IVehiculoDAO vehiculo) {
        this.persona=persona;
+       this.vehiculo=vehiculo;
         initComponents();
           lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+          llenarCombo();
+          
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,7 +43,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         lblperso = new javax.swing.JLabel();
         btnAceptar1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxVehiculos = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -104,12 +112,12 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         });
         jPanel1.add(btnAceptar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 88, 37));
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbxVehiculos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cbxVehiculosActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 250, -1));
+        jPanel1.add(cbxVehiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 250, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 102, 204));
@@ -164,13 +172,26 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cbxVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxVehiculosActionPerformed
        
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cbxVehiculosActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+     public void llenarCombo(){
+      cbxVehiculos.removeAllItems();
+         List<Vehiculo> llenaCb=vehiculo.listaAutosCliente(persona.getRfc());
+        System.out.println(llenaCb.size());
+        if(llenaCb==null){
+           
+            
+        }else{
+            Iterator rp= llenaCb.iterator();
+            while(rp.hasNext()){
+                Vehiculo vehi=(Vehiculo)rp.next();
+                this.cbxVehiculos.addItem(vehi);
+            }
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -207,7 +228,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     private javax.swing.JButton btnAceptar1;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Vehiculo> cbxVehiculos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;

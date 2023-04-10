@@ -59,11 +59,18 @@ Atributo que representa el tipo de la licencia.
 @Column(name="Tipo")
 private String tipo;
 
+@Basic
+@Column(name="Estado")
+private String estado;
     
 
-@ManyToOne
-@JoinColumn(name="id_persona")
-    private Persona persona;
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
 
 
@@ -77,10 +84,11 @@ Constructor de la clase Licencia con los parámetros de vigencia, tipo, id_trami
 @param fecha_solicitud Fecha de solicitud del trámite.
 @param persona Persona que solicita el trámite.
 */
-public Licencia(Date vigencia, String tipo, Integer id_tramite, int precio, Date fecha_solicitud, Persona persona) {
+public Licencia(Date vigencia, String tipo, Integer id_tramite, int precio, Date fecha_solicitud,String estado, Persona persona) {
 super(id_tramite, precio, fecha_solicitud, persona);
 this.vigencia = vigencia;
 this.tipo = tipo;
+this.estado=estado;
 }
 /**
 
@@ -133,12 +141,12 @@ public Licencia(){
 
 @Override
     public Persona getPersona() {
-        return persona;
+        return super.getPersona();
     }
 
 @Override
     public void setPersona(Persona persona) {
-        this.persona = persona;
+        super.setPersona(persona);
     }
 
 

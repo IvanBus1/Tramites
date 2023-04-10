@@ -274,14 +274,20 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarVActionPerformed
 
     private void btnRenovarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarPlacasActionPerformed
-     Placas pl= new Placas(persona);
-     pl.setVisible(true);
+       IConexionBD conexionbd= new ConexionBD();
+   IVehiculoDAO vehiculodao= new VehiculoDAO(conexionbd);
+     RenovarPlacas sp= new RenovarPlacas(persona,vehiculodao);
+      
+     sp.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_btnRenovarPlacasActionPerformed
 
     private void btnSolicitarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarPlacasActionPerformed
-       SolicitarPlacas sp= new SolicitarPlacas(persona);
-       sp.setVisible(true);
+       IConexionBD conexionbd= new ConexionBD();
+   IVehiculoDAO vehiculodao= new VehiculoDAO(conexionbd);
+      
+          SolicitarPlacas pl= new SolicitarPlacas(persona,vehiculodao);
+       pl.setVisible(true);
          this.dispose();
     }//GEN-LAST:event_btnSolicitarPlacasActionPerformed
 
