@@ -6,7 +6,9 @@ package GUI;
 
 import Entidades.Licencia;
 import Entidades.Persona;
+import Entidades.Tramite;
 import Persistencia.ILicenciaDAO;
+import Persistencia.ITramiteDAO;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -18,17 +20,17 @@ import javax.swing.JOptionPane;
 public class Licencias extends javax.swing.JFrame {
 
     
-    ILicenciaDAO licenciaDAO;
-    
+    private ILicenciaDAO licenciaDAO;
+    private ITramiteDAO tramiteDAO;
       private Persona persona;
       
-    public Licencias(ILicenciaDAO licenciaDAO, Persona persona) {
+    public Licencias(ITramiteDAO tramiteDAO, ILicenciaDAO licenciaDAO, Persona persona) {
        this.persona=persona;
        
        
         initComponents();
 
-        
+        this.tramiteDAO=tramiteDAO;
         this.licenciaDAO=licenciaDAO;
         
 
@@ -159,19 +161,23 @@ public class Licencias extends javax.swing.JFrame {
     
     public void guardarLicencia(){
         
+         
+        
         try{
         
         Licencia licencia = new Licencia();
         
+        
     Calendar cal = Calendar.getInstance();
     
+    Date fechaActual = cal.getTime();
     
+        int precioLicencia =0;
     
     
   
-        licencia.setPersona(persona);
+                
         
-     
         String opcion = (String) cmbLicencia.getSelectedItem();
 
 
@@ -180,6 +186,7 @@ public class Licencias extends javax.swing.JFrame {
             cal.add(Calendar.YEAR, 1);
             Date fechaVigencia = cal.getTime();
             licencia.setVigencia(fechaVigencia);
+            precioLicencia = precioLicencia + 600;
             
         } else if (opcion.equals("2")) {
     
@@ -187,18 +194,22 @@ public class Licencias extends javax.swing.JFrame {
             Date fechaVigencia = cal.getTime();
             licencia.setVigencia(fechaVigencia);
             
+            precioLicencia = precioLicencia + 900;
+            
         } else if (opcion.equals("3")) {
     
             cal.add(Calendar.YEAR, 3);
             Date fechaVigencia = cal.getTime();
             licencia.setVigencia(fechaVigencia);
             
+            precioLicencia = precioLicencia + 1100;
         }
         
         if(persona.isDiscapacitado()==true){
             
             String tipo= "Discapacitado";
             licencia.setTipo(tipo);
+            precioLicencia = precioLicencia-400;
         }
         else{
             String tipo= "No Discapacitado";
@@ -208,19 +219,30 @@ public class Licencias extends javax.swing.JFrame {
        
         
         
+        licencia.setPersona(persona);
+        
+        
+        licencia.setFecha_solicitud(fechaActual);
+
+        licencia.setPrecio(precioLicencia);
+        
+        
+        
         Licencia licenciaguardar = licenciaDAO.agregar(licencia);
         
         
         if (licenciaguardar == null) {
                 JOptionPane.showMessageDialog(null, "No se ha podido registrar");
             } else {
-                JOptionPane.showMessageDialog(null, "Se ha registrado una licencia");
+                JOptionPane.showMessageDialog(null, "Se ha registrado la licencia");
             }
         
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No se ha podido registrar");
         }
+        
+        
     }
     
     

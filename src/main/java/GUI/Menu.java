@@ -5,9 +5,12 @@ import Entidades.Persona;
 import Persistencia.ConexionBD;
 import Persistencia.IConexionBD;
 import Persistencia.ILicenciaDAO;
+import Persistencia.ITramiteDAO;
 import Persistencia.IVehiculoDAO;
 import Persistencia.LicenciaDAO;
+import Persistencia.TramiteDAO;
 import Persistencia.VehiculoDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -289,12 +292,16 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHistorialActionPerformed
 
     private void btnSolicitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarLicenciaActionPerformed
-       IConexionBD conexionbd= new ConexionBD();
-   ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
-        
-        Licencias li= new Licencias(licenciadao,persona);
+      
+ 
+        IConexionBD conexionbd= new ConexionBD();
+        ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
+        ITramiteDAO tramitedao= new TramiteDAO(conexionbd);
+        Licencias li= new Licencias(tramitedao,licenciadao,persona);
        li.setVisible(true);
+       
          this.dispose();
+        
     }//GEN-LAST:event_btnSolicitarLicenciaActionPerformed
 
     /**
