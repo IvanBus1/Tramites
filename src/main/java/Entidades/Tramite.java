@@ -78,6 +78,12 @@ public class Tramite implements Serializable {
         this.persona = persona;
     }
 
+    public Tramite(int precio, Date fecha_solicitud, Persona persona) {
+        this.precio = precio;
+        this.fecha_solicitud = fecha_solicitud;
+        this.persona = persona;
+    }
+
     
 
     public Persona getPersona() {

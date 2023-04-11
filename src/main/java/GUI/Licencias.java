@@ -172,7 +172,7 @@ public class Licencias extends javax.swing.JFrame {
             int precioLicencia = 0;
 
             String opcion = (String) cmbLicencia.getSelectedItem();
-            String estado="Activa";
+            String estado = "Activa";
             if (opcion.equals("1")) {
 
                 cal.add(Calendar.YEAR, 1);
@@ -219,6 +219,13 @@ public class Licencias extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se ha podido registrar");
             } else {
                 JOptionPane.showMessageDialog(null, "Se ha registrado la licencia");
+                IConexionBD conexionbd = new ConexionBD();
+                IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
+                
+                Reporte r = new Reporte(persona,licenciaguardar);
+                r.setVisible(true);
+                this.dispose();
+
             }
 
         } catch (Exception e) {
@@ -245,11 +252,6 @@ public class Licencias extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
         guardarLicencia();
-        IConexionBD conexionbd = new ConexionBD();
-        IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
-        Reporte r = new Reporte(persona);
-        r.setVisible(true);
-        this.dispose();
 
 
     }//GEN-LAST:event_btnAceptarActionPerformed

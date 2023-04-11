@@ -1,14 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package GUI;
 
 import Entidades.Persona;
+import Entidades.Placa;
 import Entidades.Vehiculo;
+import Persistencia.IPlacaDAO;
 import Persistencia.IVehiculoDAO;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,10 +18,12 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
    
        private Persona persona;
+        private IPlacaDAO placa;
        private IVehiculoDAO vehiculo;
-    public SolicitarPlacas(Persona persona,IVehiculoDAO vehiculo) {
+    public SolicitarPlacas(Persona persona,IVehiculoDAO vehiculo,IPlacaDAO placa) {
        this.persona=persona;
        this.vehiculo=vehiculo;
+       this.placa=placa;
         initComponents();
           lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
           llenarCombo();
@@ -163,7 +165,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar1ActionPerformed
-        // TODO add your handling code here:
+       asere();
     }//GEN-LAST:event_btnAceptar1ActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -176,6 +178,35 @@ public class SolicitarPlacas extends javax.swing.JFrame {
        
     }//GEN-LAST:event_cbxVehiculosActionPerformed
 
+    
+    public void asere(){
+        int precio=1500;
+        Vehiculo vehiculo= (Vehiculo)cbxVehiculos.getSelectedItem();
+        List<Placa> placas=  placa.listaPlacasAuto(vehiculo.getId_vehiculo());
+       if(!placas.isEmpty()){
+           precio=1000;
+           if( placa.desactivarPlaca(placas.get(0))==null){
+               JOptionPane.showMessageDialog(null,"No se pudo desactivar la placa actual");
+               return;
+           }
+       }
+       Placa placanueva= new Placa("Activo", vehiculo, precio, persona);
+       Placa placaa=placa.agregar(placanueva);
+       if(placaa==null){
+            JOptionPane.showMessageDialog(null,"No se pudo comprar la placa");
+       }else{
+           JOptionPane.showMessageDialog(null,"La placa ha sido comprada con exito ");
+            Reporte r = new Reporte(persona,placanueva);
+                r.setVisible(true);
+                this.dispose();
+       }
+       
+    }
+    
+    
+    
+    
+    
      public void llenarCombo(){
       cbxVehiculos.removeAllItems();
          List<Vehiculo> llenaCb=vehiculo.listaAutosCliente(persona.getRfc());

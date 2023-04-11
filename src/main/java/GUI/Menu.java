@@ -5,9 +5,11 @@ import Entidades.Persona;
 import Persistencia.ConexionBD;
 import Persistencia.IConexionBD;
 import Persistencia.ILicenciaDAO;
+import Persistencia.IPlacaDAO;
 import Persistencia.ITramiteDAO;
 import Persistencia.IVehiculoDAO;
 import Persistencia.LicenciaDAO;
+import Persistencia.PlacaDAO;
 import Persistencia.TramiteDAO;
 import Persistencia.VehiculoDAO;
 import javax.swing.JOptionPane;
@@ -285,8 +287,9 @@ public class Menu extends javax.swing.JFrame {
     private void btnSolicitarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarPlacasActionPerformed
        IConexionBD conexionbd= new ConexionBD();
    IVehiculoDAO vehiculodao= new VehiculoDAO(conexionbd);
+   IPlacaDAO placadao= new PlacaDAO(conexionbd);
       
-          SolicitarPlacas pl= new SolicitarPlacas(persona,vehiculodao);
+          SolicitarPlacas pl= new SolicitarPlacas(persona,vehiculodao,placadao);
        pl.setVisible(true);
          this.dispose();
     }//GEN-LAST:event_btnSolicitarPlacasActionPerformed

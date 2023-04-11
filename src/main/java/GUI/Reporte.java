@@ -4,7 +4,10 @@
  */
 package GUI;
 
+import Entidades.Licencia;
 import Entidades.Persona;
+import Entidades.Placa;
+import Entidades.Tramite;
 
 /**
  *
@@ -14,11 +17,23 @@ public class Reporte extends javax.swing.JFrame {
 
     
     private Persona persona;
-    public Reporte(Persona persona) {
+    private Tramite tramite;
+    public Reporte(Persona persona,Tramite tramite) {
         this.persona=persona;
+        this.tramite= tramite;
         initComponents();
-        lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+        lblperso1.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+        if(tramite instanceof Placa){
+            lbltipo.setText("Placa");
+            
+        }
 
+        if(tramite instanceof Licencia){
+              lbltipo.setText("Licencia");
+        }
+        
+        lblcosto.setText(String.valueOf(tramite.getPrecio()));
+        lblfecha.setText(String.valueOf(tramite.getFecha_solicitud()));
     }
 
     /**
@@ -39,8 +54,11 @@ public class Reporte extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        lblperso = new javax.swing.JLabel();
+        lblcosto = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        lblperso1 = new javax.swing.JLabel();
+        lbltipo = new javax.swing.JLabel();
+        lblfecha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,7 +79,7 @@ public class Reporte extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Costo Tramite:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
 
         btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -75,7 +93,7 @@ public class Reporte extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 88, 37));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 88, 37));
 
         btnAceptar.setBackground(new java.awt.Color(0, 102, 204));
         btnAceptar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -89,7 +107,7 @@ public class Reporte extends javax.swing.JFrame {
                 btnAceptarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 88, 37));
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 88, 37));
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -98,27 +116,42 @@ public class Reporte extends javax.swing.JFrame {
         btnVolver.setBorder(null);
         btnVolver.setContentAreaFilled(false);
         btnVolver.setOpaque(true);
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 290, 88, 37));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, 88, 37));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Fecha Tramite:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 204));
         jLabel5.setText("Tipo Tramite:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
-        lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblperso.setForeground(new java.awt.Color(0, 102, 204));
-        lblperso.setText("---");
-        jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 220, -1));
+        lblcosto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblcosto.setForeground(new java.awt.Color(0, 102, 204));
+        lblcosto.setText("---");
+        jPanel1.add(lblcosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 220, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("Nombre Persona:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+
+        lblperso1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblperso1.setForeground(new java.awt.Color(0, 102, 204));
+        lblperso1.setText("---");
+        jPanel1.add(lblperso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 220, -1));
+
+        lbltipo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbltipo.setForeground(new java.awt.Color(0, 102, 204));
+        lbltipo.setText("---");
+        jPanel1.add(lbltipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 220, -1));
+
+        lblfecha.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblfecha.setForeground(new java.awt.Color(0, 102, 204));
+        lblfecha.setText("---");
+        jPanel1.add(lblfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 270, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,6 +225,9 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel lblperso;
+    private javax.swing.JLabel lblcosto;
+    private javax.swing.JLabel lblfecha;
+    private javax.swing.JLabel lblperso1;
+    private javax.swing.JLabel lbltipo;
     // End of variables declaration//GEN-END:variables
 }

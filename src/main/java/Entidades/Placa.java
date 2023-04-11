@@ -67,6 +67,13 @@ public class Placa extends Tramite {
         this.vehiculo = vehiculo;
     }
 
+    public Placa(String estado, Vehiculo vehiculo, int precio, Persona persona) {
+        super(precio, new Date(), persona);
+        this.estado = estado;
+        this.vehiculo = vehiculo;
+    }
+
+    
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
