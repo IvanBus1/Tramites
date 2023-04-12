@@ -300,20 +300,49 @@ public class Menu extends javax.swing.JFrame {
     private void btnRenovarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarPlacasActionPerformed
        IConexionBD conexionbd= new ConexionBD();
    IVehiculoDAO vehiculodao= new VehiculoDAO(conexionbd);
-     RenovarPlacas sp= new RenovarPlacas(persona,vehiculodao);
-      
-     sp.setVisible(true);
+      ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
+     
+     if (licenciadao.verificarLicencia(persona.getId_persona())) {
+        
+         RenovarPlacas sp= new RenovarPlacas(persona,vehiculodao);
+          sp.setVisible(true);
        this.dispose();
+       
+         
+            
+        } else{
+            JOptionPane.showMessageDialog(this, "Esta persona no tiene una licencia registrada.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+     
+     
+     
+     
+     
     }//GEN-LAST:event_btnRenovarPlacasActionPerformed
 
     private void btnSolicitarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarPlacasActionPerformed
        IConexionBD conexionbd= new ConexionBD();
    IVehiculoDAO vehiculodao= new VehiculoDAO(conexionbd);
    IPlacaDAO placadao= new PlacaDAO(conexionbd);
-      
-          SolicitarPlacas pl= new SolicitarPlacas(persona,vehiculodao,placadao);
+   ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
+          
+   
+   if (licenciadao.verificarLicencia(persona.getId_persona())) {
+            
+            SolicitarPlacas pl= new SolicitarPlacas(persona,vehiculodao,placadao);
        pl.setVisible(true);
          this.dispose();
+       
+         
+            
+        } else{
+            JOptionPane.showMessageDialog(this, "Esta persona no tiene una licencia registrada.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+   
+   
+   
     }//GEN-LAST:event_btnSolicitarPlacasActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
