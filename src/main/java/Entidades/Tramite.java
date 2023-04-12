@@ -39,6 +39,18 @@ public class Tramite implements Serializable {
     private int precio;
     
     @Basic
+    @Column(name="Tipo")
+    private String tipo;
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+    @Basic
     @Column(name="FechaSolicitud")
     @Temporal(TemporalType.DATE)
     private Date fecha_solicitud;

@@ -295,7 +295,9 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSolicitarPlacasActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-      Historial hs= new Historial(persona);
+     IConexionBD conexionbd= new ConexionBD();
+   ITramiteDAO tramite= new TramiteDAO(conexionbd);
+        Historial hs= new Historial(persona,tramite);
       hs.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHistorialActionPerformed

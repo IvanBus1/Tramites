@@ -4,7 +4,13 @@
  */
 package GUI;
 
+import Entidades.Licencia;
 import Entidades.Persona;
+import Entidades.Placa;
+import Entidades.Tramite;
+import Persistencia.ITramiteDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,12 +18,20 @@ import Entidades.Persona;
  */
 public class Historial extends javax.swing.JFrame {
 
-       private Persona persona;
-    public Historial(Persona persona) {
-       this.persona=persona;
+    private Persona persona;
+    private ITramiteDAO tramite;
+    private String tipot = "";
+
+    public Historial(Persona persona, ITramiteDAO tramite) {
+        this.persona = persona;
+        this.tramite = tramite;
+
         initComponents();
         
+        llenarTabla();
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,17 +44,20 @@ public class Historial extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnVolver = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtHistorial = new javax.swing.JTable();
         btnVolver1 = new javax.swing.JButton();
-        btnVolver2 = new javax.swing.JButton();
+        btnLicencia = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        txtFechaInicio = new com.toedter.calendar.JDateChooser();
+        txtFechaFin = new com.toedter.calendar.JDateChooser();
+        btnllenar = new javax.swing.JButton();
+        btnPlacas = new javax.swing.JButton();
+        btnlimpiar = new javax.swing.JButton();
+        btnFecha = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,38 +71,41 @@ public class Historial extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Historial");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 120, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 120, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 70));
-
-        btnVolver.setBackground(new java.awt.Color(0, 102, 204));
-        btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnVolver.setForeground(new java.awt.Color(255, 255, 255));
-        btnVolver.setText("Placas");
-        btnVolver.setBorder(null);
-        btnVolver.setContentAreaFilled(false);
-        btnVolver.setOpaque(true);
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 88, 37));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 70));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("A:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Tipo tramite", "Precio", "Fecha"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 680, 90));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtHistorial);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 990, 280));
 
         btnVolver1.setBackground(new java.awt.Color(0, 102, 204));
         btnVolver1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -99,57 +119,222 @@ public class Historial extends javax.swing.JFrame {
                 btnVolver1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 520, 88, 37));
+        jPanel1.add(btnVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 580, 88, 37));
 
-        btnVolver2.setBackground(new java.awt.Color(0, 102, 204));
-        btnVolver2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnVolver2.setForeground(new java.awt.Color(255, 255, 255));
-        btnVolver2.setText("Licencia");
-        btnVolver2.setBorder(null);
-        btnVolver2.setContentAreaFilled(false);
-        btnVolver2.setOpaque(true);
-        jPanel1.add(btnVolver2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 88, 37));
+        btnLicencia.setBackground(new java.awt.Color(0, 102, 204));
+        btnLicencia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLicencia.setForeground(new java.awt.Color(255, 255, 255));
+        btnLicencia.setText("Licencia");
+        btnLicencia.setBorder(null);
+        btnLicencia.setContentAreaFilled(false);
+        btnLicencia.setOpaque(true);
+        btnLicencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLicenciaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 80, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("Filtrar por tipo de tramite:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 102, 204));
         jLabel8.setText("Filtrar por fecha:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 102, 204));
         jLabel9.setText("De:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
-        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, -1, -1));
-        jPanel1.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, -1));
+        jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 240, -1));
+        jPanel1.add(txtFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 280, -1));
+
+        btnllenar.setBackground(new java.awt.Color(0, 102, 204));
+        btnllenar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnllenar.setForeground(new java.awt.Color(255, 255, 255));
+        btnllenar.setText("llenar");
+        btnllenar.setBorder(null);
+        btnllenar.setContentAreaFilled(false);
+        btnllenar.setOpaque(true);
+        btnllenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnllenarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnllenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 590, 88, 37));
+
+        btnPlacas.setBackground(new java.awt.Color(0, 102, 204));
+        btnPlacas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnPlacas.setForeground(new java.awt.Color(255, 255, 255));
+        btnPlacas.setText("Placas");
+        btnPlacas.setBorder(null);
+        btnPlacas.setContentAreaFilled(false);
+        btnPlacas.setOpaque(true);
+        btnPlacas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlacasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 88, 30));
+
+        btnlimpiar.setBackground(new java.awt.Color(0, 102, 204));
+        btnlimpiar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnlimpiar.setForeground(new java.awt.Color(255, 255, 255));
+        btnlimpiar.setText("limpiar");
+        btnlimpiar.setBorder(null);
+        btnlimpiar.setContentAreaFilled(false);
+        btnlimpiar.setOpaque(true);
+        btnlimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlimpiarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnlimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 580, 88, 37));
+
+        btnFecha.setBackground(new java.awt.Color(0, 102, 204));
+        btnFecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnFecha.setForeground(new java.awt.Color(255, 255, 255));
+        btnFecha.setText("Filtrar por fechas");
+        btnFecha.setBorder(null);
+        btnFecha.setContentAreaFilled(false);
+        btnFecha.setOpaque(true);
+        btnFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFechaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 200, 180, 37));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolver1ActionPerformed
-      Menu m= new Menu(persona);
-      m.setVisible(true);
+        Menu m = new Menu(persona);
+        m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolver1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnllenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnllenarActionPerformed
+       limpiarTabla();
+        llenarTabla();
+    }//GEN-LAST:event_btnllenarActionPerformed
+
+    private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
+        limpiarTabla();
+    }//GEN-LAST:event_btnlimpiarActionPerformed
+
+    private void btnPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlacasActionPerformed
+        limpiarTabla();
+        tipot = "Placa";
+        llenarTablaTipo();
+    }//GEN-LAST:event_btnPlacasActionPerformed
+
+    private void btnLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicenciaActionPerformed
+        limpiarTabla();
+        tipot = "Licencia";
+        llenarTablaTipo();
+    }//GEN-LAST:event_btnLicenciaActionPerformed
+
+    private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
+      
+        //limpiarTabla();
+     //  llenarTablaFechas();
+    }//GEN-LAST:event_btnFechaActionPerformed
+
+    public void limpiarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
+        modelo.setRowCount(0);
+        jtHistorial.repaint();
+
+    }
+
+    public void llenarTabla() {
+
+        List<Tramite> tramites = tramite.tramitesPersona(persona.getId_persona());
+
+        DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
+
+        for (Tramite tramite : tramites) {
+            String nombre = persona.getNombre();
+            String tipoTramite;
+            int precio = tramite.getPrecio();
+            String fecha = tramite.getFecha_solicitud().toString();
+
+            if (tramite instanceof Placa) {
+                tipoTramite = "Placa";
+            } else if (tramite instanceof Licencia) {
+                tipoTramite = "Licencia";
+            } else {
+                tipoTramite = "baja"; // Agrega un valor por defecto si no es Placa ni Licencia
+            }
+
+            modelo.addRow(new Object[]{nombre, tipoTramite, precio, fecha});
+        }
+
+    }
+
+    public void llenarTablaTipo() {
+
+        DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
+        List<Tramite> tramites = tramite.tramitesPersonaP(persona.getId_persona(), tipot);
+
+        for (Tramite tramite : tramites) {
+            String nombre = persona.getNombre();
+            int precio = tramite.getPrecio();
+            String fecha = tramite.getFecha_solicitud().toString();
+
+            modelo.addRow(new Object[]{nombre, tipot, precio, fecha});
+
+        }
+    }
+
+    public void llenarTablaFechas() {
+        long date = this.txtFechaInicio.getDate().getTime();
+        java.sql.Date fechaInicioDate = new java.sql.Date(date);
+        String desde = fechaInicioDate.toString();
+
+        long date2 = this.txtFechaFin.getDate().getTime();
+        java.sql.Date fechaFin = new java.sql.Date(date);
+        String hasta = fechaFin.toString();
+
+        List<Tramite> tramites = tramite.tramitesPersonaEnRangoFechas(persona.getId_persona(), desde, hasta);
+        DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
+        
+        
+        for (Tramite tramite : tramites) {
+            String nombre = persona.getNombre();
+            String tipoTramite;
+            int precio = tramite.getPrecio();
+            String fecha = tramite.getFecha_solicitud().toString();
+
+            if (tramite instanceof Placa) {
+                tipoTramite = "Placa";
+            } else if (tramite instanceof Licencia) {
+                tipoTramite = "Licencia";
+            } else {
+                tipoTramite = "error"; // Agrega un valor por defecto si no es Placa ni Licencia
+            }
+
+            modelo.addRow(new Object[]{nombre, tipoTramite, precio, fecha});
+        }
+
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -177,17 +362,18 @@ public class Historial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-             //   new Historial().setVisible(true);
+                //   new Historial().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVolver;
+    private javax.swing.JButton btnFecha;
+    private javax.swing.JButton btnLicencia;
+    private javax.swing.JButton btnPlacas;
     private javax.swing.JButton btnVolver1;
-    private javax.swing.JButton btnVolver2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JButton btnlimpiar;
+    private javax.swing.JButton btnllenar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -196,6 +382,8 @@ public class Historial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtHistorial;
+    private com.toedter.calendar.JDateChooser txtFechaFin;
+    private com.toedter.calendar.JDateChooser txtFechaInicio;
     // End of variables declaration//GEN-END:variables
 }

@@ -112,6 +112,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
 
         jt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
@@ -153,7 +154,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void agregarVariasPersonas() {
-
+/*
         //try{
         boolean dis = true;
 
@@ -224,8 +225,70 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         // System.out.println(e);
         //  JOptionPane.showMessageDialog(null, "No se ha podido registrar");
         // }
+*/
+
+
+    boolean dis = true;
+
+    for (int i = 0; i < jt.getRowCount(); i++) {
+        for (int j = 0; j < jt.getColumnCount(); j++) {
+            if(jt.getValueAt(i, j)==null){
+                JOptionPane.showMessageDialog(null, "Falta una casilla");
+                return;
+            }
+        }
+    }
+
+    int rowCount = jt.getRowCount();
+    int colCount = jt.getColumnCount();
+
+    for (int i = 0; i < rowCount; i++) {
+
+        String nombre = (String) jt.getValueAt(i, 0);
+        String apellidoPaterno = (String) jt.getValueAt(i, 1);
+        String apellidoMaterno = (String) jt.getValueAt(i, 2);
+        String rfc = (String) jt.getValueAt(i, 3);
+        String telefono = (String) jt.getValueAt(i, 4);
+        String fechaNacimiento = (String) jt.getValueAt(i, 6);
+
+        if ("Si".equalsIgnoreCase((String) jt.getValueAt(i, 5))) {
+            dis = true;
+        } else if (jt.getValueAt(i, 5) == null) {
+            dis = false;
+        }
+
+        Persona nuevaPersona = new Persona();
+
+        nuevaPersona.setRfc(rfc);
+        nuevaPersona.setNombre(nombre);
+        nuevaPersona.setApellidoPaterno(apellidoPaterno);
+        nuevaPersona.setApellidoMaterno(apellidoMaterno);
+        nuevaPersona.setTelefono(telefono);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date fecha = null;
+        try {
+            fecha = dateFormat.parse(fechaNacimiento);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Fecha incorrecta para el usuario: "+ nuevaPersona.getNombre());
+            return;
+        }
+
+        nuevaPersona.setFechaNacimiento(fecha);
+        nuevaPersona.setDiscapacitado(dis);
+        System.out.println(nuevaPersona.getNombre());
+        Persona personaguardar = personaDAO.agregar(nuevaPersona);
+
+        if (personaguardar == null) {
+            JOptionPane.showMessageDialog(null, "Datos vacíos");
+        } else {
+            JOptionPane.showMessageDialog(null, "Se ha registrado una persona");
+        }
 
     }
+}
+
+    
 
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
