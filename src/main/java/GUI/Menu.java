@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
  */
 public class Menu extends javax.swing.JFrame {
 
+    //prueba
+    
     private Persona persona;
     public Menu(Persona persona) {
         this.persona=persona;
