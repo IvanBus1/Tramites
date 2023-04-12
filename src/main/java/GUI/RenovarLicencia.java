@@ -4,7 +4,17 @@
  */
 package GUI;
 
+import Entidades.Licencia;
 import Entidades.Persona;
+import Persistencia.ConexionBD;
+import Persistencia.IConexionBD;
+import Persistencia.ILicenciaDAO;
+import Persistencia.IPersonaDAO;
+import Persistencia.ITramiteDAO;
+import Persistencia.PersonaDAO;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,10 +22,19 @@ import Entidades.Persona;
  */
 public class RenovarLicencia extends javax.swing.JFrame {
 
-     private Persona persona;
-    public RenovarLicencia(Persona persona) {
+    
+
+    private ILicenciaDAO licenciaDAO;
+    private ITramiteDAO tramiteDAO;
+    private Persona persona;
+    
+    public RenovarLicencia(ITramiteDAO tramiteDAO, ILicenciaDAO licenciaDAO, Persona persona) {
        this.persona=persona;
         initComponents();
+        
+        this.tramiteDAO = tramiteDAO;
+        this.licenciaDAO = licenciaDAO;
+       
           lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
         
     }
@@ -37,10 +56,10 @@ public class RenovarLicencia extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         lblperso = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbLicencia = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtFolio1 = new javax.swing.JTextField();
+        txtLicenciaAnt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -85,6 +104,11 @@ public class RenovarLicencia extends javax.swing.JFrame {
         btnAceptar.setBorder(null);
         btnAceptar.setContentAreaFilled(false);
         btnAceptar.setOpaque(true);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 88, 37));
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
@@ -106,14 +130,14 @@ public class RenovarLicencia extends javax.swing.JFrame {
         lblperso.setText(".................");
         jPanel1.add(lblperso, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 250, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cmbLicencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        cmbLicencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
+        cmbLicencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cmbLicenciaActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 230, -1));
+        jPanel1.add(cmbLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 230, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 204));
@@ -125,10 +149,10 @@ public class RenovarLicencia extends javax.swing.JFrame {
         jLabel6.setText("Número de licencia anterior:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
-        txtFolio1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio1.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        jPanel1.add(txtFolio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 240, 30));
+        txtLicenciaAnt.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtLicenciaAnt.setForeground(new java.awt.Color(0, 153, 204));
+        txtLicenciaAnt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        jPanel1.add(txtLicenciaAnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 240, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,19 +173,145 @@ public class RenovarLicencia extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
+
+    
+    
+    public void guardarnuevaLicencia() {
+
+        
+        if(txtLicenciaAnt.getText()==null){
+             JOptionPane.showMessageDialog(null, "Ingrese licencia anterior");
+        }
+        else{
+        
+        Licencia licenciaencon = licenciaDAO.buscarIdyEstado(Integer.parseInt(txtLicenciaAnt.getText()));
+        
+        
+        
+        
+        
+        if(licenciaencon==null){
+            JOptionPane.showMessageDialog(null, "No se encontró la licencia con esa id o ya se encuentra inactiva");
+        }
+        
+        else{
+            
+            licenciaDAO.desactivarLicencia(licenciaencon);
+            
+            
+            try {
+
+            Licencia nuevalicencia = new Licencia();
+
+            Calendar cal = Calendar.getInstance();
+
+            Date fechaActual = cal.getTime();
+
+            int precioLicencia = 0;
+
+            String opcion = (String) cmbLicencia.getSelectedItem();
+            String estado = "Activa";
+            if (opcion.equals("1")) {
+
+                cal.add(Calendar.YEAR, 1);
+                Date fechaVigencia = cal.getTime();
+                nuevalicencia.setVigencia(fechaVigencia);
+                precioLicencia = precioLicencia + 600;
+
+            } else if (opcion.equals("2")) {
+
+                cal.add(Calendar.YEAR, 2);
+                Date fechaVigencia = cal.getTime();
+                nuevalicencia.setVigencia(fechaVigencia);
+
+                precioLicencia = precioLicencia + 900;
+
+            } else if (opcion.equals("3")) {
+
+                cal.add(Calendar.YEAR, 3);
+                Date fechaVigencia = cal.getTime();
+                nuevalicencia.setVigencia(fechaVigencia);
+
+                precioLicencia = precioLicencia + 1100;
+            }
+
+            if (persona.isDiscapacitado() == true) {
+
+                String tipo = "Discapacitado";
+                nuevalicencia.setTipo(tipo);
+                precioLicencia = precioLicencia - 400;
+            } else {
+                String tipo = "No Discapacitado";
+                nuevalicencia.setTipo(tipo);
+            }
+            nuevalicencia.setEstado(estado);
+            nuevalicencia.setPersona(persona);
+
+            nuevalicencia.setFecha_solicitud(fechaActual);
+
+            nuevalicencia.setPrecio(precioLicencia);
+
+            Licencia licenciaguardar = licenciaDAO.agregar(nuevalicencia);
+
+            if (licenciaguardar == null) {
+                JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+            } else {
+                JOptionPane.showMessageDialog(null, "Se ha renovado la licencia");
+                IConexionBD conexionbd = new ConexionBD();
+                IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
+                
+                Reporte r = new Reporte(persona,licenciaguardar);
+                r.setVisible(true);
+                this.dispose();
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+        }
+            
+        }
+            
+        }
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cmbLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLicenciaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cmbLicenciaActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
      Menu m= new Menu(persona);
       m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        
+        guardarnuevaLicencia();
+        
+        
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,7 +352,7 @@ public class RenovarLicencia extends javax.swing.JFrame {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbLicencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -210,6 +360,6 @@ public class RenovarLicencia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblperso;
-    private javax.swing.JTextField txtFolio1;
+    private javax.swing.JTextField txtLicenciaAnt;
     // End of variables declaration//GEN-END:variables
 }

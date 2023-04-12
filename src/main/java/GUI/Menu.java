@@ -23,11 +23,14 @@ public class Menu extends javax.swing.JFrame {
     //prueba
     
     private Persona persona;
+    
     public Menu(Persona persona) {
         this.persona=persona;
         initComponents();
+        
+      
         lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
-
+        
     }
 
     /**
@@ -215,7 +218,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblperso, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addGap(48, 48, 48))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(350, 350, 350)
@@ -265,9 +268,25 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptar6ActionPerformed
 
     private void btnRenovarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarLicenciaActionPerformed
-    RenovarLicencia rl= new RenovarLicencia(persona);
-    rl.setVisible(true);
-      this.dispose();
+    IConexionBD conexionbd= new ConexionBD();
+        ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
+        ITramiteDAO tramitedao= new TramiteDAO(conexionbd);
+       
+        
+        if (licenciadao.verificarLicencia(persona.getId_persona())) {
+            
+            RenovarLicencia li= new RenovarLicencia(tramitedao,licenciadao,persona);
+       li.setVisible(true);
+       
+         this.dispose();
+            
+        } else{
+            JOptionPane.showMessageDialog(this, "Esta persona no tiene una licencia registrada.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
+         
     }//GEN-LAST:event_btnRenovarLicenciaActionPerformed
 
     private void btnRegistrarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVActionPerformed
@@ -307,14 +326,21 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnSolicitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarLicenciaActionPerformed
       
- 
-        IConexionBD conexionbd= new ConexionBD();
+        
+       IConexionBD conexionbd= new ConexionBD();
         ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
         ITramiteDAO tramitedao= new TramiteDAO(conexionbd);
+        
+        // Verificar si la persona ya tiene una licencia
+        if (licenciadao.verificarLicencia(persona.getId_persona())) {
+            JOptionPane.showMessageDialog(this, "Esta persona ya tiene una licencia registrada.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Si no tiene una licencia registrada, continuar con la solicitud de licencia
         Licencias li= new Licencias(tramitedao,licenciadao,persona);
-       li.setVisible(true);
-       
-         this.dispose();
+        li.setVisible(true);
+        this.dispose();
+    
         
     }//GEN-LAST:event_btnSolicitarLicenciaActionPerformed
 
