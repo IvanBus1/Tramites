@@ -60,6 +60,7 @@ public class Historial extends javax.swing.JFrame {
         btnFecha = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -220,6 +221,7 @@ public class Historial extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolver1ActionPerformed
@@ -251,8 +253,8 @@ public class Historial extends javax.swing.JFrame {
 
     private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
       
-        //limpiarTabla();
-     //  llenarTablaFechas();
+        limpiarTabla();
+      llenarTablaFechas();
     }//GEN-LAST:event_btnFechaActionPerformed
 
     public void limpiarTabla() {
@@ -305,19 +307,20 @@ public class Historial extends javax.swing.JFrame {
     public void llenarTablaFechas() {
         long date = this.txtFechaInicio.getDate().getTime();
         java.sql.Date fechaInicioDate = new java.sql.Date(date);
-        String desde = fechaInicioDate.toString();
+      
 
         long date2 = this.txtFechaFin.getDate().getTime();
-        java.sql.Date fechaFin = new java.sql.Date(date);
-        String hasta = fechaFin.toString();
+        java.sql.Date fechaFin = new java.sql.Date(date2);
 
-        List<Tramite> tramites = tramite.tramitesPersonaEnRangoFechas(persona.getId_persona(), desde, hasta);
+
+        List<Tramite> tramites = tramite.tramitesPersonaEnRangoFechas(persona.getId_persona(), fechaInicioDate, fechaFin);
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
-        
+        System.out.println(tramites.size());
+                
         
         for (Tramite tramite : tramites) {
             String nombre = persona.getNombre();
-            String tipoTramite;
+            String tipoTramite=null;
             int precio = tramite.getPrecio();
             String fecha = tramite.getFecha_solicitud().toString();
 
@@ -325,9 +328,7 @@ public class Historial extends javax.swing.JFrame {
                 tipoTramite = "Placa";
             } else if (tramite instanceof Licencia) {
                 tipoTramite = "Licencia";
-            } else {
-                tipoTramite = "error"; // Agrega un valor por defecto si no es Placa ni Licencia
-            }
+            } 
 
             modelo.addRow(new Object[]{nombre, tipoTramite, precio, fecha});
         }
