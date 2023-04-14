@@ -12,12 +12,25 @@ import javax.persistence.TypedQuery;
  */
 public class TramiteDAO implements ITramiteDAO {
 
+    /**
+     * Atributo para la conexion a la bd
+     */
     private IConexionBD conexionbd;
 
+    /**
+
+Constructor de la clase TramiteDAO.
+@param conexionbd Objeto que maneja la conexión a la base de datos.
+*/
     public TramiteDAO(IConexionBD conexionbd) {
         this.conexionbd = conexionbd;
     }
 
+    /**
+     * Metodo para agregar un tramite
+     * @param tramite objeto de tipo tramite
+     * @return  un tramite
+     */
     @Override
     public Tramite agregar(Tramite tramite) {
         try {
@@ -34,6 +47,11 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    /**
+     * Metodo para consultar una lista de personas en base a su id
+     * @param id id de la persona de la cual se buscaran sus tramites
+     * @return tramites lista de tramites
+     */
     @Override
     public List<Tramite> tramitesPersona(int id) {
         try {
@@ -55,6 +73,12 @@ public class TramiteDAO implements ITramiteDAO {
 
     }
 
+    /**
+     * Metodo para buscar los tramites de las personas en base al tipo de tramite
+     * @param id id de la persona de la cual se buscaran los tramites
+     * @param tipotramite tipo del tramites por el cual se filtrara(placa o licencia)
+     * @return lista de tramites en base a los filtros aplicados
+     */
     @Override
     public List<Tramite> tramitesPersonaP(int id, String tipotramite) {
         try {
@@ -76,6 +100,13 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    /**
+     * Metodo para buscar los tramites de una persona en base al rango de fechas que se le mande
+     * @param id id de la persona a la cual se le buscaran los tramites
+     * @param fechaInicio fecha en la que inicia la busqueda de tramites
+     * @param fechaFin fecha en la que termina la busqueda de  tramites
+     * @return lista de tramites filtrados
+     */
     @Override
     public List<Tramite> tramitesPersonaEnRangoFechas(int id, Date fechaInicio, Date fechaFin) {
         try {
@@ -98,7 +129,7 @@ public class TramiteDAO implements ITramiteDAO {
             return null;
         }
     }
-//prueba
+
 
    
 }

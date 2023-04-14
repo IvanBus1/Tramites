@@ -13,14 +13,25 @@ import javax.persistence.TypedQuery;
  */
 public class VehiculoDAO implements IVehiculoDAO{
 
-     
+     /**
+      * Atributo para la conexion a la base de datos
+      */
     private IConexionBD conexionbd;
 
+    /**
+     * Constructor para la conexion a la base de datos
+     * @param conexionbd atributo para la conexion
+     */
     public VehiculoDAO (IConexionBD conexionbd) {
         this.conexionbd = conexionbd;
     }
     
 
+    /**
+     * Metodo para agregar un vehiculo a la base de datos
+     * @param vehiculo vehiculo que sera agregado a la base de datos
+     * @return vehiculo agregado
+     */
     @Override
     public Vehiculo agregar(Vehiculo vehiculo) {
          try{
@@ -40,6 +51,11 @@ public class VehiculoDAO implements IVehiculoDAO{
     
     }
 
+    /**
+     * Metodo para buscar los autos de un cliente en especifico
+     * @param rfc rfc del cliente 
+     * @return  lista de autos del cliente en especifico
+     */
     @Override
     public List<Vehiculo> listaAutosCliente(String rfc) {
     try {

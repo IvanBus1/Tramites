@@ -1,4 +1,3 @@
-
 package Persistencia;
 
 import javax.persistence.EntityManager;
@@ -11,11 +10,18 @@ import javax.persistence.Persistence;
  */
 public class ConexionBD implements IConexionBD {
 
+    /**
+     * Método para crear una instancia de EntityManager y establecer conexión
+     * con la base de datos.
+     *
+     * @return Una instancia de EntityManager que representa la conexión con la
+     * base de datos
+     */
     @Override
     public EntityManager crearcone() {
-      EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
-      EntityManager em = emf.createEntityManager();
-      return em;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU"); 
+        EntityManager em = emf.createEntityManager(); 
+        return em; 
     }
-    
+
 }

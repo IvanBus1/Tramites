@@ -22,6 +22,7 @@ GUI\Registrar_Persona.class
 Persistencia\PlacaDAO.class
 GUI\Licencias$3.class
 GUI\APersonaExistente$6.class
+GUI\RenovarLicencia$5.class
 Persistencia\IConexionBD.class
 GUI\RegistrarVehiculo$4.class
 GUI\Menu$3.class

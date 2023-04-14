@@ -150,7 +150,11 @@ public class Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarPersonaActionPerformed
 
     private void btnAceptar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar5ActionPerformed
-        // TODO add your handling code here:
+     IConexionBD conexionbd= new ConexionBD();
+   IPersonaDAO personaDAO= new PersonaDAO(conexionbd);
+        Consultas co= new   Consultas(personaDAO);
+   co.setVisible(true);
+     this.dispose();
     }//GEN-LAST:event_btnAceptar5ActionPerformed
 
     /**

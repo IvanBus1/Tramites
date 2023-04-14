@@ -1,4 +1,3 @@
-
 package GUI;
 
 import Entidades.Persona;
@@ -21,16 +20,14 @@ import javax.swing.JOptionPane;
 public class Menu extends javax.swing.JFrame {
 
     //prueba
-    
     private Persona persona;
-    
+
     public Menu(Persona persona) {
-        this.persona=persona;
+        this.persona = persona;
         initComponents();
-        
-      
-        lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
-        
+
+        lblperso.setText(persona.getNombre() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
+
     }
 
     /**
@@ -262,115 +259,103 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarPreciosActionPerformed
 
     private void btnAceptar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar6ActionPerformed
-     Inicial in= new Inicial();
-     in.setVisible(true);
-       this.dispose();
+        Inicial in = new Inicial();
+        in.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAceptar6ActionPerformed
 
     private void btnRenovarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarLicenciaActionPerformed
-    IConexionBD conexionbd= new ConexionBD();
-        ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
-        ITramiteDAO tramitedao= new TramiteDAO(conexionbd);
-       
-        
+        IConexionBD conexionbd = new ConexionBD();
+        ILicenciaDAO licenciadao = new LicenciaDAO(conexionbd);
+        ITramiteDAO tramitedao = new TramiteDAO(conexionbd);
+
         if (licenciadao.verificarLicencia(persona.getId_persona())) {
-            
-            RenovarLicencia li= new RenovarLicencia(tramitedao,licenciadao,persona);
-       li.setVisible(true);
-       
-         this.dispose();
-            
-        } else{
+
+            RenovarLicencia li = new RenovarLicencia(tramitedao, licenciadao, persona);
+            li.setVisible(true);
+
+            this.dispose();
+
+        } else {
             JOptionPane.showMessageDialog(this, "Esta persona no tiene una licencia registrada.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        
-         
+
+
     }//GEN-LAST:event_btnRenovarLicenciaActionPerformed
 
     private void btnRegistrarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVActionPerformed
-    IConexionBD conexionbd= new ConexionBD();
-   IVehiculoDAO vehiculodao= new VehiculoDAO(conexionbd);
-    RegistrarVehiculo ve= new RegistrarVehiculo(vehiculodao,persona);
-     ve.setVisible(true);
-       this.dispose();
+        IConexionBD conexionbd = new ConexionBD();
+        IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
+        RegistrarVehiculo ve = new RegistrarVehiculo(vehiculodao, persona);
+        ve.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegistrarVActionPerformed
 
     private void btnRenovarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarPlacasActionPerformed
-       IConexionBD conexionbd= new ConexionBD();
-   IVehiculoDAO vehiculodao= new VehiculoDAO(conexionbd);
-      ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
-     
-     if (licenciadao.verificarLicencia(persona.getId_persona())) {
-        
-         RenovarPlacas sp= new RenovarPlacas(persona,vehiculodao);
-          sp.setVisible(true);
-       this.dispose();
-       
-         
-            
-        } else{
+        IConexionBD conexionbd = new ConexionBD();
+        IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
+        ILicenciaDAO licenciadao = new LicenciaDAO(conexionbd);
+
+        if (licenciadao.verificarLicencia(persona.getId_persona())) {
+
+            RenovarPlacas sp = new RenovarPlacas(persona, vehiculodao);
+            sp.setVisible(true);
+            this.dispose();
+
+        } else {
             JOptionPane.showMessageDialog(this, "Esta persona no tiene una licencia registrada.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-     
-     
-     
-     
-     
+
+
     }//GEN-LAST:event_btnRenovarPlacasActionPerformed
 
     private void btnSolicitarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarPlacasActionPerformed
-       IConexionBD conexionbd= new ConexionBD();
-   IVehiculoDAO vehiculodao= new VehiculoDAO(conexionbd);
-   IPlacaDAO placadao= new PlacaDAO(conexionbd);
-   ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
-          
-   
-   if (licenciadao.verificarLicencia(persona.getId_persona())) {
-            
-            SolicitarPlacas pl= new SolicitarPlacas(persona,vehiculodao,placadao);
-       pl.setVisible(true);
-         this.dispose();
-       
-         
-            
-        } else{
+        IConexionBD conexionbd = new ConexionBD();
+        IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
+        IPlacaDAO placadao = new PlacaDAO(conexionbd);
+        ILicenciaDAO licenciadao = new LicenciaDAO(conexionbd);
+
+        if (licenciadao.verificarLicencia(persona.getId_persona())) {
+
+            SolicitarPlacas pl = new SolicitarPlacas(persona, vehiculodao, placadao);
+            pl.setVisible(true);
+            this.dispose();
+
+        } else {
             JOptionPane.showMessageDialog(this, "Esta persona no tiene una licencia registrada.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-   
-   
-   
+
+
     }//GEN-LAST:event_btnSolicitarPlacasActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-     IConexionBD conexionbd= new ConexionBD();
-   ITramiteDAO tramite= new TramiteDAO(conexionbd);
-        Historial hs= new Historial(persona,tramite);
-      hs.setVisible(true);
+        IConexionBD conexionbd = new ConexionBD();
+        ITramiteDAO tramite = new TramiteDAO(conexionbd);
+        Historial hs = new Historial(persona, tramite);
+        hs.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHistorialActionPerformed
 
     private void btnSolicitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarLicenciaActionPerformed
-      
-        
-       IConexionBD conexionbd= new ConexionBD();
-        ILicenciaDAO licenciadao= new LicenciaDAO(conexionbd);
-        ITramiteDAO tramitedao= new TramiteDAO(conexionbd);
-        
+
+        IConexionBD conexionbd = new ConexionBD();
+        ILicenciaDAO licenciadao = new LicenciaDAO(conexionbd);
+        ITramiteDAO tramitedao = new TramiteDAO(conexionbd);
+
         // Verificar si la persona ya tiene una licencia
         if (licenciadao.verificarLicencia(persona.getId_persona())) {
             JOptionPane.showMessageDialog(this, "Esta persona ya tiene una licencia registrada.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         // Si no tiene una licencia registrada, continuar con la solicitud de licencia
-        Licencias li= new Licencias(tramitedao,licenciadao,persona);
+        Licencias li = new Licencias(tramitedao, licenciadao, persona);
         li.setVisible(true);
         this.dispose();
-    
-        
+
+
     }//GEN-LAST:event_btnSolicitarLicenciaActionPerformed
 
     /**
@@ -403,7 +388,7 @@ public class Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               // new Menu().setVisible(true);
+                // new Menu().setVisible(true);
             }
         });
     }

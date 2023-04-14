@@ -15,13 +15,25 @@ import javax.persistence.TypedQuery;
  * @author IVAN
  */
 public class PlacaDAO implements IPlacaDAO {
-//prueba
+
     private IConexionBD conexionbd;
 
+    /**
+     * Constructor de la clase PlacaDAO.
+     *
+     * @param conexionbd Objeto que implementa la interfaz IConexionBD para la
+     * conexión a la base de datos.
+     */
     public PlacaDAO(IConexionBD conexionbd) {
         this.conexionbd = conexionbd;
     }
 
+    /**
+     * Agrega una nueva Placa a la base de datos.
+     *
+     * @param placa Objeto de la clase Placa a agregar.
+     * @return Objeto de la clase Placa agregado, o null si ocurre un error.
+     */
     @Override
     public Placa agregar(Placa placa) {
         try {
@@ -38,6 +50,15 @@ public class PlacaDAO implements IPlacaDAO {
         }
     }
 
+    /**
+     * Obtiene una lista de placas asociadas a un vehículo específico que estén
+     * en estado "Activo".
+     *
+     * @param id_vehiculo Identificador del vehículo del cual se desean obtener
+     * las placas.
+     * @return Lista de objetos de la clase Placa que están asociados al
+     * vehículo y tienen estado "Activo", o null si ocurre un error.
+     */
     @Override
     public List<Placa> listaPlacasAuto(int id_vehiculo) {
         try {
@@ -63,6 +84,13 @@ public class PlacaDAO implements IPlacaDAO {
         }
     }
 
+    /**
+     * Desactiva una Placa cambiando su estado a "Inactivo" y estableciendo la
+     * fecha de inactividad.
+     *
+     * @param placa Objeto de la clase Placa a desactivar.
+     * @return Objeto de la clase Placa desactivado, o null si ocurre un error.
+     */
     @Override
     public Placa desactivarPlaca(Placa placa) {
         try {
@@ -80,6 +108,4 @@ public class PlacaDAO implements IPlacaDAO {
             return null;
         }
     }
-
-    
 }
