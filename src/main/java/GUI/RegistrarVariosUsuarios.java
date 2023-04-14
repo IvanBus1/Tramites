@@ -156,30 +156,21 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void agregarVariasPersonas() {
-/*
-        //try{
         boolean dis = true;
 
         for (int i = 0; i < jt.getRowCount(); i++) {
             for (int j = 0; j < jt.getColumnCount(); j++) {
-                if(jt.getValueAt(i, j)==null){
+                if (jt.getValueAt(i, j) == null) {
                     JOptionPane.showMessageDialog(null, "Falta una casilla");
                     return;
                 }
-               
-                
             }
-      
         }
 
         int rowCount = jt.getRowCount();
-        
         int colCount = jt.getColumnCount();
 
-      //  List<Persona> personas = new ArrayList<Persona>();
-        
         for (int i = 0; i < rowCount; i++) {
-
             String nombre = (String) jt.getValueAt(i, 0);
             String apellidoPaterno = (String) jt.getValueAt(i, 1);
             String apellidoMaterno = (String) jt.getValueAt(i, 2);
@@ -187,14 +178,36 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
             String telefono = (String) jt.getValueAt(i, 4);
             String fechaNacimiento = (String) jt.getValueAt(i, 6);
 
-            if (jt.getValueAt(i, 5) == "Si" || jt.getValueAt(i, 5) == "si") {
+            if ("Si".equalsIgnoreCase((String) jt.getValueAt(i, 5))) {
                 dis = true;
             } else if (jt.getValueAt(i, 5) == null) {
                 dis = false;
             }
 
-            Persona nuevaPersona = new Persona();
+            // Expresiones regulares
+            String regexRfc = "[a-zA-Z0-9]+";
+            String regexTexto = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+";
+            String regexTelefono = "\\d{10}";
 
+            // Validar que no se pueda agregar números y caracteres especiales a apellidoMaterno, apellidoPaterno y Nombre
+            if (!apellidoMaterno.matches(regexTexto) || !apellidoPaterno.matches(regexTexto) || !nombre.matches(regexTexto)) {
+                JOptionPane.showMessageDialog(null, "Apellido materno, apellido paterno y nombre solo pueden contener letras");
+                continue; // Salir de la iteración actual y pasar a la siguiente persona
+            }
+
+            // Validar que no se pueda agregar texto y caracteres especiales a Telefono
+            if (!telefono.matches(regexTelefono)) {
+                JOptionPane.showMessageDialog(null, "Teléfono solo puede contener números de 10 dígitos");
+                continue; // Salir de la iteración actual y pasar a la siguiente persona
+            }
+
+            // Validar que no se pueda agregar caracteres especiales a RFC
+            if (!rfc.matches(regexRfc)) {
+                JOptionPane.showMessageDialog(null, "RFC solo puede contener letras y números");
+                continue; // Salir de la iteración actual y pasar a la siguiente persona
+            }
+
+            Persona nuevaPersona = new Persona();
             nuevaPersona.setRfc(rfc);
             nuevaPersona.setNombre(nombre);
             nuevaPersona.setApellidoPaterno(apellidoPaterno);
@@ -206,91 +219,35 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
             try {
                 fecha = dateFormat.parse(fechaNacimiento);
             } catch (ParseException ex) {
-               // Logger.getLogger(RegistrarVariosUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Fecha incorrecta para el usuario: "+ nuevaPersona.getNombre());
+                JOptionPane.showMessageDialog(null, "Fecha incorrecta para el usuario: " + nuevaPersona.getNombre());
                 return;
             }
 
             nuevaPersona.setFechaNacimiento(fecha);
             nuevaPersona.setDiscapacitado(dis);
-            System.out.println(nuevaPersona.getNombre());
-            Persona personaguardar = personaDAO.agregar(nuevaPersona);
 
-            if (personaguardar == null) {
-                JOptionPane.showMessageDialog(null, "Datos vacios");
+            // Validar que la persona no tenga el mismo rfc
+            List<Persona> personasConMismoRfc = personaDAO.buscarVariosRfc(rfc);
+            if (!personasConMismoRfc.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La persona con RFC " + rfc + " ya ha sido registrada anteriormente");
+                continue; // Salir de la iteración actual y pasar a la siguiente persona
+            }
+            // Validar que el telefono no este registrado
+            List<Persona> personasConMismoTelefono = personaDAO.buscarVariosTelefonos(telefono);
+            if (!personasConMismoTelefono.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El número de teléfono " + telefono + " ya está registrado para otra persona");
+                continue; // Salir de la iteración actual y pasar a la siguiente persona
+            }
+
+            Persona personaGuardada = personaDAO.agregar(nuevaPersona);
+
+            if (personaGuardada == null) {
+                JOptionPane.showMessageDialog(null, "Datos vacíos");
             } else {
                 JOptionPane.showMessageDialog(null, "Se ha registrado una persona");
             }
-
-        }
-        // }catch (Exception e) {
-        // System.out.println(e);
-        //  JOptionPane.showMessageDialog(null, "No se ha podido registrar");
-        // }
-*/
-
-
-    boolean dis = true;
-
-    for (int i = 0; i < jt.getRowCount(); i++) {
-        for (int j = 0; j < jt.getColumnCount(); j++) {
-            if(jt.getValueAt(i, j)==null){
-                JOptionPane.showMessageDialog(null, "Falta una casilla");
-                return;
-            }
         }
     }
-
-    int rowCount = jt.getRowCount();
-    int colCount = jt.getColumnCount();
-
-    for (int i = 0; i < rowCount; i++) {
-
-        String nombre = (String) jt.getValueAt(i, 0);
-        String apellidoPaterno = (String) jt.getValueAt(i, 1);
-        String apellidoMaterno = (String) jt.getValueAt(i, 2);
-        String rfc = (String) jt.getValueAt(i, 3);
-        String telefono = (String) jt.getValueAt(i, 4);
-        String fechaNacimiento = (String) jt.getValueAt(i, 6);
-
-        if ("Si".equalsIgnoreCase((String) jt.getValueAt(i, 5))) {
-            dis = true;
-        } else if (jt.getValueAt(i, 5) == null) {
-            dis = false;
-        }
-
-        Persona nuevaPersona = new Persona();
-
-        nuevaPersona.setRfc(rfc);
-        nuevaPersona.setNombre(nombre);
-        nuevaPersona.setApellidoPaterno(apellidoPaterno);
-        nuevaPersona.setApellidoMaterno(apellidoMaterno);
-        nuevaPersona.setTelefono(telefono);
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date fecha = null;
-        try {
-            fecha = dateFormat.parse(fechaNacimiento);
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Fecha incorrecta para el usuario: "+ nuevaPersona.getNombre());
-            return;
-        }
-
-        nuevaPersona.setFechaNacimiento(fecha);
-        nuevaPersona.setDiscapacitado(dis);
-        System.out.println(nuevaPersona.getNombre());
-        Persona personaguardar = personaDAO.agregar(nuevaPersona);
-
-        if (personaguardar == null) {
-            JOptionPane.showMessageDialog(null, "Datos vacíos");
-        } else {
-            JOptionPane.showMessageDialog(null, "Se ha registrado una persona");
-        }
-
-    }
-}
-
-    
 
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

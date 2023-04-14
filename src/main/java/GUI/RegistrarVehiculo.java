@@ -3,6 +3,7 @@ package GUI;
 import Entidades.Persona;
 import Entidades.Vehiculo;
 import Persistencia.IVehiculoDAO;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -210,9 +211,57 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
             if (txtColor.getText().isEmpty() || txtLinea.getText().isEmpty()
                     || txtMarca.getText().isEmpty() || txtModelo.getText().isEmpty()
                     || txtNumeroSerie.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Llene todos los campos");
                 return;
             }
 
+            // Validar que txtNumeroSerie solo acepte letras y números
+        String numeroSerie = txtNumeroSerie.getText();
+        if (!numeroSerie.matches("[a-zA-Z0-9]+")) {
+            JOptionPane.showMessageDialog(null, "El campo Número de Serie solo puede contener letras y números");
+            return;
+        }
+        
+        // Validar que txtMarca solo acepte letras
+        String marca = txtMarca.getText();
+        if (!marca.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(null, "El campo Marca solo puede contener letras");
+            return;
+        }
+        
+        // Validar que txtLinea solo acepte letras
+        String linea = txtLinea.getText();
+        if (!linea.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(null, "El campo Línea solo puede contener letras");
+            return;
+        }
+        
+        // Validar que txtModelo solo acepte números
+        String modelo = txtModelo.getText();
+        if (!modelo.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "El campo Modelo solo puede contener números");
+            return;
+        }
+        
+        // Validar que txtColor solo acepte letras
+        String color = txtColor.getText();
+        if (!color.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(null, "El campo Color solo puede contener letras");
+            return;
+        }
+            
+            
+      
+            // Buscar si ya existe una persona con el mismo RFC
+            Vehiculo vehiculoExistente = vehiculoDAO.buscarPorNumeroSerie(txtNumeroSerie.getText());
+            if (vehiculoExistente != null) {
+                JOptionPane.showMessageDialog(null, "Ya existe un vehiculo con el mismo Numero serie");
+                return;
+            }
+
+            
+            
+            
             Vehiculo vehi = new Vehiculo();
             int nSerie = Integer.valueOf(this.txtNumeroSerie.getText());
             vehi.setNum_serie(nSerie);

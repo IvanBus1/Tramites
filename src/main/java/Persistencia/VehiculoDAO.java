@@ -5,6 +5,7 @@ import Entidades.Vehiculo;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -50,6 +51,33 @@ public class VehiculoDAO implements IVehiculoDAO{
         }
     
     }
+    
+    /**
+     * Metodo para buscar un vehiculo por su numero de serie a la base de datos
+     * @param num_serie num_serie que se usara para buscar en la base de datos
+     * @return vehiculo encontrado
+     */
+    @Override
+    public Vehiculo buscarPorNumeroSerie(String num_serie) {
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+
+            TypedQuery<Vehiculo> query = emf.createQuery("SELECT v FROM Vehiculo v WHERE v.num_serie = :Numero_serie", Vehiculo.class);
+            query.setParameter("num_serie", num_serie);
+            
+            Vehiculo vehiculo = query.getSingleResult();
+            emf.getTransaction().commit();
+
+            return vehiculo;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    
+    
+    
+    
 
     /**
      * Metodo para buscar los autos de un cliente en especifico

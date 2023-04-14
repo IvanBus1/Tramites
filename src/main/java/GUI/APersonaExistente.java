@@ -179,7 +179,7 @@ buscarperso();
         IConexionBD conexionbd = new ConexionBD();
         IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
 
-        Persona personaencon = personaDAO.buscarRFC(txtnombre.getText(), txtrfc.getText());
+        Persona personaencon = personaDAO.buscarNombreRFC(txtnombre.getText(), txtrfc.getText());
         if (personaencon == null) {
             JOptionPane.showMessageDialog(null, "no");
 

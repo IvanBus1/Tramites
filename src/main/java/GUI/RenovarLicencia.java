@@ -176,22 +176,19 @@ public class RenovarLicencia extends javax.swing.JFrame {
     
     
     
-
-    
-    
     public void guardarnuevaLicencia() {
 
         
-        if(txtLicenciaAnt.getText()==null){
-             JOptionPane.showMessageDialog(null, "Ingrese licencia anterior");
-        }
-        else{
+        String licenciaAnt = txtLicenciaAnt.getText();
+
+    
+    if (licenciaAnt == null || !licenciaAnt.matches("\\d+")) {
+        JOptionPane.showMessageDialog(null, "Ingrese un número de licencia anterior válida (solo números)");
+        return;
+    }
+        
         
         Licencia licenciaencon = licenciaDAO.buscarIdyEstado(Integer.parseInt(txtLicenciaAnt.getText()));
-        
-        
-        
-        
         
         if(licenciaencon==null){
             JOptionPane.showMessageDialog(null, "No se encontró la licencia con esa id o ya se encuentra inactiva");
@@ -277,18 +274,8 @@ public class RenovarLicencia extends javax.swing.JFrame {
             
         }
         
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-    }
     
+
     
     
     

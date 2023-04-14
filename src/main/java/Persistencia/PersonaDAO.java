@@ -57,6 +57,168 @@ public class PersonaDAO implements IPersonaDAO {
 
     }
 
+    
+    
+    /**
+     * Buscar una persona por su rfc en la base de datos.
+     *
+     * @param rfc El rfc que se usa para buscar.
+     * @return La persona encontrada, o null si ocurre un error.
+     */
+    @Override
+    public Persona buscarPorRfc(String rfc) {
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+
+            TypedQuery<Persona> query = emf.createQuery("SELECT p FROM Persona p WHERE p.rfc = :rfc", Persona.class);
+            query.setParameter("rfc", rfc);
+
+            Persona persona = query.getSingleResult();
+            emf.getTransaction().commit();
+
+            return persona;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    /**
+     * Buscar una persona por su telefono en la base de datos.
+     *
+     * @param telefono El telefono que se usa para buscar.
+     * @return La persona encontrada, o null si ocurre un error.
+     */
+    @Override
+    public Persona buscarTelefono(String telefono) {
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+
+            TypedQuery<Persona> query = emf.createQuery("SELECT p FROM Persona p WHERE p.telefono = :telefono", Persona.class);
+            query.setParameter("telefono", telefono);
+
+            Persona persona = query.getSingleResult();
+            emf.getTransaction().commit();
+
+            return persona;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    
+    /**
+     * Buscar una persona por su nombre completo y rfc en la base de datos.
+     * @param nombre El nombre que se usa para buscar.
+     * @param apellidoPaterno El apellido paterno que se usa para buscar.
+     * @param apellidoMaterno El apellido materno que se usa para buscar.
+     * @param rfc El rfc que se usa para buscar.
+     * @return La persona encontrada, o null si ocurre un error.
+     */
+    @Override
+    public Persona buscarPorNombresRfc(String nombre, String apellidoPaterno, String apellidoMaterno, String rfc) {
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+
+            TypedQuery<Persona> query = emf.createQuery("SELECT p FROM Persona p WHERE p.rfc = :rfc "
+                    + "AND p.nombre = :nombre "
+                    + "AND p.apellidoPaterno = :apellidoPaterno "
+                    + "AND p.apellidoMaterno = :apellidoMaterno", Persona.class);
+            query.setParameter("rfc", rfc);
+            query.setParameter("nombre", nombre);
+            query.setParameter("apellidoPaterno", apellidoPaterno);
+            query.setParameter("apellidoMaterno", apellidoMaterno);
+            Persona persona = query.getSingleResult();
+            emf.getTransaction().commit();
+
+            return persona;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    /**
+     * Buscar varias personas por su rfc en la base de datos.
+     *
+     * @param rfc El rfc que se usa para buscar.
+     * @return Las personas encontradas, o null si ocurre un error.
+     */
+    @Override
+    public List<Persona> buscarVariosRfc(String rfc) {
+
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+
+            TypedQuery<Persona> query = emf.createQuery("SELECT p FROM Persona p WHERE p.rfc = :rfc", Persona.class);
+            query.setParameter("rfc", rfc);
+            emf.getTransaction().commit();
+
+            return query.getResultList();
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+    
+    /**
+     * Buscar varias personas por su nombre completo y rfc en la base de datos.
+     * @param nombre El nombre que se usa para buscar.
+     * @param apellidoPaterno El apellido paterno que se usa para buscar.
+     * @param apellidoMaterno El apellido materno que se usa para buscar.
+     * @param rfc El rfc que se usa para buscar.
+     * @return Las personas encontradas, o null si ocurre un error.
+     */
+    @Override
+    public List<Persona> buscarVariosNombresRfc(String nombre, String apellidoPaterno, String apellidoMaterno, String rfc) {
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+
+            TypedQuery<Persona> query = emf.createQuery("SELECT p FROM Persona p WHERE p.rfc = :rfc "
+                    + "AND p.nombre = :nombre "
+                    + "AND p.apellidoPaterno = :apellidoPaterno "
+                    + "AND p.apellidoMaterno = :apellidoMaterno", Persona.class);
+            query.setParameter("rfc", rfc);
+            query.setParameter("nombre", nombre);
+            query.setParameter("apellidoPaterno", apellidoPaterno);
+            query.setParameter("apellidoMaterno", apellidoMaterno);
+            emf.getTransaction().commit();
+
+            return query.getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    
+    /**
+     * Buscar varias personas por su telefono en la base de datos.
+     *
+     * @param telefono El telefono que se usa para buscar.
+     * @return Las personas encontradas, o null si ocurre un error.
+     */
+    @Override
+    public List<Persona> buscarVariosTelefonos(String telefono) {
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+
+            TypedQuery<Persona> query = emf.createQuery("SELECT p FROM Persona p WHERE p.telefono = :telefono", Persona.class);
+            query.setParameter("telefono", telefono);
+
+            emf.getTransaction().commit();
+
+            return query.getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    
+    
+
     /**
      * Busca una persona por nombre y RFC en la base de datos.
      *
@@ -66,7 +228,7 @@ public class PersonaDAO implements IPersonaDAO {
      * con el nombre y RFC dados.
      */
     @Override
-    public Persona buscarRFC(String nombre, String rfc) {
+    public Persona buscarNombreRFC(String nombre, String rfc) {
         try {
             EntityManager emf = conexionbd.crearcone();
             emf.getTransaction().begin();

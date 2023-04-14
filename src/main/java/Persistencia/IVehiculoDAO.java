@@ -17,6 +17,18 @@ public interface IVehiculoDAO {
      */
     public Vehiculo agregar(Vehiculo vehiculo);
 
+    
+    
+    /**
+     * Método para buscar un vehículo usando su numero de serie en la base de datos.
+     *
+     * @param num_serie El num_serie que se usara para buscar
+     * @return El vehículo encontrado
+     */
+    public Vehiculo buscarPorNumeroSerie(String num_serie);
+    
+
+    
     /**
      * Método para obtener una lista de vehículos asociados a un cliente en base
      * a su RFC.

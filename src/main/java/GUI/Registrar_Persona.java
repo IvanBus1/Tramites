@@ -6,9 +6,6 @@ package GUI;
 
 import Entidades.Persona;
 import Persistencia.IPersonaDAO;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 
 /**
@@ -227,6 +224,33 @@ public class Registrar_Persona extends javax.swing.JFrame {
             if (txtAMaterno.getText().isEmpty() || txtAPaterno.getText().isEmpty()
                     || txtRFC.getText().isEmpty() || txtTelefono.getText().isEmpty()
                     || txtNombre.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Llene todos los campos");
+                return;
+            }
+
+            // Validaciones de campos de texto
+            if (!txtNombre.getText().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$")) {
+                JOptionPane.showMessageDialog(null, "El campo de Nombre no puede contener números o caracteres especiales");
+                return;
+            }
+
+            if (!txtAPaterno.getText().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$")) {
+                JOptionPane.showMessageDialog(null, "El campo de Apellido Paterno no puede contener números o caracteres especiales");
+                return;
+            }
+
+            if (!txtAMaterno.getText().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$")) {
+                JOptionPane.showMessageDialog(null, "El campo de Apellido Materno no puede contener números o caracteres especiales");
+                return;
+            }
+
+            if (!txtRFC.getText().matches("^[a-zA-Z0-9]*$")) {
+                JOptionPane.showMessageDialog(null, "El campo de RFC no puede contener caracteres especiales");
+                return;
+            }
+
+            if (!txtTelefono.getText().matches("\\d{10}")) {
+                JOptionPane.showMessageDialog(null, "El campo de Teléfono solo puede contener números de 10 digitos");
                 return;
             }
 
@@ -234,6 +258,20 @@ public class Registrar_Persona extends javax.swing.JFrame {
                 dis = true;
             } else {
                 dis = false;
+            }
+
+            // Buscar si ya existe una persona con el mismo RFC
+            Persona personaExistente = personaDAO.buscarPorRfc(txtRFC.getText());
+            if (personaExistente != null) {
+                JOptionPane.showMessageDialog(null, "Ya existe una persona con el mismo RFC");
+                return;
+            }
+
+            // Buscar si ya existe una persona con el mismo teléfono
+            Persona telefonoExistente = personaDAO.buscarTelefono(txtTelefono.getText());
+            if (telefonoExistente != null) {
+                JOptionPane.showMessageDialog(null, "Ese teléfono ya se encuentra registrado");
+                return;
             }
 
             Persona nuevaPersona = new Persona();
