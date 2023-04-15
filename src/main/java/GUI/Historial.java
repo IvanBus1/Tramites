@@ -233,6 +233,19 @@ public class Historial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolver1ActionPerformed
+        
+        String nombreEncriptado = persona.getNombre();
+        String nombreDesencriptado = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
+        
+        String apellidoPEncriptado = persona.getApellidoPaterno();
+        String apellidoPDesencriptado = EncriptacionUtils.desencriptarApellidoPaterno(apellidoPEncriptado);
+        
+        String apellidoMEncriptado = persona.getApellidoMaterno();
+        String apellidoMDesencriptado = EncriptacionUtils.desencriptarApellidoMaterno(apellidoMEncriptado);
+        
+        persona.setNombre(nombreDesencriptado);
+        persona.setApellidoPaterno(apellidoPDesencriptado);
+        persona.setApellidoMaterno(apellidoMDesencriptado);
         Menu m = new Menu(persona);
         m.setVisible(true);
         this.dispose();
