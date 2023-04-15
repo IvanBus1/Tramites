@@ -10,6 +10,7 @@ import Persistencia.IConexionBD;
 import Persistencia.IPersonaDAO;
 import Persistencia.ITramiteDAO;
 import Persistencia.TramiteDAO;
+import Utilidades.EncriptacionUtils;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -302,9 +303,33 @@ public class Consultas extends javax.swing.JFrame {
         }
 
         for (Persona persona : personas) {
-            String nombre = persona.getNombre();
-            String apellidoP = persona.getApellidoPaterno();
-            String apellidoM = persona.getApellidoMaterno();
+            String nombreEncriptado = persona.getNombre();
+            String nombre;
+        try {
+            nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
+        } catch (Exception e) {
+            nombre = "Error al desencriptar el nombre";
+        }
+            
+            
+            String apellidoPEncriptado = persona.getApellidoPaterno();
+            String apellidoP;
+        try {
+            apellidoP = EncriptacionUtils.desencriptarApellidoPaterno(apellidoPEncriptado);
+        } catch (Exception e) {
+            apellidoP = "Error al desencriptar el apellido paterno";
+        }
+        
+        
+            String apellidoMEncriptado = persona.getApellidoMaterno();
+            String apellidoM;
+        try {
+            apellidoM = EncriptacionUtils.desencriptarApellidoMaterno(apellidoMEncriptado);
+        } catch (Exception e) {
+            apellidoM = "Error al desencriptar el apellido materno";
+        }
+        
+        
             rfc = persona.getRfc();
             String fechaNacimiento = persona.getFechaNacimiento().toString();
             modelo.addRow(new Object[]{nombre, apellidoP, apellidoM, rfc, fechaNacimiento});

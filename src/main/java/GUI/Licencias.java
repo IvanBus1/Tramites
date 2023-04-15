@@ -6,7 +6,6 @@ package GUI;
 
 import Entidades.Licencia;
 import Entidades.Persona;
-import Entidades.Tramite;
 import Persistencia.ConexionBD;
 import Persistencia.IConexionBD;
 import Persistencia.ILicenciaDAO;

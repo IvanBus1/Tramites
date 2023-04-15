@@ -6,6 +6,9 @@ package GUI;
 
 import Entidades.Persona;
 import Persistencia.IPersonaDAO;
+import Utilidades.EncriptacionUtils;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
 
 /**
@@ -330,11 +333,16 @@ public class Registrar_Persona extends javax.swing.JFrame {
                 return;
             }
 
+            String nombreEncriptado = EncriptacionUtils.encriptarNombre(txtNombre.getText());
+            String apaternoEncriptado = EncriptacionUtils.encriptarApellidoPaterno(txtAPaterno.getText());
+            String amaternoEncriptado = EncriptacionUtils.encriptarApellidoMaterno(txtAMaterno.getText());
+            
+            
             Persona nuevaPersona = new Persona();
             nuevaPersona.setRfc(txtRFC.getText());
-            nuevaPersona.setNombre(txtNombre.getText());
-            nuevaPersona.setApellidoPaterno(txtAPaterno.getText());
-            nuevaPersona.setApellidoMaterno(txtAMaterno.getText());
+            nuevaPersona.setNombre(nombreEncriptado);
+            nuevaPersona.setApellidoPaterno(apaternoEncriptado);
+            nuevaPersona.setApellidoMaterno(amaternoEncriptado);
             nuevaPersona.setTelefono(txtTelefono.getText());
             long date = this.txtFecha.getDate().getTime();
             java.sql.Date fechaInicioDate = new java.sql.Date(date);

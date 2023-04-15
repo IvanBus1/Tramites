@@ -11,6 +11,7 @@ import Persistencia.LicenciaDAO;
 import Persistencia.PlacaDAO;
 import Persistencia.TramiteDAO;
 import Persistencia.VehiculoDAO;
+import Utilidades.EncriptacionUtils;
 import javax.swing.JOptionPane;
 
 /**

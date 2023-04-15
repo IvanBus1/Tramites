@@ -3,6 +3,7 @@ package GUI;
 import Entidades.Persona;
 import Persistencia.IPersonaDAO;
 import Persistencia.PersonaDAO;
+import Utilidades.EncriptacionUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -207,11 +208,15 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
                 continue; // Salir de la iteración actual y pasar a la siguiente persona
             }
 
+            String nombreEncriptado = EncriptacionUtils.encriptarNombre(nombre);
+            String apaternoEncriptado = EncriptacionUtils.encriptarApellidoPaterno(apellidoPaterno);
+            String amaternoEncriptado = EncriptacionUtils.encriptarApellidoMaterno(apellidoMaterno);
+            
             Persona nuevaPersona = new Persona();
             nuevaPersona.setRfc(rfc);
-            nuevaPersona.setNombre(nombre);
-            nuevaPersona.setApellidoPaterno(apellidoPaterno);
-            nuevaPersona.setApellidoMaterno(apellidoMaterno);
+            nuevaPersona.setNombre(nombreEncriptado);
+            nuevaPersona.setApellidoPaterno(apaternoEncriptado);
+            nuevaPersona.setApellidoMaterno(amaternoEncriptado);
             nuevaPersona.setTelefono(telefono);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

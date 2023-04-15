@@ -9,6 +9,7 @@ import Entidades.Persona;
 import Entidades.Placa;
 import Entidades.Tramite;
 import Persistencia.ITramiteDAO;
+import Utilidades.EncriptacionUtils;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -284,7 +285,9 @@ public class Historial extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
 
         for (Tramite tramite : tramites) {
-            String nombre = persona.getNombre();
+            
+        String nombreEncriptado = tramite.getPersona().getNombre();
+        String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
             String tipoTramite;
             int precio = tramite.getPrecio();
             String fecha = tramite.getFecha_solicitud().toString();
@@ -308,7 +311,8 @@ public class Historial extends javax.swing.JFrame {
         List<Tramite> tramites = tramite.tramitesPersonaP(persona.getId_persona(), tipot);
 
         for (Tramite tramite : tramites) {
-            String nombre = persona.getNombre();
+        String nombreEncriptado = tramite.getPersona().getNombre();
+        String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
             int precio = tramite.getPrecio();
             String fecha = tramite.getFecha_solicitud().toString();
 
@@ -332,7 +336,8 @@ public class Historial extends javax.swing.JFrame {
                 
         
         for (Tramite tramite : tramites) {
-            String nombre = persona.getNombre();
+            String nombreEncriptado = tramite.getPersona().getNombre();
+        String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
             String tipoTramite=null;
             int precio = tramite.getPrecio();
             String fecha = tramite.getFecha_solicitud().toString();

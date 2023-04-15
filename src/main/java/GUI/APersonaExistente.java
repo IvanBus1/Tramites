@@ -9,6 +9,7 @@ import Persistencia.ConexionBD;
 import Persistencia.IConexionBD;
 import Persistencia.IPersonaDAO;
 import Persistencia.PersonaDAO;
+import Utilidades.EncriptacionUtils;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,9 +41,13 @@ public class APersonaExistente extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtrfc = new javax.swing.JTextField();
+        txtApellidoM = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtnombre = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtRfc = new javax.swing.JTextField();
+        txtApellidoP = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -57,9 +62,9 @@ public class APersonaExistente extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Atender A:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 180, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 180, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 70));
 
         btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -73,7 +78,7 @@ public class APersonaExistente extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, 88, 37));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 88, 37));
 
         btnAceptar.setBackground(new java.awt.Color(0, 102, 204));
         btnAceptar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -87,7 +92,7 @@ public class APersonaExistente extends javax.swing.JFrame {
                 btnAceptarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 88, 37));
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 88, 37));
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -101,59 +106,97 @@ public class APersonaExistente extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 88, 37));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 340, 88, 37));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel4.setText("Ingrese el RFC de la persona:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
+        jLabel4.setText("Ingrese el apellido materno de la persona:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
 
-        txtrfc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtrfc.setForeground(new java.awt.Color(0, 153, 204));
-        txtrfc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtrfc.addActionListener(new java.awt.event.ActionListener() {
+        txtApellidoM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtApellidoM.setForeground(new java.awt.Color(0, 153, 204));
+        txtApellidoM.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtApellidoM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtrfcActionPerformed(evt);
+                txtApellidoMActionPerformed(evt);
             }
         });
-        txtrfc.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtApellidoM.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtrfcKeyTyped(evt);
+                txtApellidoMKeyTyped(evt);
             }
         });
-        jPanel1.add(txtrfc, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 210, 28));
+        jPanel1.add(txtApellidoM, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 210, 28));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel5.setText("Ingrese el nombre de la persona:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        jLabel5.setText("Ingrese el apellido paterno de la persona:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
-        txtnombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtnombre.setForeground(new java.awt.Color(0, 153, 204));
-        txtnombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtnombre.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(0, 153, 204));
+        txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnombreActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
-        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnombreKeyTyped(evt);
+                txtNombreKeyTyped(evt);
             }
         });
-        jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 210, 28));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 210, 28));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel6.setText("Ingrese el nombre de la persona:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel7.setText("Ingrese el RFC de la persona:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+
+        txtRfc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtRfc.setForeground(new java.awt.Color(0, 153, 204));
+        txtRfc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtRfc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRfcActionPerformed(evt);
+            }
+        });
+        txtRfc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRfcKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtRfc, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 210, 28));
+
+        txtApellidoP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtApellidoP.setForeground(new java.awt.Color(0, 153, 204));
+        txtApellidoP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtApellidoP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoPActionPerformed(evt);
+            }
+        });
+        txtApellidoP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoPKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtApellidoP, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 210, 28));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -166,13 +209,13 @@ public class APersonaExistente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void txtrfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtrfcActionPerformed
+    private void txtApellidoMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoMActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtrfcActionPerformed
+    }//GEN-LAST:event_txtApellidoMActionPerformed
 
-    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtnombreActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Inicial a = new Inicial();
@@ -185,36 +228,76 @@ public class APersonaExistente extends javax.swing.JFrame {
 buscarperso();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char c = evt.getKeyChar();
         
         if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
         
         
-    }//GEN-LAST:event_txtnombreKeyTyped
+    }//GEN-LAST:event_txtNombreKeyTyped
 
-    private void txtrfcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtrfcKeyTyped
+    private void txtApellidoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoMKeyTyped
        char c = evt.getKeyChar();
+        
+        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+        
+    }//GEN-LAST:event_txtApellidoMKeyTyped
+
+    private void txtRfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRfcActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRfcActionPerformed
+
+    private void txtRfcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRfcKeyTyped
+
+        char c = evt.getKeyChar();
     if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
         evt.consume();
     }
-    }//GEN-LAST:event_txtrfcKeyTyped
+        
+    }//GEN-LAST:event_txtRfcKeyTyped
+
+    private void txtApellidoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoPActionPerformed
+
+    private void txtApellidoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoPKeyTyped
+       char c = evt.getKeyChar();
+        
+        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+    }//GEN-LAST:event_txtApellidoPKeyTyped
 
     public void buscarperso() {
         IConexionBD conexionbd = new ConexionBD();
         IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
-
-        Persona personaencon = personaDAO.buscarNombreRFC(txtnombre.getText(), txtrfc.getText());
+        
+        
+            
+        
+        String nombreEncriptado = EncriptacionUtils.encriptarNombre(txtNombre.getText());
+        String apellidoPEncriptado =EncriptacionUtils.encriptarApellidoPaterno(txtApellidoP.getText());
+        String apellidoMEncriptado= EncriptacionUtils.encriptarApellidoMaterno(txtApellidoM.getText());
+        
+        Persona personaencon = personaDAO.buscarPorNombresRfc(nombreEncriptado, apellidoPEncriptado, apellidoMEncriptado, txtRfc.getText());
         if (personaencon == null) {
             JOptionPane.showMessageDialog(null, "no");
 
         } else {
+            String nombreDesencriptado = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
+            String apellidoPDesencriptado = EncriptacionUtils.desencriptarApellidoPaterno(apellidoPEncriptado);
+            String apellidoMDesencriptado = EncriptacionUtils.desencriptarApellidoMaterno(apellidoMEncriptado);
+            
             JOptionPane.showMessageDialog(null, "si");
+            personaencon.setNombre(nombreDesencriptado);
+            personaencon.setApellidoPaterno(apellidoPDesencriptado);
+            personaencon.setApellidoMaterno(apellidoMDesencriptado);
             Menu a = new Menu(personaencon);
             a.setVisible(true);
             this.dispose();
         }
 
+        
+            
+            
     }
 
     public static void main(String args[]) {
@@ -256,9 +339,13 @@ buscarperso();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtnombre;
-    private javax.swing.JTextField txtrfc;
+    private javax.swing.JTextField txtApellidoM;
+    private javax.swing.JTextField txtApellidoP;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRfc;
     // End of variables declaration//GEN-END:variables
 }
