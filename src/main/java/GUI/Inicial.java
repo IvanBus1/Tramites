@@ -5,11 +5,13 @@
 package GUI;
 
 import Entidades.Main;
+import Entidades.Tramite;
 import Persistencia.ConexionBD;
 import Persistencia.IConexionBD;
 import Persistencia.IPersonaDAO;
+import Persistencia.ITramiteDAO;
 import Persistencia.PersonaDAO;
-
+import Persistencia.TramiteDAO;
 
 public class Inicial extends javax.swing.JFrame {
 
@@ -35,7 +37,8 @@ public class Inicial extends javax.swing.JFrame {
         btnRegistrarVariasPersonas = new javax.swing.JButton();
         btnRegistrarPersona = new javax.swing.JButton();
         btnAceptarPersona = new javax.swing.JButton();
-        btnAceptar5 = new javax.swing.JButton();
+        btnHistoGeneral = new javax.swing.JButton();
+        btnAceptar6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -66,7 +69,7 @@ public class Inicial extends javax.swing.JFrame {
                 btnRegistrarVariasPersonasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrarVariasPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 230, 37));
+        jPanel1.add(btnRegistrarVariasPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, 230, 37));
 
         btnRegistrarPersona.setBackground(new java.awt.Color(0, 102, 204));
         btnRegistrarPersona.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -96,19 +99,33 @@ public class Inicial extends javax.swing.JFrame {
         });
         jPanel1.add(btnAceptarPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 210, 37));
 
-        btnAceptar5.setBackground(new java.awt.Color(0, 102, 204));
-        btnAceptar5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnAceptar5.setForeground(new java.awt.Color(255, 255, 255));
-        btnAceptar5.setText("Mostrar Lista de Personas");
-        btnAceptar5.setBorder(null);
-        btnAceptar5.setContentAreaFilled(false);
-        btnAceptar5.setOpaque(true);
-        btnAceptar5.addActionListener(new java.awt.event.ActionListener() {
+        btnHistoGeneral.setBackground(new java.awt.Color(0, 102, 204));
+        btnHistoGeneral.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnHistoGeneral.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistoGeneral.setText("Historial general");
+        btnHistoGeneral.setBorder(null);
+        btnHistoGeneral.setContentAreaFilled(false);
+        btnHistoGeneral.setOpaque(true);
+        btnHistoGeneral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptar5ActionPerformed(evt);
+                btnHistoGeneralActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 210, 37));
+        jPanel1.add(btnHistoGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 210, 37));
+
+        btnAceptar6.setBackground(new java.awt.Color(0, 102, 204));
+        btnAceptar6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnAceptar6.setForeground(new java.awt.Color(255, 255, 255));
+        btnAceptar6.setText("Mostrar Lista de Personas");
+        btnAceptar6.setBorder(null);
+        btnAceptar6.setContentAreaFilled(false);
+        btnAceptar6.setOpaque(true);
+        btnAceptar6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptar6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAceptar6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 210, 37));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,34 +145,44 @@ public class Inicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarVariasPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVariasPersonasActionPerformed
-  IConexionBD conexionbd= new ConexionBD();
-   IPersonaDAO personaDAO= new PersonaDAO(conexionbd);
-  RegistrarVariosUsuarios ase= new RegistrarVariosUsuarios(personaDAO);
-  ase.setVisible(true);
-    this.dispose();
+        IConexionBD conexionbd = new ConexionBD();
+        IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
+        RegistrarVariosUsuarios ase = new RegistrarVariosUsuarios(personaDAO);
+        ase.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegistrarVariasPersonasActionPerformed
 
     private void btnRegistrarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPersonaActionPerformed
-   IConexionBD conexionbd= new ConexionBD();
-   IPersonaDAO personaDAO= new PersonaDAO(conexionbd);
-        Registrar_Persona rp= new   Registrar_Persona(personaDAO);
-   rp.setVisible(true);
-     this.dispose();
+        IConexionBD conexionbd = new ConexionBD();
+        IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
+        Registrar_Persona rp = new Registrar_Persona(personaDAO);
+        rp.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegistrarPersonaActionPerformed
 
     private void btnAceptarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarPersonaActionPerformed
-      APersonaExistente as= new  APersonaExistente();
-      as.setVisible(true);
+        APersonaExistente as = new APersonaExistente();
+        as.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarPersonaActionPerformed
 
-    private void btnAceptar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar5ActionPerformed
-     IConexionBD conexionbd= new ConexionBD();
-   IPersonaDAO personaDAO= new PersonaDAO(conexionbd);
-        Consultas co= new   Consultas(personaDAO);
-   co.setVisible(true);
-     this.dispose();
-    }//GEN-LAST:event_btnAceptar5ActionPerformed
+    private void btnHistoGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoGeneralActionPerformed
+        IConexionBD conexionbd = new ConexionBD();
+        IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
+        ITramiteDAO tramiteDAO = new TramiteDAO(conexionbd);
+
+        HistorialGeneral co = new HistorialGeneral(personaDAO, tramiteDAO);
+        co.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnHistoGeneralActionPerformed
+
+    private void btnAceptar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar6ActionPerformed
+        IConexionBD conexionbd = new ConexionBD();
+        IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
+        Consultas con = new Consultas(personaDAO);
+        con.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAceptar6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,14 +214,15 @@ public class Inicial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              //  new Inicial().setVisible(true);
+                //  new Inicial().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar5;
+    private javax.swing.JButton btnAceptar6;
     private javax.swing.JButton btnAceptarPersona;
+    private javax.swing.JButton btnHistoGeneral;
     private javax.swing.JButton btnRegistrarPersona;
     private javax.swing.JButton btnRegistrarVariasPersonas;
     private javax.swing.JLabel jLabel1;

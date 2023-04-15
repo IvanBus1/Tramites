@@ -11,6 +11,8 @@ C:\Users\IVAN\Documents\Tramites\src\main\java\Persistencia\ConexionBD.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\GUI\Licencias.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\Entidades\Tramite.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\Persistencia\IConexionBD.java
+C:\Users\IVAN\Documents\Tramites\src\main\java\GUI\HistorialGeneral.java
+C:\Users\IVAN\Documents\Tramites\src\main\java\GUI\Consultas.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\Persistencia\PlacaDAO.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\Persistencia\IVehiculoDAO.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\Entidades\Placa.java
@@ -21,6 +23,7 @@ C:\Users\IVAN\Documents\Tramites\src\main\java\GUI\Historial.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\GUI\RenovarLicencia.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\GUI\SolicitarPlacas.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\Persistencia\VehiculoDAO.java
+C:\Users\IVAN\Documents\Tramites\src\main\java\GUI\Reportepdf.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\Persistencia\ILicenciaDAO.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\Entidades\Licencia.java
 C:\Users\IVAN\Documents\Tramites\src\main\java\GUI\Reporte.java

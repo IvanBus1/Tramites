@@ -53,5 +53,12 @@ public interface ITramiteDAO {
      * dentro del rango de fechas especificado
      */
     public List<Tramite> tramitesPersonaEnRangoFechas(int id, Date fechaInicio, Date fechaFin);
+    
+     public List<Tramite> obtenerTodosTramites();
+     
+     
+      public List<Tramite> tramitesPersonaTipo( String tipotramite);
+      
+       public List<Tramite> tramitesPersonaEnRangoFechasGeneral(Date fechaInicio, Date fechaFin);
 
 }

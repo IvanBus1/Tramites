@@ -347,7 +347,7 @@ public class PersonaDAO implements IPersonaDAO {
             List<Predicate> predi = new ArrayList<Predicate>();
             if (rfc != null && !rfc.equalsIgnoreCase("")) {
                 predi.add(cb.like(op.get("rfc"), "%" + rfc + "%"));
-
+                
             }
             if (fechaN != null) {
                 predi.add(cb.equal(op.get("fechaNacimiento"), fechaN));
@@ -370,5 +370,79 @@ public class PersonaDAO implements IPersonaDAO {
             return null;
         }
     }
+
+    @Override
+    public List<Persona> personasSimilares3(String rfc) {
+        
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+
+            CriteriaBuilder cb = emf.getCriteriaBuilder();
+            CriteriaQuery<Persona> perso = cb.createQuery(Persona.class);
+            Root<Persona> op = perso.from(Persona.class);
+            List<Predicate> predi = new ArrayList<Predicate>();
+            if (rfc != null && !rfc.equalsIgnoreCase("")) {
+                predi.add(cb.like(op.get("rfc"), "%" + rfc + "%"));           
+            }
+
+            if (!predi.isEmpty()) {
+                perso.where(predi.toArray(new Predicate[predi.size()]));
+            }
+
+            TypedQuery<Persona> chino = emf.createQuery(perso);
+
+            List<Persona> personas = chino.getResultList();
+
+            emf.getTransaction().commit();
+            emf.close();
+
+            return personas;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+    
+    
+    
+    @Override
+    public List<Persona> personasSimilaresPorNombre(String nombre) {
+    try {
+        EntityManager emf = conexionbd.crearcone();
+        emf.getTransaction().begin();
+
+        CriteriaBuilder cb = emf.getCriteriaBuilder();
+        CriteriaQuery<Persona> perso = cb.createQuery(Persona.class);
+        Root<Persona> op = perso.from(Persona.class);
+        List<Predicate> predi = new ArrayList<Predicate>();
+
+        if (nombre != null && !nombre.equalsIgnoreCase("")) {
+            // Utilizar like con patrón '%nombre%' para buscar nombres y apellidos similares
+            predi.add(cb.or(
+                cb.like(op.get("nombre"), "%" + nombre + "%"),
+                cb.like(op.get("apellidoPaterno"), "%" + nombre + "%"),
+                cb.like(op.get("apellidoMaterno"), "%" + nombre + "%")
+            ));
+        }
+
+        if (!predi.isEmpty()) {
+            perso.where(predi.toArray(new Predicate[predi.size()]));
+        }
+
+        TypedQuery<Persona> chino = emf.createQuery(perso);
+
+        List<Persona> personas = chino.getResultList();
+
+        emf.getTransaction().commit();
+        emf.close();
+
+        return personas;
+    } catch (Exception ex) {
+        System.out.println(ex);
+        return null;
+    }
+}
 
 }

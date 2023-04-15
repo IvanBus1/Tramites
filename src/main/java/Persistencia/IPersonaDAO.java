@@ -18,7 +18,6 @@ public interface IPersonaDAO {
      */
     public Persona agregar(Persona persona);
 
-    
     /**
      * Método para buscar una persona por su rfc en la base de datos.
      *
@@ -26,11 +25,10 @@ public interface IPersonaDAO {
      * @return La persona encontrada
      */
     public Persona buscarPorRfc(String rfc);
-    
-    
-    
+
     /**
-     * Método para buscar una persona por su nombre completo y rfc en la base de datos.
+     * Método para buscar una persona por su nombre completo y rfc en la base de
+     * datos.
      *
      * @param rfc el rfc que se usa para buscar
      * @param nombre el nombre que se usa para buscar
@@ -39,8 +37,7 @@ public interface IPersonaDAO {
      * @return La persona encontrada
      */
     public Persona buscarPorNombresRfc(String nombre, String apellidoPaterno, String apellidoMaterno, String rfc);
-    
-    
+
     /**
      * Método para buscar varias personas por su rfc en la base de datos.
      *
@@ -48,10 +45,10 @@ public interface IPersonaDAO {
      * @return Las personas encontradas
      */
     public List<Persona> buscarVariosRfc(String rfc);
-    
-    
+
     /**
-     * Método para buscar varias personas por su nombre completo y rfc en la base de datos.
+     * Método para buscar varias personas por su nombre completo y rfc en la
+     * base de datos.
      *
      * @param rfc el rfc que se usa para buscar
      * @param nombre el nombre que se usa para buscar
@@ -59,9 +56,8 @@ public interface IPersonaDAO {
      * @param apellidoMaterno el apellidoMaterno que se usa para buscar
      * @return Las personas encontradas
      */
-    public List <Persona> buscarVariosNombresRfc(String nombre, String apellidoPaterno, String apellidoMaterno, String rfc);
-    
-    
+    public List<Persona> buscarVariosNombresRfc(String nombre, String apellidoPaterno, String apellidoMaterno, String rfc);
+
     /**
      * Método para buscar una persona por su telefono en la base de datos.
      *
@@ -69,8 +65,7 @@ public interface IPersonaDAO {
      * @return La persona encontrada
      */
     public Persona buscarTelefono(String telefono);
-    
-    
+
     /**
      * Método para buscar varias personas por su telefono en la base de datos.
      *
@@ -78,7 +73,7 @@ public interface IPersonaDAO {
      * @return Las personas encontradas
      */
     public List<Persona> buscarVariosTelefonos(String telefono);
-    
+
     /**
      * Método para buscar una persona por su nombre y RFC en la base de datos.
      *
@@ -86,7 +81,6 @@ public interface IPersonaDAO {
      * @param rfc El RFC de la persona a buscar
      * @return La persona encontrada
      */
-    
     public Persona buscarNombreRFC(String nombre, String rfc);
 
     /**
@@ -111,6 +105,8 @@ public interface IPersonaDAO {
      */
     public List<Persona> personasSimilares2(String rfc, Date fechaN);
 
+    public List<Persona> personasSimilares3(String rfc);
     
+    public List<Persona> personasSimilaresPorNombre(String nombre);
 
 }

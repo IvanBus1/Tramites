@@ -136,11 +136,26 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         txtMarca.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtMarca.setForeground(new java.awt.Color(0, 153, 204));
         txtMarca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMarcaKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 250, 28));
 
         txtLinea.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtLinea.setForeground(new java.awt.Color(0, 153, 204));
         txtLinea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLineaActionPerformed(evt);
+            }
+        });
+        txtLinea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLineaKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 250, 28));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -151,6 +166,11 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         txtModelo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtModelo.setForeground(new java.awt.Color(0, 153, 204));
         txtModelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtModeloKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 250, 28));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -164,6 +184,11 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         txtColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtColorActionPerformed(evt);
+            }
+        });
+        txtColor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtColorKeyTyped(evt);
             }
         });
         jPanel1.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, 250, 28));
@@ -205,6 +230,32 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
        guardarVehiculo();
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+    char c = evt.getKeyChar();
+        
+        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+    }//GEN-LAST:event_txtMarcaKeyTyped
+
+    private void txtLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLineaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLineaActionPerformed
+
+    private void txtLineaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyTyped
+      char c = evt.getKeyChar();
+        
+        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+    }//GEN-LAST:event_txtLineaKeyTyped
+
+    private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
+  
+    }//GEN-LAST:event_txtModeloKeyTyped
+
+    private void txtColorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColorKeyTyped
+     char c = evt.getKeyChar();
+        
+        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+    }//GEN-LAST:event_txtColorKeyTyped
 
     public void guardarVehiculo() {
         try {

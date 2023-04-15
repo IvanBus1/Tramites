@@ -18,18 +18,20 @@ public class TramiteDAO implements ITramiteDAO {
     private IConexionBD conexionbd;
 
     /**
-
-Constructor de la clase TramiteDAO.
-@param conexionbd Objeto que maneja la conexión a la base de datos.
-*/
+     *
+     * Constructor de la clase TramiteDAO.
+     *
+     * @param conexionbd Objeto que maneja la conexión a la base de datos.
+     */
     public TramiteDAO(IConexionBD conexionbd) {
         this.conexionbd = conexionbd;
     }
 
     /**
      * Metodo para agregar un tramite
+     *
      * @param tramite objeto de tipo tramite
-     * @return  un tramite
+     * @return un tramite
      */
     @Override
     public Tramite agregar(Tramite tramite) {
@@ -49,6 +51,7 @@ Constructor de la clase TramiteDAO.
 
     /**
      * Metodo para consultar una lista de personas en base a su id
+     *
      * @param id id de la persona de la cual se buscaran sus tramites
      * @return tramites lista de tramites
      */
@@ -74,9 +77,12 @@ Constructor de la clase TramiteDAO.
     }
 
     /**
-     * Metodo para buscar los tramites de las personas en base al tipo de tramite
+     * Metodo para buscar los tramites de las personas en base al tipo de
+     * tramite
+     *
      * @param id id de la persona de la cual se buscaran los tramites
-     * @param tipotramite tipo del tramites por el cual se filtrara(placa o licencia)
+     * @param tipotramite tipo del tramites por el cual se filtrara(placa o
+     * licencia)
      * @return lista de tramites en base a los filtros aplicados
      */
     @Override
@@ -101,10 +107,12 @@ Constructor de la clase TramiteDAO.
     }
 
     /**
-     * Metodo para buscar los tramites de una persona en base al rango de fechas que se le mande
+     * Metodo para buscar los tramites de una persona en base al rango de fechas
+     * que se le mande
+     *
      * @param id id de la persona a la cual se le buscaran los tramites
      * @param fechaInicio fecha en la que inicia la busqueda de tramites
-     * @param fechaFin fecha en la que termina la busqueda de  tramites
+     * @param fechaFin fecha en la que termina la busqueda de tramites
      * @return lista de tramites filtrados
      */
     @Override
@@ -130,6 +138,80 @@ Constructor de la clase TramiteDAO.
         }
     }
 
+    /**
+     * Metodo para obtener una lista de todos los tramites realizados por
+     * cualquier persona.
+     *
+     * @return tramites lista de tramites
+     */
+    @Override
+    public List<Tramite> obtenerTodosTramites() {
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
 
-   
+            TypedQuery<Tramite> query = emf.createQuery("SELECT t FROM Tramite t", Tramite.class);
+            List<Tramite> tramites = query.getResultList();
+
+            emf.getTransaction().commit();
+            emf.close();
+
+            return tramites;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Tramite> tramitesPersonaTipo(String tipotramite) {
+
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+
+            TypedQuery<Tramite> query = emf.createQuery("SELECT t FROM Tramite t WHERE t.tipo = :tipoTramite", Tramite.class);
+            query.setParameter("tipoTramite", tipotramite);
+            List<Tramite> tramites = query.getResultList();
+
+            emf.getTransaction().commit();
+            emf.close();
+
+            return tramites;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+    /**
+     * Método para buscar los tramites de todas las personas en base a un rango
+     * de fechas
+     *
+     * @param fechaInicio fecha en la que inicia la búsqueda de tramites
+     * @param fechaFin fecha en la que termina la búsqueda de tramites
+     * @return lista de tramites filtrados
+     */
+    @Override
+    public List<Tramite> tramitesPersonaEnRangoFechasGeneral(Date fechaInicio, Date fechaFin) {
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+            System.out.println(fechaInicio);
+            System.out.println(fechaFin);
+            TypedQuery<Tramite> query = emf.createQuery("SELECT t FROM Tramite t WHERE t.fecha_solicitud BETWEEN :fechaInicio AND :fechaFin", Tramite.class);
+            query.setParameter("fechaInicio", fechaInicio);
+            query.setParameter("fechaFin", fechaFin);
+            List<Tramite> tramites = query.getResultList();
+
+            emf.getTransaction().commit();
+            emf.close();
+            System.out.println("todo bien");
+            return tramites;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
 }

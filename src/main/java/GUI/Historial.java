@@ -10,6 +10,7 @@ import Entidades.Placa;
 import Entidades.Tramite;
 import Persistencia.ITramiteDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -69,10 +70,10 @@ public class Historial extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Historial");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 120, -1));
+        jLabel1.setText("Historial individual");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 350, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 70));
 
@@ -80,6 +81,8 @@ public class Historial extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("A:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, -1, -1));
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
 
         jtHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,7 +123,7 @@ public class Historial extends javax.swing.JFrame {
                 btnVolver1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 580, 88, 37));
+        jPanel1.add(btnVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 590, 88, 37));
 
         btnLicencia.setBackground(new java.awt.Color(0, 102, 204));
         btnLicencia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -150,7 +153,11 @@ public class Historial extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(0, 102, 204));
         jLabel9.setText("De:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, -1));
+
+        txtFechaInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
         jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 240, -1));
+
+        txtFechaFin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
         jPanel1.add(txtFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 280, -1));
 
         btnllenar.setBackground(new java.awt.Color(0, 102, 204));
@@ -193,7 +200,7 @@ public class Historial extends javax.swing.JFrame {
                 btnlimpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnlimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 580, 88, 37));
+        jPanel1.add(btnlimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 590, 88, 37));
 
         btnFecha.setBackground(new java.awt.Color(0, 102, 204));
         btnFecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -253,8 +260,14 @@ public class Historial extends javax.swing.JFrame {
 
     private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
       
-        limpiarTabla();
-      llenarTablaFechas();
+        
+        if (txtFechaInicio.getDate() != null && txtFechaFin.getDate() != null) {
+            limpiarTabla();
+            llenarTablaFechas();
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor de llenar las fechas");
+        }
+
     }//GEN-LAST:event_btnFechaActionPerformed
 
     public void limpiarTabla() {
@@ -277,14 +290,14 @@ public class Historial extends javax.swing.JFrame {
             String fecha = tramite.getFecha_solicitud().toString();
 
             if (tramite instanceof Placa) {
-                tipoTramite = "Placa";
+                tipot = "Placa";
             } else if (tramite instanceof Licencia) {
-                tipoTramite = "Licencia";
+                tipot = "Licencia";
             } else {
-                tipoTramite = "baja"; // Agrega un valor por defecto si no es Placa ni Licencia
+                tipot = "baja"; // Agrega un valor por defecto si no es Placa ni Licencia
             }
 
-            modelo.addRow(new Object[]{nombre, tipoTramite, precio, fecha});
+            modelo.addRow(new Object[]{nombre, tipot, precio, fecha});
         }
 
     }

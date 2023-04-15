@@ -148,6 +148,9 @@ public class Consultas extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtRFCKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRFCKeyTyped(evt);
+            }
         });
         jPanel1.add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 250, 28));
 
@@ -224,6 +227,9 @@ public class Consultas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRFCKeyReleased
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+      char c = evt.getKeyChar();
+        
+        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
         llenarTabla();
     }//GEN-LAST:event_txtNombreKeyTyped
 
@@ -234,6 +240,13 @@ public class Consultas extends javax.swing.JFrame {
        
 
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
+      char c = evt.getKeyChar();
+    if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_txtRFCKeyTyped
 
     public void acciontabla(){
       

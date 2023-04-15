@@ -116,6 +116,11 @@ public class APersonaExistente extends javax.swing.JFrame {
                 txtrfcActionPerformed(evt);
             }
         });
+        txtrfc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtrfcKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtrfc, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 210, 28));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -129,6 +134,11 @@ public class APersonaExistente extends javax.swing.JFrame {
         txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtnombreActionPerformed(evt);
+            }
+        });
+        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnombreKeyTyped(evt);
             }
         });
         jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 210, 28));
@@ -174,6 +184,21 @@ public class APersonaExistente extends javax.swing.JFrame {
         
 buscarperso();
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
+        char c = evt.getKeyChar();
+        
+        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+        
+        
+    }//GEN-LAST:event_txtnombreKeyTyped
+
+    private void txtrfcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtrfcKeyTyped
+       char c = evt.getKeyChar();
+    if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_txtrfcKeyTyped
 
     public void buscarperso() {
         IConexionBD conexionbd = new ConexionBD();
