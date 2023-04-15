@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a534d6bb-9d06-41a5-b3fa-032cf94c4cc0">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="98"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaReporte" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="costo" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="89" y="15" width="392" height="53" uuid="c6cffade-6185-4b3a-afef-571dcd1ba946"/>
+				<textElement>
+					<font size="36"/>
+				</textElement>
+				<text><![CDATA[Reporte de tramites]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="50" y="15" width="100" height="20" uuid="1ba20cab-0919-4185-be5e-21d702962714"/>
+				<textFieldExpression><![CDATA[$P{fechaReporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<rectangle>
+				<reportElement x="29" y="41" width="100" height="20" uuid="61fbb6f1-01a0-4f37-a6c5-8af039fa4341"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="129" y="41" width="100" height="20" uuid="f754d0e3-10e7-48e0-a788-7a3d8c83481d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="229" y="41" width="100" height="20" uuid="965e2210-dc50-4333-af18-77deefa2d140"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="329" y="41" width="100" height="20" uuid="776edb78-e8dd-4990-9f42-9ce4a6555ce5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="29" y="41" width="100" height="20" uuid="21a992a7-429a-436a-925a-653fa7fff367"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="41" width="100" height="20" uuid="696ded8c-bdb1-4ae0-9c76-168de0bf3387"/>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="41" width="100" height="20" uuid="c167fa9b-24dd-4505-a719-fd571c66eecc"/>
+				<text><![CDATA[Costo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="329" y="41" width="100" height="20" uuid="64731e62-cafe-4f6b-9dbb-3b7026a4b081"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="29" y="0" width="100" height="20" uuid="53eebd8a-eef1-4856-a573-5883e8413713"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="129" y="0" width="100" height="20" uuid="4179f5cd-b7af-461e-9694-2824bb88c0a5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="229" y="0" width="100" height="20" uuid="c3c266ff-2bdc-4738-98d2-616bc00a7900"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="329" y="0" width="100" height="20" uuid="470d6f38-ef5d-4995-bca4-1ff9aeb211e8"/>
+			</rectangle>
+			<textField>
+				<reportElement x="29" y="0" width="100" height="20" uuid="344840bd-dd5c-4c18-a6de-9c79bc4d8bee"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="0" width="100" height="20" uuid="52f33b3e-fbc5-47bf-aa0d-b69def920d67"/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="229" y="0" width="100" height="20" uuid="4dd1254e-0727-4041-8e72-78607c85aa22"/>
+				<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="329" y="0" width="100" height="20" uuid="786de0a5-fef5-41a7-a760-90377a48d47b"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="329" y="24" width="210" height="20" uuid="25b71d48-8c69-4498-ab96-b7f112fa5a40"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
