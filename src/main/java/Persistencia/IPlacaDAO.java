@@ -31,5 +31,17 @@ public interface IPlacaDAO {
      */
     public Placa desactivarPlaca(Placa placa);
 
+    
+    
+    /**
+     * Método para obtener una lista de placas de un vehículo en base a su ID de
+     * vehículo.
+     *
+     * @param id_vehiculo El ID del vehículo del cual se desea obtener las
+     * placas
+     * @return Una lista de placas encontradas del vehículo especificado
+     */
+    public List<Placa> listaPlacasAutoSinEstado(int id_vehiculo);
+   
 }
 

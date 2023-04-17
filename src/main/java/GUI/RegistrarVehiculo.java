@@ -83,6 +83,11 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         btnCancelar.setBorder(null);
         btnCancelar.setContentAreaFilled(false);
         btnCancelar.setOpaque(true);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 550, 88, 37));
 
         btnAceptar.setBackground(new java.awt.Color(0, 102, 204));
@@ -256,6 +261,14 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         
         if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
     }//GEN-LAST:event_txtColorKeyTyped
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+      txtColor.setText("");
+      txtLinea.setText("");
+      txtMarca.setText("");
+      txtModelo.setText("");
+      txtNumeroSerie.setText("");
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     public void guardarVehiculo() {
         try {

@@ -57,8 +57,6 @@ public class PersonaDAO implements IPersonaDAO {
 
     }
 
-    
-    
     /**
      * Buscar una persona por su rfc en la base de datos.
      *
@@ -107,9 +105,9 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
-    
     /**
      * Buscar una persona por su nombre completo y rfc en la base de datos.
+     *
      * @param nombre El nombre que se usa para buscar.
      * @param apellidoPaterno El apellido paterno que se usa para buscar.
      * @param apellidoMaterno El apellido materno que se usa para buscar.
@@ -163,9 +161,9 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
-    
     /**
      * Buscar varias personas por su nombre completo y rfc en la base de datos.
+     *
      * @param nombre El nombre que se usa para buscar.
      * @param apellidoPaterno El apellido paterno que se usa para buscar.
      * @param apellidoMaterno El apellido materno que se usa para buscar.
@@ -193,7 +191,7 @@ public class PersonaDAO implements IPersonaDAO {
             return null;
         }
     }
-    
+
     /**
      * Buscar varias personas por su telefono en la base de datos.
      *
@@ -216,8 +214,6 @@ public class PersonaDAO implements IPersonaDAO {
             return null;
         }
     }
-    
-    
 
     /**
      * Busca una persona por nombre y RFC en la base de datos.
@@ -347,7 +343,7 @@ public class PersonaDAO implements IPersonaDAO {
             List<Predicate> predi = new ArrayList<Predicate>();
             if (rfc != null && !rfc.equalsIgnoreCase("")) {
                 predi.add(cb.like(op.get("rfc"), "%" + rfc + "%"));
-                
+
             }
             if (fechaN != null) {
                 predi.add(cb.equal(op.get("fechaNacimiento"), fechaN));
@@ -371,9 +367,16 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
+    /**
+     * Metodo para obtener las personas similares en base al rfc
+     *
+     * @param rfc El RFC de la persona a buscar. Puede ser nulo o vacío para no
+     * considerar este criterio de búsqueda.
+     * @return lista de personas similares
+     */
     @Override
     public List<Persona> personasSimilares3(String rfc) {
-        
+
         try {
             EntityManager emf = conexionbd.crearcone();
             emf.getTransaction().begin();
@@ -383,7 +386,7 @@ public class PersonaDAO implements IPersonaDAO {
             Root<Persona> op = perso.from(Persona.class);
             List<Predicate> predi = new ArrayList<Predicate>();
             if (rfc != null && !rfc.equalsIgnoreCase("")) {
-                predi.add(cb.like(op.get("rfc"), "%" + rfc + "%"));           
+                predi.add(cb.like(op.get("rfc"), "%" + rfc + "%"));
             }
 
             if (!predi.isEmpty()) {
@@ -404,45 +407,48 @@ public class PersonaDAO implements IPersonaDAO {
         }
     }
 
-    
-    
-    
+    /**
+     * Devuelve una lista de personas similares por nombre.
+     *
+     * @param nombre El nombre o parte del nombre de las personas a buscar.
+     * @return Una lista de objetos de tipo Persona que coinciden con el nombre
+     * proporcionado.
+     */
     @Override
     public List<Persona> personasSimilaresPorNombre(String nombre) {
-    try {
-        EntityManager emf = conexionbd.crearcone();
-        emf.getTransaction().begin();
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
 
-        CriteriaBuilder cb = emf.getCriteriaBuilder();
-        CriteriaQuery<Persona> perso = cb.createQuery(Persona.class);
-        Root<Persona> op = perso.from(Persona.class);
-        List<Predicate> predi = new ArrayList<Predicate>();
+            CriteriaBuilder cb = emf.getCriteriaBuilder();
+            CriteriaQuery<Persona> perso = cb.createQuery(Persona.class);
+            Root<Persona> op = perso.from(Persona.class);
+            List<Predicate> predi = new ArrayList<Predicate>();
 
-        if (nombre != null && !nombre.equalsIgnoreCase("")) {
-            // Utilizar like con patrón '%nombre%' para buscar nombres y apellidos similares
-            predi.add(cb.or(
-                cb.like(op.get("nombre"), "%" + nombre + "%"),
-                cb.like(op.get("apellidoPaterno"), "%" + nombre + "%"),
-                cb.like(op.get("apellidoMaterno"), "%" + nombre + "%")
-            ));
+            if (nombre != null && !nombre.equalsIgnoreCase("")) {
+                // Utilizar like con patrón '%nombre%' para buscar nombres y apellidos similares
+                predi.add(cb.or(
+                        cb.like(op.get("nombre"), "%" + nombre + "%"),
+                        cb.like(op.get("apellidoPaterno"), "%" + nombre + "%"),
+                        cb.like(op.get("apellidoMaterno"), "%" + nombre + "%")
+                ));
+            }
+
+            if (!predi.isEmpty()) {
+                perso.where(predi.toArray(new Predicate[predi.size()]));
+            }
+
+            TypedQuery<Persona> chino = emf.createQuery(perso);
+
+            List<Persona> personas = chino.getResultList();
+
+            emf.getTransaction().commit();
+            emf.close();
+
+            return personas;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
         }
-
-        if (!predi.isEmpty()) {
-            perso.where(predi.toArray(new Predicate[predi.size()]));
-        }
-
-        TypedQuery<Persona> chino = emf.createQuery(perso);
-
-        List<Persona> personas = chino.getResultList();
-
-        emf.getTransaction().commit();
-        emf.close();
-
-        return personas;
-    } catch (Exception ex) {
-        System.out.println(ex);
-        return null;
     }
-}
-
 }

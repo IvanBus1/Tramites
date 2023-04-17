@@ -105,8 +105,22 @@ public interface IPersonaDAO {
      */
     public List<Persona> personasSimilares2(String rfc, Date fechaN);
 
+    /**
+     * Obtiene una lista de personas similares por RFC.
+     *
+     * @param rfc El RFC de la persona a buscar.
+     * @return Una lista de objetos de tipo Persona que coinciden con el RFC
+     * proporcionado.
+     */
     public List<Persona> personasSimilares3(String rfc);
-    
+
+    /**
+     * Obtiene una lista de personas similares por nombre.
+     *
+     * @param nombre El nombre o parte del nombre de las personas a buscar.
+     * @return Una lista de objetos de tipo Persona que coinciden con el nombre
+     * proporcionado.
+     */
     public List<Persona> personasSimilaresPorNombre(String nombre);
 
 }

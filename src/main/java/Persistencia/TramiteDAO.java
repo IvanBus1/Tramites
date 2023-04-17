@@ -163,6 +163,11 @@ public class TramiteDAO implements ITramiteDAO {
         }
     }
 
+    /**
+     * Metodo para obtener los tramites de una persona en base al tipo del tramite
+     * @param tipotramite
+     * @return tramites lista de tramites
+     */
     @Override
     public List<Tramite> tramitesPersonaTipo(String tipotramite) {
 

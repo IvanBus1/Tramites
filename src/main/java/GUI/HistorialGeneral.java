@@ -244,6 +244,11 @@ public class HistorialGeneral extends javax.swing.JFrame {
         txtNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(0, 153, 204));
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
@@ -316,22 +321,20 @@ public class HistorialGeneral extends javax.swing.JFrame {
                 repor.setCosto(String.valueOf((tramite.getPrecio())));
                 repor.setTipo(tipot);
                 Persona personaa = tramite.getPersona();
-                
-                
-                
+
                 String nombreEncriptado = personaa.getNombre();
                 String nombreDesencriptado = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
-                
+
                 String apellidoPEncriptado = personaa.getApellidoPaterno();
                 String apellidoPDesencriptado = EncriptacionUtils.desencriptarApellidoPaterno(apellidoPEncriptado);
-                
+
                 String apellidoMEncriptado = personaa.getApellidoMaterno();
                 String apellidoMDesencriptado = EncriptacionUtils.desencriptarApellidoMaterno(apellidoMEncriptado);
-                
+
                 String nombreC = nombreDesencriptado + " " + apellidoPDesencriptado + " " + apellidoMDesencriptado;
-                
+
                 repor.setNombre(nombreC);
-                
+
                 repor.setFecha(tramite.getFecha_solicitud().toString());
                 listaReporte.add(repor);
             }
@@ -382,7 +385,7 @@ public class HistorialGeneral extends javax.swing.JFrame {
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char c = evt.getKeyChar();
-        if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
+        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombreKeyTyped
@@ -394,21 +397,25 @@ public class HistorialGeneral extends javax.swing.JFrame {
         llenarTablaTipo();
     }//GEN-LAST:event_btnPlacas1ActionPerformed
 
-   public void llenarTablaTipo() {
-    DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
-    listaTabla = tramite.tramitesPersonaTipo(tipot);
-    
-    for (Tramite tramite : listaTabla) {
-        String nombreEncriptado = tramite.getPersona().getNombre();
-        String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
-        
-        String tipoTramite = tipot;
-        int precio = tramite.getPrecio();
-        String fecha = tramite.getFecha_solicitud().toString();
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
 
-        modelo.addRow(new Object[]{nombre, tipoTramite, precio, fecha});
+    public void llenarTablaTipo() {
+        DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
+        listaTabla = tramite.tramitesPersonaTipo(tipot);
+
+        for (Tramite tramite : listaTabla) {
+            String nombreEncriptado = tramite.getPersona().getNombre();
+            String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
+
+            String tipoTramite = tipot;
+            int precio = tramite.getPrecio();
+            String fecha = tramite.getFecha_solicitud().toString();
+
+            modelo.addRow(new Object[]{nombre, tipoTramite, precio, fecha});
+        }
     }
-}
 
     public void limpiarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
@@ -418,29 +425,28 @@ public class HistorialGeneral extends javax.swing.JFrame {
     }
 
     public void llenarTabla() {
-    listaTabla = tramite.obtenerTodosTramites();
-    DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
+        listaTabla = tramite.obtenerTodosTramites();
+        DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
 
-    for (Tramite tramite : listaTabla) {
-        
-        
-        String nombreEncriptado = tramite.getPersona().getNombre();
-        String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado); // Desencriptar nombre de la persona asociada al tramite
+        for (Tramite tramite : listaTabla) {
 
-        int precio = tramite.getPrecio();
-        String fecha = tramite.getFecha_solicitud().toString();
+            String nombreEncriptado = tramite.getPersona().getNombre();
+            String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado); // Desencriptar nombre de la persona asociada al tramite
 
-        if (tramite instanceof Placa) {
-            tipot = "Placa";
-        } else if (tramite instanceof Licencia) {
-            tipot = "Licencia";
-        } else {
-            tipot = "baja"; // Agrega un valor por defecto si no es Placa ni Licencia
+            int precio = tramite.getPrecio();
+            String fecha = tramite.getFecha_solicitud().toString();
+
+            if (tramite instanceof Placa) {
+                tipot = "Placa";
+            } else if (tramite instanceof Licencia) {
+                tipot = "Licencia";
+            } else {
+                tipot = "baja"; // Agrega un valor por defecto si no es Placa ni Licencia
+            }
+
+            modelo.addRow(new Object[]{nombre, tipot, precio, fecha});
         }
-
-        modelo.addRow(new Object[]{nombre, tipot, precio, fecha});
     }
-}
 
     public void llenarTablaFechas() {
         long date = this.txtFechaInicio.getDate().getTime();
@@ -454,10 +460,10 @@ public class HistorialGeneral extends javax.swing.JFrame {
         System.out.println(listaTabla.size());
 
         for (Tramite tramite : listaTabla) {
-            
+
             String nombreEncriptado = tramite.getPersona().getNombre(); // Obtener nombre de la persona asociada al trámite
-            String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado); 
-            
+            String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
+
             String tipoTramite = null;
             int precio = tramite.getPrecio();
             String fecha = tramite.getFecha_solicitud().toString();
@@ -478,9 +484,9 @@ public class HistorialGeneral extends javax.swing.JFrame {
         if (!txtNombre.getText().equalsIgnoreCase("")) {
             for (Tramite tramite : listaTabla) {
                 Persona persona = tramite.getPersona();
-                String nombre = EncriptacionUtils.desencriptarNombre(tramite.getPersona().getNombre()) + " " + 
-                        EncriptacionUtils.desencriptarApellidoPaterno(tramite.getPersona().getApellidoPaterno()) + " " + 
-                        EncriptacionUtils.desencriptarApellidoMaterno(tramite.getPersona().getApellidoMaterno());
+                String nombre = EncriptacionUtils.desencriptarNombre(tramite.getPersona().getNombre()) + " "
+                        + EncriptacionUtils.desencriptarApellidoPaterno(tramite.getPersona().getApellidoPaterno()) + " "
+                        + EncriptacionUtils.desencriptarApellidoMaterno(tramite.getPersona().getApellidoMaterno());
                 if (nombre.toLowerCase().contains(txtNombre.getText().toLowerCase())) {
                     aux.add(tramite);
                 }
@@ -493,9 +499,9 @@ public class HistorialGeneral extends javax.swing.JFrame {
 
         for (Tramite tramite : listaTabla) {
             Persona persona = tramite.getPersona();
-            String nombre = EncriptacionUtils.desencriptarNombre(persona.getNombre()) + " " + 
-                    EncriptacionUtils.desencriptarApellidoPaterno(persona.getApellidoPaterno()) + " " + 
-                    EncriptacionUtils.desencriptarApellidoMaterno(persona.getApellidoMaterno());
+            String nombre = EncriptacionUtils.desencriptarNombre(persona.getNombre()) + " "
+                    + EncriptacionUtils.desencriptarApellidoPaterno(persona.getApellidoPaterno()) + " "
+                    + EncriptacionUtils.desencriptarApellidoMaterno(persona.getApellidoMaterno());
             String tipoTramite = "";
             if (tramite instanceof Placa) {
                 tipoTramite = "Placa";

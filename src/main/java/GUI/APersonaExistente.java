@@ -206,7 +206,10 @@ public class APersonaExistente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        txtApellidoM.setText("");
+        txtApellidoP.setText("");
+        txtNombre.setText("");
+        txtRfc.setText("");
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtApellidoMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoMActionPerformed
@@ -224,23 +227,24 @@ public class APersonaExistente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        
-buscarperso();
+
+        buscarperso();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+
         char c = evt.getKeyChar();
-        
-        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
-        
-        
+        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtApellidoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoMKeyTyped
-       char c = evt.getKeyChar();
-        
-        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
-        
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtApellidoMKeyTyped
 
     private void txtRfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRfcActionPerformed
@@ -250,10 +254,10 @@ buscarperso();
     private void txtRfcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRfcKeyTyped
 
         char c = evt.getKeyChar();
-    if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
-        evt.consume();
-    }
-        
+        if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtRfcKeyTyped
 
     private void txtApellidoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoPActionPerformed
@@ -261,22 +265,20 @@ buscarperso();
     }//GEN-LAST:event_txtApellidoPActionPerformed
 
     private void txtApellidoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoPKeyTyped
-       char c = evt.getKeyChar();
-        
-        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtApellidoPKeyTyped
 
     public void buscarperso() {
         IConexionBD conexionbd = new ConexionBD();
         IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
-        
-        
-            
-        
+
         String nombreEncriptado = EncriptacionUtils.encriptarNombre(txtNombre.getText());
-        String apellidoPEncriptado =EncriptacionUtils.encriptarApellidoPaterno(txtApellidoP.getText());
-        String apellidoMEncriptado= EncriptacionUtils.encriptarApellidoMaterno(txtApellidoM.getText());
-        
+        String apellidoPEncriptado = EncriptacionUtils.encriptarApellidoPaterno(txtApellidoP.getText());
+        String apellidoMEncriptado = EncriptacionUtils.encriptarApellidoMaterno(txtApellidoM.getText());
+
         Persona personaencon = personaDAO.buscarPorNombresRfc(nombreEncriptado, apellidoPEncriptado, apellidoMEncriptado, txtRfc.getText());
         if (personaencon == null) {
             JOptionPane.showMessageDialog(null, "no");
@@ -285,7 +287,7 @@ buscarperso();
             String nombreDesencriptado = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
             String apellidoPDesencriptado = EncriptacionUtils.desencriptarApellidoPaterno(apellidoPEncriptado);
             String apellidoMDesencriptado = EncriptacionUtils.desencriptarApellidoMaterno(apellidoMEncriptado);
-            
+
             JOptionPane.showMessageDialog(null, "si");
             personaencon.setNombre(nombreDesencriptado);
             personaencon.setApellidoPaterno(apellidoPDesencriptado);
@@ -295,9 +297,6 @@ buscarperso();
             this.dispose();
         }
 
-        
-            
-            
     }
 
     public static void main(String args[]) {

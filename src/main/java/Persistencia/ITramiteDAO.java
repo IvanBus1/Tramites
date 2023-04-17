@@ -53,12 +53,33 @@ public interface ITramiteDAO {
      * dentro del rango de fechas especificado
      */
     public List<Tramite> tramitesPersonaEnRangoFechas(int id, Date fechaInicio, Date fechaFin);
-    
-     public List<Tramite> obtenerTodosTramites();
-     
-     
-      public List<Tramite> tramitesPersonaTipo( String tipotramite);
-      
-       public List<Tramite> tramitesPersonaEnRangoFechasGeneral(Date fechaInicio, Date fechaFin);
+
+    /**
+     * Obtiene todos los trámites disponibles.
+     *
+     * @return Una lista de objetos de tipo Tramite que representan todos los
+     * trámites disponibles.
+     */
+    public List<Tramite> obtenerTodosTramites();
+
+    /**
+     * Obtiene los trámites de una persona por tipo de trámite.
+     *
+     * @param tipotramite El tipo de trámite a buscar.
+     * @return Una lista de objetos de tipo Tramite que representan los trámites
+     * de la persona para el tipo de trámite especificado.
+     */
+    public List<Tramite> tramitesPersonaTipo(String tipotramite);
+
+    /**
+     * Obtiene los trámites de una persona dentro de un rango de fechas
+     * específico.
+     *
+     * @param fechaInicio La fecha de inicio del rango de fechas.
+     * @param fechaFin La fecha de fin del rango de fechas.
+     * @return Una lista de objetos de tipo Tramite que representan los trámites
+     * de la persona dentro del rango de fechas especificado.
+     */
+    public List<Tramite> tramitesPersonaEnRangoFechasGeneral(Date fechaInicio, Date fechaFin);
 
 }

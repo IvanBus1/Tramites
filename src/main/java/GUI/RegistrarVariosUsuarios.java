@@ -46,12 +46,13 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt = new javax.swing.JTable();
         prueba1 = new javax.swing.JLabel();
+        prueba2 = new javax.swing.JLabel();
+        nClientes = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -70,20 +71,6 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 70));
 
-        btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar.setText("Cancelar");
-        btnCancelar.setBorder(null);
-        btnCancelar.setContentAreaFilled(false);
-        btnCancelar.setOpaque(true);
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 550, 88, 37));
-
         btnAceptar.setBackground(new java.awt.Color(0, 102, 204));
         btnAceptar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
@@ -96,7 +83,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
                 btnAceptarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, 88, 37));
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 710, 88, 37));
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -110,7 +97,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 550, 88, 37));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 700, 88, 37));
 
         jt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,12 +118,25 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jt);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 740, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 760, 350));
 
         prueba1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         prueba1.setForeground(new java.awt.Color(0, 102, 204));
-        prueba1.setText("Ingrese los datos de las personas:");
-        jPanel1.add(prueba1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        prueba1.setText("si/no");
+        jPanel1.add(prueba1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 130, -1, -1));
+
+        prueba2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        prueba2.setForeground(new java.awt.Color(0, 102, 204));
+        prueba2.setText("Ingrese los datos de las personas:");
+        jPanel1.add(prueba2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+
+        nClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }));
+        nClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nClientesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(nClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,7 +149,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
         );
 
         pack();
@@ -211,7 +211,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
             String nombreEncriptado = EncriptacionUtils.encriptarNombre(nombre);
             String apaternoEncriptado = EncriptacionUtils.encriptarApellidoPaterno(apellidoPaterno);
             String amaternoEncriptado = EncriptacionUtils.encriptarApellidoMaterno(apellidoMaterno);
-            
+
             Persona nuevaPersona = new Persona();
             nuevaPersona.setRfc(rfc);
             nuevaPersona.setNombre(nombreEncriptado);
@@ -254,10 +254,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         }
     }
 
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelarActionPerformed
+  
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
@@ -270,6 +267,12 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void nClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nClientesActionPerformed
+     DefaultTableModel h= (DefaultTableModel) jt.getModel();
+     int filas=Integer.parseInt((String) nClientes.getSelectedItem());
+     h.setRowCount(filas);
+    }//GEN-LAST:event_nClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,13 +313,14 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jt;
+    private javax.swing.JComboBox<String> nClientes;
     private javax.swing.JLabel prueba1;
+    private javax.swing.JLabel prueba2;
     // End of variables declaration//GEN-END:variables
 }

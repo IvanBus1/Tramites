@@ -98,6 +98,11 @@ public class Registrar_Persona extends javax.swing.JFrame {
         btnCancelar.setBorder(null);
         btnCancelar.setContentAreaFilled(false);
         btnCancelar.setOpaque(true);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 610, 88, 37));
 
         btnAceptar.setBackground(new java.awt.Color(0, 102, 204));
@@ -237,8 +242,9 @@ public class Registrar_Persona extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        guardarPersona();
 
+        guardarPersona();
+       
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtAPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAPaternoActionPerformed
@@ -246,35 +252,48 @@ public class Registrar_Persona extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAPaternoActionPerformed
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-     char c = evt.getKeyChar();
-        
-        if(c<'0' || c>'9')evt.consume();
+        char c = evt.getKeyChar();
+
+        if (c < '0' || c > '9')
+            evt.consume();
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-     char c = evt.getKeyChar();
-        
-        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A') | c > 'Z')
+            evt.consume();
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtAPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAPaternoKeyTyped
-     char c = evt.getKeyChar();
-        
-        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A') | c > 'Z')
+            evt.consume();
     }//GEN-LAST:event_txtAPaternoKeyTyped
 
     private void txtAMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAMaternoKeyTyped
- char c = evt.getKeyChar();
-        
-        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A') | c > 'Z')
+            evt.consume();
     }//GEN-LAST:event_txtAMaternoKeyTyped
 
     private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
-     char c = evt.getKeyChar();
-    if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
-        evt.consume();
-    }
+        char c = evt.getKeyChar();
+        if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtRFCKeyTyped
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        txtAMaterno.setText("");
+        txtAPaterno.setText("");
+        txtNombre.setText("");
+        txtRFC.setText("");
+        txtTelefono.setText("");
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     public void guardarPersona() {
         try {
@@ -336,8 +355,7 @@ public class Registrar_Persona extends javax.swing.JFrame {
             String nombreEncriptado = EncriptacionUtils.encriptarNombre(txtNombre.getText());
             String apaternoEncriptado = EncriptacionUtils.encriptarApellidoPaterno(txtAPaterno.getText());
             String amaternoEncriptado = EncriptacionUtils.encriptarApellidoMaterno(txtAMaterno.getText());
-            
-            
+
             Persona nuevaPersona = new Persona();
             nuevaPersona.setRfc(txtRFC.getText());
             nuevaPersona.setNombre(nombreEncriptado);

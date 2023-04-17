@@ -40,7 +40,8 @@ public class PlacaDAO implements IPlacaDAO {
             EntityManager emf = conexionbd.crearcone();
             emf.getTransaction().begin();
             emf.persist(placa);
-
+            emf.flush();
+            emf.refresh(placa);
             emf.getTransaction().commit();
 
             return placa;
@@ -103,6 +104,36 @@ public class PlacaDAO implements IPlacaDAO {
             emf.getTransaction().commit();
 
             return placa;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
+    /**
+     * Obtiene una lista de placas asociadas a un vehículo específico, sin
+     * importar su estado.
+     *
+     * @param id_vehiculo Identificador del vehículo del cual se desean obtener
+     * las placas.
+     * @return Lista de objetos de la clase Placa que están asociados al
+     * vehículo, o null si ocurre un error.
+     */
+    @Override
+    public List<Placa> listaPlacasAutoSinEstado(int id_vehiculo) {
+        try {
+            EntityManager emf = conexionbd.crearcone();
+            emf.getTransaction().begin();
+
+            TypedQuery<Placa> query = emf.createQuery("SELECT p FROM Placa p WHERE p.vehiculo.id_vehiculo = :id_vehiculo", Placa.class);
+            query.setParameter("id_vehiculo", id_vehiculo);
+
+            List<Placa> placas = query.getResultList();
+
+            emf.getTransaction().commit();
+            emf.close();
+
+            return placas;
         } catch (Exception ex) {
             System.out.println(ex);
             return null;

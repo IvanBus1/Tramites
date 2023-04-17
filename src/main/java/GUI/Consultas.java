@@ -11,6 +11,7 @@ import Persistencia.IPersonaDAO;
 import Persistencia.ITramiteDAO;
 import Persistencia.TramiteDAO;
 import Utilidades.EncriptacionUtils;
+import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,9 +27,9 @@ import javax.swing.table.DefaultTableModel;
  * @author IVAN
  */
 public class Consultas extends javax.swing.JFrame {
-    private   List<Persona> personas;
+
+    private List<Persona> personas;
     IPersonaDAO personaDAO;
-   
 
     public Consultas(IPersonaDAO personaDAO) {
         this.personaDAO = personaDAO;
@@ -35,8 +37,6 @@ public class Consultas extends javax.swing.JFrame {
         llenarTabla();
         acciontabla();
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,6 +129,11 @@ public class Consultas extends javax.swing.JFrame {
         txtNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(0, 153, 204));
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
@@ -230,66 +235,67 @@ public class Consultas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRFCKeyReleased
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-      char c = evt.getKeyChar();
-        
-        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
-        llenarTabla();
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         txtRFC.setText("");
         txtNombre.setText("");
 
-       
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
-      char c = evt.getKeyChar();
-    if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
-        evt.consume();
-    }
+        char c = evt.getKeyChar();
+        if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtRFCKeyTyped
 
-    public void acciontabla(){
-      
-         jtConsultas.addMouseListener(new MouseAdapter() {
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    public void acciontabla() {
+
+        jtConsultas.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) { // si se hace doble clic
                     JTable target = (JTable) e.getSource();
                     int row = target.getSelectedRow();
                     int column = target.getSelectedColumn();
 
-                    
-                   
-                    
                     IConexionBD conexionbd = new ConexionBD();
                     ITramiteDAO tramite = new TramiteDAO(conexionbd);
                     Historial hs = new Historial(personas.get(row), tramite);
                     hs.setVisible(true);
                     
-                
-                    
-                    
                     JOptionPane.showMessageDialog(null, target.getValueAt(row, column));
+                     ((Window) SwingUtilities.getRoot(target)).dispose();
                 }
-                
+
             }
         });
-            
+
     }
-    
-    
-    
-    
+
     public void llenarTabla() {
 
         String rfc = txtRFC.getText();
 
-         personas = personaDAO.personasSimilares2(rfc, txtFecha.getDate());
+        personas = personaDAO.personasSimilares2(rfc, txtFecha.getDate());
 
         DefaultTableModel modelo = (DefaultTableModel) jtConsultas.getModel();
         modelo.setRowCount(0); // Limpiar el contenido actual de la tabla
+
+        for (Persona persona : personas) {
+            persona.setNombre(EncriptacionUtils.desencriptarNombre(persona.getNombre()));
+            persona.setApellidoPaterno(EncriptacionUtils.desencriptarApellidoPaterno(persona.getApellidoPaterno()));
+            persona.setApellidoMaterno(EncriptacionUtils.desencriptarApellidoMaterno(persona.getApellidoMaterno()));
+        }
 
         List<Persona> personass = new ArrayList<>();
         if (!txtNombre.getText().equals("")) {
@@ -306,34 +312,13 @@ public class Consultas extends javax.swing.JFrame {
         }
 
         for (Persona persona : personas) {
-            String nombreEncriptado = persona.getNombre();
-            String nombre;
-        try {
-            nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
-        } catch (Exception e) {
-            nombre = "Error al desencriptar el nombre";
-        }
-            
-            
-            String apellidoPEncriptado = persona.getApellidoPaterno();
-            String apellidoP;
-        try {
-            apellidoP = EncriptacionUtils.desencriptarApellidoPaterno(apellidoPEncriptado);
-        } catch (Exception e) {
-            apellidoP = "Error al desencriptar el apellido paterno";
-        }
-        
-        
-            String apellidoMEncriptado = persona.getApellidoMaterno();
-            String apellidoM;
-        try {
-            apellidoM = EncriptacionUtils.desencriptarApellidoMaterno(apellidoMEncriptado);
-        } catch (Exception e) {
-            apellidoM = "Error al desencriptar el apellido materno";
-        }
-        
-        
+            String nombre = persona.getNombre();
+
+            String apellidoP = persona.getApellidoPaterno();
+
+            String apellidoM = persona.getApellidoMaterno();
             rfc = persona.getRfc();
+
             String fechaNacimiento = persona.getFechaNacimiento().toString();
             modelo.addRow(new Object[]{nombre, apellidoP, apellidoM, rfc, fechaNacimiento});
         }
