@@ -99,14 +99,14 @@ public class Placa extends Tramite {
 
     /**
      *
-     * Constructor de la clase Placa con parámetros para renovación.
-     *
+     * Constructor de la clase Placa con parámetros de la placa
+     * @param num_placa El numero de placa de la placa
      * @param estado El estado de la placa.
      * @param vehiculo El vehículo asociado a la placa.
      * @param precio El precio del trámite.
      * @param persona La persona asociada al trámite.
      */
-    public Placa(String estado, Vehiculo vehiculo, int precio, Persona persona) {
+    public Placa(String num_placa,String estado, Vehiculo vehiculo, int precio, Persona persona) {
         super(precio, new Date(), persona);
         this.estado = estado;
         this.vehiculo = vehiculo;

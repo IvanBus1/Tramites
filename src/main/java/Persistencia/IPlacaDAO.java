@@ -13,6 +13,25 @@ public interface IPlacaDAO {
      */
     public Placa agregar(Placa placa);
 
+    
+    
+    /**
+     * Método para buscar una placa por su numero de placa y estado en la base de datos.
+     *
+     * @param num_placa El numero de placa que se usará para buscar
+     * @return La placa encontrada
+     */
+    public Placa buscarNumPlacayEstado(String num_placa);
+    
+    /**
+     * Método para buscar si un vehiculo cuenta con placas por su id de vehiculo en la base de datos.
+     *
+     * @param id_vehiculo El id de vehiculo que se usará para verificar
+     * @return La placa agregada
+     */
+    public boolean verificarPlaca(int id_vehiculo);
+    
+    
     /**
      * Método para obtener una lista de placas de un vehículo en base a su ID de
      * vehículo.

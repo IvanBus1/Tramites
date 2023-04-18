@@ -5,11 +5,16 @@
 package GUI;
 
 import Entidades.Persona;
+import Entidades.Placa;
 import Entidades.Vehiculo;
+import Persistencia.IPlacaDAO;
 import Persistencia.IVehiculoDAO;
 import Persistencia.VehiculoDAO;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,10 +23,12 @@ import java.util.List;
 public class RenovarPlacas extends javax.swing.JFrame {
 
        private Persona persona;
+       private IPlacaDAO placa;
        private IVehiculoDAO vehiculo;
-    public RenovarPlacas(Persona persona,IVehiculoDAO vehiculo) {
+    public RenovarPlacas(Persona persona,IVehiculoDAO vehiculo, IPlacaDAO placa) {
        this.persona=persona;
        this.vehiculo=vehiculo;
+       this.placa=placa;
         initComponents();
           lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
            llenarCombo();
@@ -48,13 +55,12 @@ public class RenovarPlacas extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtFolio1 = new javax.swing.JTextField();
+        txtPlacaAnt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtFolio2 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        btnAceptar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -142,10 +148,10 @@ public class RenovarPlacas extends javax.swing.JFrame {
         jLabel7.setText("Vehiculos:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
-        txtFolio1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        txtFolio1.setForeground(new java.awt.Color(0, 153, 204));
-        txtFolio1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        jPanel1.add(txtFolio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 250, 30));
+        txtPlacaAnt.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtPlacaAnt.setForeground(new java.awt.Color(0, 153, 204));
+        txtPlacaAnt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        jPanel1.add(txtPlacaAnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 250, 30));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -173,20 +179,6 @@ public class RenovarPlacas extends javax.swing.JFrame {
         jLabel10.setText("Placas anteriores:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
 
-        btnAceptar2.setBackground(new java.awt.Color(0, 102, 204));
-        btnAceptar2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnAceptar2.setForeground(new java.awt.Color(255, 255, 255));
-        btnAceptar2.setText("Aceptar");
-        btnAceptar2.setBorder(null);
-        btnAceptar2.setContentAreaFilled(false);
-        btnAceptar2.setOpaque(true);
-        btnAceptar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptar2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnAceptar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 88, 37));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,12 +203,8 @@ public class RenovarPlacas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar1ActionPerformed
-        // TODO add your handling code here:
+        asere();
     }//GEN-LAST:event_btnAceptar1ActionPerformed
-
-    private void btnAceptar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAceptar2ActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
    Menu m= new Menu(persona);
@@ -228,6 +216,84 @@ public class RenovarPlacas extends javax.swing.JFrame {
    
     }//GEN-LAST:event_cbxVehiculosActionPerformed
 
+    
+    public String generarPlacaAleatoria() {
+    String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    String numeros = "0123456789";
+    String placa = "";
+
+    // Agregar tres letras aleatorias
+    for (int i = 0; i < 3; i++) {
+        int index = (int) (Math.random() * letras.length());
+        placa += letras.charAt(index);
+    }
+
+    // Agregar cuatro números aleatorios
+    for (int i = 0; i < 4; i++) {
+        int index = (int) (Math.random() * numeros.length());
+        placa += numeros.charAt(index);
+    }
+
+    return placa;
+}
+    
+    
+    
+    
+     public void asere(){
+         
+         String placaAnt = txtPlacaAnt.getText();
+         
+        if (!placaAnt.matches("[a-zA-Z0-9]+")) {
+            JOptionPane.showMessageDialog(null, "El campo numero de placa solo puede contener letras y números");
+            return;
+        }
+         
+         Calendar cal = Calendar.getInstance();
+        
+        Date fechaActual = cal.getTime();
+         
+         
+        int precio=0;
+        Vehiculo vehiculo= (Vehiculo)cbxVehiculos.getSelectedItem();
+        
+       if(placa.verificarPlaca(vehiculo.getId_vehiculo())){
+           
+           Placa placaencon = placa.buscarNumPlacayEstado(txtPlacaAnt.getText());
+        
+        if(placaencon==null){
+            JOptionPane.showMessageDialog(null, "No se encontró la placa con ese de numero de placa o ya se encuentra inactiva");
+        }
+        else{
+           placa.desactivarPlaca(placaencon);
+            
+           precio=1000;
+           
+           String numeroPlaca = generarPlacaAleatoria();
+           
+           Placa placanueva= new Placa();
+       
+       placanueva.setNum_placa(numeroPlaca);
+       placanueva.setEstado("Activa");
+       placanueva.setVehiculo(vehiculo);
+       placanueva.setPersona(persona);
+       placanueva.setFecha_solicitud(fechaActual);
+       placanueva.setPrecio(precio);
+       
+       Placa placaa=placa.agregar(placanueva);
+       if(placaa==null){
+            JOptionPane.showMessageDialog(null,"No se pudo renovar la placa");
+       }else{
+           JOptionPane.showMessageDialog(null,"La placa ha sido renovada con exito ");
+            Reporte r = new Reporte(persona,placanueva);
+                r.setVisible(true);
+                this.dispose();
+       }
+        }  
+    }else{
+           JOptionPane.showMessageDialog(null,"Este vehiculo no cuenta con placas registradas");
+       }
+     }
     
     public void llenarCombo(){
       cbxVehiculos.removeAllItems();
@@ -245,42 +311,10 @@ public class RenovarPlacas extends javax.swing.JFrame {
         }
     }
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RenovarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RenovarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RenovarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RenovarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-           //     new RenovarPlacas().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar1;
-    private javax.swing.JButton btnAceptar2;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<Vehiculo> cbxVehiculos;
@@ -295,7 +329,7 @@ public class RenovarPlacas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblperso;
-    private javax.swing.JTextField txtFolio1;
     private javax.swing.JTextField txtFolio2;
+    private javax.swing.JTextField txtPlacaAnt;
     // End of variables declaration//GEN-END:variables
 }

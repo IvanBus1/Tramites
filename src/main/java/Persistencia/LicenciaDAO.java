@@ -105,7 +105,7 @@ public class LicenciaDAO implements ILicenciaDAO {
      * Busca una licencia por ID de trámite y estado 'Activa' en la base de
      * datos.
      *
-     * @param idTramite El ID de trámite de la licencia a buscar.
+     * @param id_tramite El ID de trámite de la licencia a buscar.
      * @return La licencia encontrada, o null si no se encuentra ninguna
      * licencia activa con el ID de trámite dado.
      */
@@ -132,7 +132,7 @@ public class LicenciaDAO implements ILicenciaDAO {
      * Obtiene una lista de licencias de una persona en estado 'Activa' en la
      * base de datos.
      *
-     * @param idPersona El ID de la persona para la cual se obtienen las
+     * @param id_persona El ID de la persona para la cual se obtienen las
      * licencias.
      * @return Una lista de licencias activas de la persona, o null si ocurre un
      * error.

@@ -6,6 +6,8 @@ import Entidades.Placa;
 import Entidades.Vehiculo;
 import Persistencia.IPlacaDAO;
 import Persistencia.IVehiculoDAO;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -181,18 +183,52 @@ public class SolicitarPlacas extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxVehiculosActionPerformed
 
     
+    public String generarPlacaAleatoria() {
+    String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    String numeros = "0123456789";
+    String placa = "";
+
+    // Agregar tres letras aleatorias
+    for (int i = 0; i < 3; i++) {
+        int index = (int) (Math.random() * letras.length());
+        placa += letras.charAt(index);
+    }
+
+    // Agregar cuatro números aleatorios
+    for (int i = 0; i < 4; i++) {
+        int index = (int) (Math.random() * numeros.length());
+        placa += numeros.charAt(index);
+    }
+
+    return placa;
+}
+    
+    
+    
     public void asere(){
         int precio=1500;
         Vehiculo vehiculo= (Vehiculo)cbxVehiculos.getSelectedItem();
-        List<Placa> placas=  placa.listaPlacasAuto(vehiculo.getId_vehiculo());
-       if(!placas.isEmpty()){
-           precio=1000;
-           if( placa.desactivarPlaca(placas.get(0))==null){
-               JOptionPane.showMessageDialog(null,"No se pudo desactivar la placa actual");
-               return;
-           }
-       }
-       Placa placanueva= new Placa("Activo", vehiculo, precio, persona);
+        
+        Calendar cal = Calendar.getInstance();
+        
+        Date fechaActual = cal.getTime();
+        if (placa.verificarPlaca(vehiculo.getId_vehiculo())){
+            JOptionPane.showMessageDialog(this, "Este vehiculo ya tiene unas placas registradas.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        String numeroPlaca = generarPlacaAleatoria();
+        
+        
+        
+       Placa placanueva= new Placa();
+       
+       placanueva.setNum_placa(numeroPlaca);
+       placanueva.setEstado("Activa");
+       placanueva.setVehiculo(vehiculo);
+       placanueva.setPersona(persona);
+       placanueva.setFecha_solicitud(fechaActual);
+       placanueva.setPrecio(precio);
        Placa placaa=placa.agregar(placanueva);
        if(placaa==null){
             JOptionPane.showMessageDialog(null,"No se pudo comprar la placa");
@@ -221,37 +257,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         }
     }
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SolicitarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SolicitarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SolicitarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SolicitarPlacas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-              //  new SolicitarPlacas().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar1;

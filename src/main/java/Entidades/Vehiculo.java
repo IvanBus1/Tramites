@@ -36,7 +36,7 @@ public class Vehiculo implements Serializable {
      */
     @Basic
     @Column(name = "Numero_serie")
-    private int num_serie;
+    private String num_serie;
 
     /**
      * Atributo que representa la linea del vehiculo
@@ -89,7 +89,7 @@ public class Vehiculo implements Serializable {
      *
      * @return El número de serie del vehículo
      */
-    public int getNum_serie() {
+    public String getNum_serie() {
         return num_serie;
     }
 
@@ -98,7 +98,7 @@ public class Vehiculo implements Serializable {
      *
      * @param num_serie El número de serie del vehículo
      */
-    public void setNum_serie(int num_serie) {
+    public void setNum_serie(String num_serie) {
         this.num_serie = num_serie;
     }
 
@@ -185,7 +185,7 @@ public class Vehiculo implements Serializable {
      * @param modelo El modelo del vehículo
      * @param persona La persona asociada al vehículo
      */
-    public Vehiculo(Integer id_vehiculo, int num_serie, String linea, String marca, String color, String modelo, Persona persona) {
+    public Vehiculo(Integer id_vehiculo, String num_serie, String linea, String marca, String color, String modelo, Persona persona) {
         this.id_vehiculo = id_vehiculo;
         this.num_serie = num_serie;
         this.linea = linea;
