@@ -29,18 +29,43 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
- *
+ *Clase para un historial de todos los tramites
  * @author IVAN
  */
 public class HistorialGeneral extends javax.swing.JFrame {
 
+    /**
+     * Lista de tipo tramites
+     */
     private List<Tramite> listaTabla;
+    /**
+     * Lista de tipo persona
+     */
     private List<Persona> personas;
+
+    /**
+     * objeto de tipo personaDAO
+     */
     IPersonaDAO personaDAO;
+    /**
+     * atributo que representa el tipo del tramite
+     */
     private String tipot = "";
+    /**
+     * objeto de tipo tramitedao
+     */
     private ITramiteDAO tramite;
+    /**
+     * objeto de tipo tramite
+     */
     private Tramite tramitevisas;
 
+    /**
+     * Constructor de la clase HistorialGeneral
+     *
+     * @param personaDAO objeto de tipo persona dao
+     * @param tramite objeto de tipo tramite
+     */
     public HistorialGeneral(IPersonaDAO personaDAO, ITramiteDAO tramite) {
 
         this.tramite = tramite;
@@ -244,11 +269,6 @@ public class HistorialGeneral extends javax.swing.JFrame {
         txtNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(0, 153, 204));
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
@@ -287,13 +307,22 @@ public class HistorialGeneral extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * boton para regresar a la pantalla principal
+     *
+     * @param evt incia al momento de darle click
+     */
     private void btnVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolver1ActionPerformed
         Inicial m = new Inicial();
         m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolver1ActionPerformed
 
+    /**
+     * boton para filtrar por el tipo de tramite licencia
+     *
+     * @param evt incia al momento de darle click
+     */
     private void btnLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicenciaActionPerformed
         limpiarTabla();
         tipot = "Licencia";
@@ -301,11 +330,20 @@ public class HistorialGeneral extends javax.swing.JFrame {
         llenarTablaTipo();
     }//GEN-LAST:event_btnLicenciaActionPerformed
 
+    /**
+     * boton para llenar la tabla
+     *
+     * @param evt incia al momento de darle click
+     */
     private void btnllenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnllenarActionPerformed
         limpiarTabla();
         llenarTabla();
     }//GEN-LAST:event_btnllenarActionPerformed
-
+    /**
+     * boton para generar un pdf en base a lo que este filtrado en la tabla
+     *
+     * @param evt
+     */
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
         int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de ejecutar este comando?", "Confirmar", JOptionPane.YES_NO_OPTION);
 
@@ -362,11 +400,20 @@ public class HistorialGeneral extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnPDFActionPerformed
-
+    /**
+     * boton para limpiar la tabla
+     *
+     * @param evt incia al momento de darle click
+     */
     private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
         limpiarTabla();
     }//GEN-LAST:event_btnlimpiarActionPerformed
 
+    /**
+     * boton para filtar por las dos fechas
+     *
+     * @param evt incia al momento de darle click
+     */
     private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
 
         if (txtFechaInicio.getDate() != null && txtFechaFin.getDate() != null) {
@@ -379,28 +426,39 @@ public class HistorialGeneral extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnFechaActionPerformed
 
+    /**
+     * propieda que llena la tabla en base el nombre que se vaya escribiendo
+     *
+     * @param evt inicia de manera automatica
+     */
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
         llenarTablaNombre();
     }//GEN-LAST:event_txtNombreKeyReleased
-
+    /**
+     * propiedad para validad los caracteres en el txt
+     *
+     * @param evt inicia al momento de escribir
+     */
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombreKeyTyped
-
+    /**
+     * Boton que filta en base al tipo de tramite placas
+     *
+     * @param evt inicia al momento de darle click
+     */
     private void btnPlacas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlacas1ActionPerformed
         limpiarTabla();
         tipot = "Placa";
 
         llenarTablaTipo();
     }//GEN-LAST:event_btnPlacas1ActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
+/**
+ * Metodo para llenar la tabla en base al tipo de tramite
+ */
     public void llenarTablaTipo() {
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
         listaTabla = tramite.tramitesPersonaTipo(tipot);
@@ -417,6 +475,10 @@ public class HistorialGeneral extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Limpia el contenido actual de la tabla, eliminando todas las filas.
+     *
+     */
     public void limpiarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
         modelo.setRowCount(0);
@@ -424,6 +486,12 @@ public class HistorialGeneral extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Llena la tabla con todos los registros de tramites obtenidos mediante el
+     * método obtenerTodosTramites() de la clase Tramite. Se utiliza la
+     * instancia de la clase Tramite para determinar el tipo de trámite.
+
+     */
     public void llenarTabla() {
         listaTabla = tramite.obtenerTodosTramites();
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
@@ -448,6 +516,13 @@ public class HistorialGeneral extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Llena la tabla con los registros de tramites filtrados por el rango de
+     * fechas seleccionado. Los registros se obtienen mediante el método
+     * tramitesPersonaEnRangoFechasGeneral() de la clase Tramite. Se utiliza la
+     * fecha de inicio y fecha de fin seleccionadas en campos de texto para la
+     * búsqueda.
+     */
     public void llenarTablaFechas() {
         long date = this.txtFechaInicio.getDate().getTime();
         java.sql.Date fechaInicioDate = new java.sql.Date(date);
@@ -478,6 +553,13 @@ public class HistorialGeneral extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Llena la tabla con los registros de tramites filtrados por el nombre
+     * ingresado en el campo de texto. Los registros se obtienen mediante el
+     * método obtenerTodosTramites() de la clase Tramite. Se utiliza el nombre
+     * de la persona asociada al trámite para la búsqueda, desencriptándolo
+     * previamente.
+     */
     public void llenarTablaNombre() {
         listaTabla = tramite.obtenerTodosTramites();
         List<Tramite> aux = new ArrayList<>();
@@ -517,7 +599,9 @@ public class HistorialGeneral extends javax.swing.JFrame {
     }
 
     
-
+    /**
+     * Elemento del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFecha;
     private javax.swing.JButton btnLicencia;

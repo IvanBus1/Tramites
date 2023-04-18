@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
+ *Metodo para los metodos de la persona
  * @author IVAN
  */
 public interface IPersonaDAO {

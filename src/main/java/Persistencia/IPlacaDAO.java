@@ -2,7 +2,10 @@ package Persistencia;
 
 import Entidades.Placa;
 import java.util.List;
-
+/**
+ * clase para los metodos de la placa
+ * @author IVAN
+ */
 public interface IPlacaDAO {
 
     /**

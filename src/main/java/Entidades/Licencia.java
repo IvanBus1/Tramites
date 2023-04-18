@@ -37,8 +37,6 @@ import javax.persistence.TemporalType;
  *
  * También tiene los métodos getters y setters correspondientes para cada uno de
  * sus atributos.
- *
- * @see Tramite
  */
 @Entity
 @PrimaryKeyJoinColumn(name = "IdLicencia")
@@ -62,17 +60,17 @@ public class Licencia extends Tramite {
     @Column(name = "Tipo")
     private String tipo;
 
-    @Basic
-    @Column(name = "Estado")
     /**
      * atributo que representa el estado de la licencia
      */
+    @Basic
+    @Column(name = "Estado")
     private String estado;
 
     /**
      * Metodo que obtiene el estado de la licencia
      *
-     * @return estado
+     * @return estado estado del tramite
      */
     public String getEstado() {
         return estado;
@@ -81,7 +79,7 @@ public class Licencia extends Tramite {
     /**
      * Metodo que setea el valor del estado de la licencia
      *
-     * @param estado
+     * @param estado estado del tramite
      */
     public void setEstado(String estado) {
         this.estado = estado;
@@ -98,6 +96,7 @@ public class Licencia extends Tramite {
      * @param precio Precio del trámite.
      * @param fecha_solicitud Fecha de solicitud del trámite.
      * @param persona Persona que solicita el trámite.
+     * @param estado estado de la licencia
      */
     public Licencia(Date vigencia, String tipo, Integer id_tramite, int precio, Date fecha_solicitud, String estado, Persona persona) {
         super(id_tramite, precio, fecha_solicitud, persona);
@@ -178,7 +177,7 @@ public class Licencia extends Tramite {
     /**
      * Metodo que setea la persona dueña de la placa
      *
-     * @param persona
+     * @param persona persona que compra la licencia
      */
     @Override
     public void setPersona(Persona persona) {

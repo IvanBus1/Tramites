@@ -9,12 +9,30 @@ import java.security.MessageDigest;
 import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-
+/**
+ * Clase para la encriptacion
+ * @author IVAN
+ */
 public class EncriptacionUtils {
 
+    /**
+     * Atributo de tipo String para el cifrado
+     */
     private static final String ALGORITHM = "AES";
+
+    /**
+     * Atributo que es la llave del cifrado
+     */
     private static final String KEY = "MySuperSecretKey";
 
+    /**
+     *
+     * Método que encripta un nombre utilizando el algoritmo AES con la clave
+     * especificada.
+     *
+     * @param nombre El nombre a encriptar.
+     * @return El nombre encriptado como una cadena codificada en Base64.
+     */
     public static String encriptarNombre(String nombre) {
         try {
 
@@ -29,6 +47,15 @@ public class EncriptacionUtils {
         }
     }
 
+    /**
+     *
+     * Método que desencripta un nombre previamente encriptado utilizando el
+     * algoritmo AES con la clave especificada.
+     *
+     * @param encryptedNombre El nombre encriptado como una cadena codificada en
+     * Base64.
+     * @return El nombre desencriptado.
+     */
     public static String desencriptarNombre(String encryptedNombre) {
 
         try {
@@ -44,6 +71,15 @@ public class EncriptacionUtils {
         }
     }
 
+    /**
+     *
+     * Método que encripta un apellido paterno utilizando el método
+     * encriptarNombre.
+     *
+     * @param apellidoPaterno El apellido paterno a encriptar.
+     * @return El apellido paterno encriptado como una cadena codificada en
+     * Base64.
+     */
     public static String encriptarApellidoPaterno(String apellidoPaterno) {
         try {
             return encriptarNombre(apellidoPaterno);
@@ -53,6 +89,15 @@ public class EncriptacionUtils {
 
     }
 
+    /**
+     *
+     * Método que desencripta un apellido paterno previamente encriptado
+     * utilizando el método desencriptarNombre.
+     *
+     * @param encryptedApellidoPaterno El apellido paterno encriptado como una
+     * cadena codificada en Base64.
+     * @return El apellido paterno desencriptado.
+     */
     public static String desencriptarApellidoPaterno(String encryptedApellidoPaterno) {
 
         try {
@@ -62,6 +107,15 @@ public class EncriptacionUtils {
         }
     }
 
+    /**
+     *
+     * Método que encripta un apellido materno utilizando el método
+     * encriptarNombre.
+     *
+     * @param apellidoMaterno El apellido materno a encriptar.
+     * @return El apellido materno encriptado como una cadena codificada en
+     * Base64.
+     */
     public static String encriptarApellidoMaterno(String apellidoMaterno) {
         try {
 
@@ -72,6 +126,14 @@ public class EncriptacionUtils {
         }
     }
 
+    /**
+     * Desencripta un apellido materno previamente encriptado utilizando el
+     * algoritmo AES con una clave secreta.
+     *
+     * @param encryptedApellidoMaterno El apellido materno encriptado.
+     * @return El apellido materno desencriptado, o null si ocurre una
+     * excepción.
+     */
     public static String desencriptarApellidoMaterno(String encryptedApellidoMaterno) {
         try {
             return desencriptarNombre(encryptedApellidoMaterno);
@@ -80,6 +142,13 @@ public class EncriptacionUtils {
         }
     }
 
+    /**
+     * Genera una clave secreta de tipo {@link SecretKeySpec} utilizando el
+     * algoritmo SHA-1 a partir de una cadena de texto.
+     *
+     * @param key La cadena de texto que se utilizará como clave.
+     * @return La clave secreta generada, o null si ocurre una excepción.
+     */
     private static SecretKeySpec generateKeySpec(String key) {
         try {
 

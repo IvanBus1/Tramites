@@ -12,7 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
- *
+ *Clase para las placas
  * @author IVAN
  */
 public class PlacaDAO implements IPlacaDAO {

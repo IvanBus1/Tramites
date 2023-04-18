@@ -15,14 +15,23 @@ import Utilidades.EncriptacionUtils;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *Clase para el menu
  * @author IVAN
  */
 public class Menu extends javax.swing.JFrame {
 
-    //prueba
+    /**
+     * Objeto de tipo persona
+     */
     private Persona persona;
 
+    /**
+     * Constructor de la clase Menu que crea una nueva instancia de la ventana
+     * del menú principal.
+     *
+     * @param persona Objeto de tipo Persona que representa la información de la
+     * persona que ha iniciado sesión en la aplicación.
+     */
     public Menu(Persona persona) {
         this.persona = persona;
         initComponents();
@@ -249,13 +258,30 @@ public class Menu extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Acción realizada al hacer clic en el botón Aceptar6. Crea una nueva
+     * instancia de la ventana Inicial, la hace visible y cierra la ventana
+     * actual (Menu).
+     *
+     * @param evt Objeto de tipo ActionEvent que representa el evento de clic en
+     * el botón Aceptar6.
+     */
     private void btnAceptar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar6ActionPerformed
         Inicial in = new Inicial();
         in.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptar6ActionPerformed
-
+    /**
+     * Acción realizada al hacer clic en el botón RenovarLicencia. Verifica si
+     * la persona tiene una licencia registrada en la base de datos, y si es
+     * así, crea una nueva instancia de la ventana RenovarLicencia con los
+     * objetos de acceso a datos necesarios, la hace visible y cierra la ventana
+     * actual (Menu). Si la persona no tiene una licencia registrada, muestra un
+     * mensaje de error.
+     *
+     * @param evt Objeto de tipo ActionEvent que representa el evento de clic en
+     * el botón RenovarLicencia.
+     */
     private void btnRenovarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarLicenciaActionPerformed
         IConexionBD conexionbd = new ConexionBD();
         ILicenciaDAO licenciadao = new LicenciaDAO(conexionbd);
@@ -275,7 +301,14 @@ public class Menu extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnRenovarLicenciaActionPerformed
-
+    /**
+     * Acción realizada al hacer clic en el botón HistorialPlacas. Crea una
+     * nueva instancia de la ventana RegistrarVehiculo con los objetos de acceso
+     * a datos necesarios, la hace visible y cierra la ventana actual (Menu).
+     *
+     * @param evt Objeto de tipo ActionEvent que representa el evento de clic en
+     * el botón HistorialPlacas.
+     */
     private void btnHistorialPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialPlacasActionPerformed
         IConexionBD conexionbd = new ConexionBD();
         IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
@@ -283,16 +316,26 @@ public class Menu extends javax.swing.JFrame {
         ve.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHistorialPlacasActionPerformed
-
+    /**
+     * Acción realizada al hacer clic en el botón RenovarPlacas. Verifica si la
+     * persona tiene una licencia registrada en la base de datos, y si es así,
+     * crea una nueva instancia de la ventana RenovarPlacas con los objetos de
+     * acceso a datos necesarios, la hace visible y cierra la ventana actual
+     * (Menu). Si la persona no tiene una licencia registrada, muestra un
+     * mensaje de error.
+     *
+     * @param evt Objeto de tipo ActionEvent que representa el evento de clic en
+     * el botón RenovarPlacas.
+     */
     private void btnRenovarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarPlacasActionPerformed
         IConexionBD conexionbd = new ConexionBD();
         IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
         ILicenciaDAO licenciadao = new LicenciaDAO(conexionbd);
-        IPlacaDAO placadao=new PlacaDAO(conexionbd);
+        IPlacaDAO placadao = new PlacaDAO(conexionbd);
 
         if (licenciadao.verificarLicencia(persona.getId_persona())) {
 
-            RenovarPlacas sp = new RenovarPlacas(persona, vehiculodao,placadao);
+            RenovarPlacas sp = new RenovarPlacas(persona, vehiculodao, placadao);
             sp.setVisible(true);
             this.dispose();
 
@@ -303,7 +346,14 @@ public class Menu extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnRenovarPlacasActionPerformed
-
+    /**
+     * Método invocado cuando se hace clic en el botón "Solicitar Placas" en la
+     * interfaz de usuario. Crea una nueva instancia de la clase SolicitarPlacas
+     * y la muestra en la pantalla. Se asegura de que la persona tenga una
+     * licencia registrada antes de permitir la solicitud de placas.
+     *
+     * @param evt El evento de acción que desencadenó la invocación del método.
+     */
     private void btnSolicitarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarPlacasActionPerformed
         IConexionBD conexionbd = new ConexionBD();
         IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
@@ -323,7 +373,14 @@ public class Menu extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnSolicitarPlacasActionPerformed
-
+    /**
+     * Método invocado cuando se hace clic en el botón "Historial" en la
+     * interfaz de usuario. Crea una nueva instancia de la clase Historial y la
+     * muestra en la pantalla, pasando la información de la persona y sus
+     * trámites como parámetros.
+     *
+     * @param evt El evento de acción que desencadenó la invocación del método.
+     */
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
         IConexionBD conexionbd = new ConexionBD();
         ITramiteDAO tramite = new TramiteDAO(conexionbd);
@@ -331,7 +388,15 @@ public class Menu extends javax.swing.JFrame {
         hs.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHistorialActionPerformed
-
+    /**
+     * Método invocado cuando se hace clic en el botón "Solicitar Licencia" en
+     * la interfaz de usuario. Crea una nueva instancia de la clase Licencias y
+     * la muestra en la pantalla, pasando la información de la persona y los
+     * DAOs relacionados como parámetros. Verifica si la persona ya tiene una
+     * licencia registrada antes de permitir la solicitud de una nueva licencia.
+     *
+     * @param evt El evento de acción que desencadenó la invocación del método.
+     */
     private void btnSolicitarLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarLicenciaActionPerformed
 
         IConexionBD conexionbd = new ConexionBD();
@@ -350,19 +415,27 @@ public class Menu extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnSolicitarLicenciaActionPerformed
-
+    /**
+     * Método invocado cuando se hace clic en el botón "Registrar Vehículo" en
+     * la interfaz de usuario. Crea una nueva instancia de la clase
+     * PlacasVehiculo y la muestra en la pantalla, pasando la información de la
+     * persona y los DAOs relacionados como parámetros.
+     *
+     * @param evt El evento de acción que desencadenó la invocación del método.
+     */
     private void btnRegistrarV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarV1ActionPerformed
-     IConexionBD conexionbd = new ConexionBD();
+        IConexionBD conexionbd = new ConexionBD();
         IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
         IPlacaDAO placadao = new PlacaDAO(conexionbd);
-        
-         PlacasVehiculo pl = new PlacasVehiculo(persona, vehiculodao, placadao);
-            pl.setVisible(true);
-            this.dispose();
+
+        PlacasVehiculo pl = new PlacasVehiculo(persona, vehiculodao, placadao);
+        pl.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegistrarV1ActionPerformed
 
-    
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar6;
     private javax.swing.JButton btnHistorial;

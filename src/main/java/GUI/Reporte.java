@@ -10,28 +10,46 @@ import Entidades.Placa;
 import Entidades.Tramite;
 
 /**
- *
+ *Clase para el reporte
  * @author IVAN
  */
 public class Reporte extends javax.swing.JFrame {
 
-    
+    /**
+     * Objeto de tipo Persona
+     */
     private Persona persona;
+    /**
+     * Objeto de tipo tramite
+     */
     private Tramite tramite;
-    public Reporte(Persona persona,Tramite tramite) {
-        this.persona=persona;
-        this.tramite= tramite;
+
+    /**
+     *
+     * Constructor de la clase Reporte que crea una instancia de la ventana de
+     * reporte de trámite. Inicializa los componentes visuales y establece los
+     * valores de los campos de la ventana con los datos proporcionados de la
+     * persona y el trámite.
+     *
+     * @param persona Objeto de la clase Persona que contiene los datos de la
+     * persona para el reporte
+     * @param tramite Objeto de la clase Tramite (puede ser Placa o Licencia)
+     * que contiene los datos del trámite para el reporte
+     */
+    public Reporte(Persona persona, Tramite tramite) {
+        this.persona = persona;
+        this.tramite = tramite;
         initComponents();
-        lblperso1.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
-        if(tramite instanceof Placa){
+        lblperso1.setText(persona.getNombre() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
+        if (tramite instanceof Placa) {
             lbltipo.setText("Placa");
-            
+
         }
 
-        if(tramite instanceof Licencia){
-              lbltipo.setText("Licencia");
+        if (tramite instanceof Licencia) {
+            lbltipo.setText("Licencia");
         }
-        
+
         lblcosto.setText(String.valueOf(tramite.getPrecio()));
         lblfecha.setText(String.valueOf(tramite.getFecha_solicitud()));
     }
@@ -145,15 +163,19 @@ public class Reporte extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Boton para aceptar 
+ * @param evt al darle click
+ */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-      Menu m= new Menu(persona);
-      m.setVisible(true);
-      this.dispose();
+        Menu m = new Menu(persona);
+        m.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-  
-
+/**
+ * Elementos del frame
+ */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JLabel jLabel1;

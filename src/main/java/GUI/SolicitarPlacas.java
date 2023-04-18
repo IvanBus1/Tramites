@@ -1,4 +1,3 @@
-
 package GUI;
 
 import Entidades.Persona;
@@ -13,24 +12,46 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *Clase para solicitar placas
  * @author IVAN
  */
 public class SolicitarPlacas extends javax.swing.JFrame {
 
-   
-       private Persona persona;
-        private IPlacaDAO placa;
-       private IVehiculoDAO vehiculo;
-    public SolicitarPlacas(Persona persona,IVehiculoDAO vehiculo,IPlacaDAO placa) {
-       this.persona=persona;
-       this.vehiculo=vehiculo;
-       this.placa=placa;
+    /**
+     * Objeto de tipo personas
+     */
+    private Persona persona;
+    /**
+     * Objeto de tipo IPLACADAO
+     */
+    private IPlacaDAO placa;
+    /**
+     * Objeto de tipo IVehiculaDAO
+     */
+    private IVehiculoDAO vehiculo;
+
+    /**
+     *
+     * Constructor de la clase SolicitarPlacas que inicializa los datos de la
+     * persona, vehículo y placa.
+     *
+     * @param persona Objeto Persona que representa la persona que realiza la
+     * solicitud de placas
+     * @param vehiculo Objeto IVehiculoDAO que representa la interfaz de acceso
+     * a datos de vehículos
+     * @param placa Objeto IPlacaDAO que representa la interfaz de acceso a
+     * datos de placas
+     */
+    public SolicitarPlacas(Persona persona, IVehiculoDAO vehiculo, IPlacaDAO placa) {
+        this.persona = persona;
+        this.vehiculo = vehiculo;
+        this.placa = placa;
         initComponents();
-          lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
-          llenarCombo();
-          
+        lblperso.setText(persona.getNombre() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
+        llenarCombo();
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +64,6 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         lblperso = new javax.swing.JLabel();
         btnAceptar1 = new javax.swing.JButton();
@@ -70,20 +90,6 @@ public class SolicitarPlacas extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 70));
 
-        btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar.setText("Cancelar");
-        btnCancelar.setBorder(null);
-        btnCancelar.setContentAreaFilled(false);
-        btnCancelar.setOpaque(true);
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 88, 37));
-
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnVolver.setForeground(new java.awt.Color(255, 255, 255));
@@ -96,7 +102,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 88, 37));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 88, 37));
 
         lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblperso.setForeground(new java.awt.Color(0, 102, 204));
@@ -115,13 +121,8 @@ public class SolicitarPlacas extends javax.swing.JFrame {
                 btnAceptar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 88, 37));
+        jPanel1.add(btnAceptar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 88, 37));
 
-        cbxVehiculos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxVehiculosActionPerformed(evt);
-            }
-        });
         jPanel1.add(cbxVehiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 250, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -163,105 +164,131 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
+/**
+     *
+     * Método privado btnAceptar1ActionPerformed que se ejecuta cuando se
+     * presiona el botón "Aceptar1". Invoca al método asere() para procesar la
+     * solicitud de placas.
+     *
+     * @param evt Objeto ActionEvent que representa el evento de acción del
+     * botón
+     */
     private void btnAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar1ActionPerformed
-       asere();
+        asere();
     }//GEN-LAST:event_btnAceptar1ActionPerformed
-
+    /**
+     *
+     * Método privado btnVolverActionPerformed que se ejecuta cuando se presiona
+     * el botón "Volver". Crea una nueva ventana de Menu con la persona actual y
+     * la muestra, y cierra la ventana actual.
+     *
+     * @param evt Objeto ActionEvent que representa el evento de acción del
+     * botón
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-      Menu m= new Menu(persona);
-      m.setVisible(true);
+        Menu m = new Menu(persona);
+        m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
-    private void cbxVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxVehiculosActionPerformed
-       
-    }//GEN-LAST:event_cbxVehiculosActionPerformed
-
-    
+    /**
+     *
+     * Método público generarPlacaAleatoria que genera una placa aleatoria para
+     * un vehículo.
+     *
+     * La placa consiste en tres letras mayúsculas seguidas de cuatro números.
+     *
+     * @return String con la placa generada aleatoriamente
+     */
     public String generarPlacaAleatoria() {
-    String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    String numeros = "0123456789";
-    String placa = "";
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String numeros = "0123456789";
+        String placa = "";
 
-    // Agregar tres letras aleatorias
-    for (int i = 0; i < 3; i++) {
-        int index = (int) (Math.random() * letras.length());
-        placa += letras.charAt(index);
+        // Agregar tres letras aleatorias
+        for (int i = 0; i < 3; i++) {
+            int index = (int) (Math.random() * letras.length());
+            placa += letras.charAt(index);
+        }
+
+        // Agregar cuatro números aleatorios
+        for (int i = 0; i < 4; i++) {
+            int index = (int) (Math.random() * numeros.length());
+            placa += numeros.charAt(index);
+        }
+
+        return placa;
     }
 
-    // Agregar cuatro números aleatorios
-    for (int i = 0; i < 4; i++) {
-        int index = (int) (Math.random() * numeros.length());
-        placa += numeros.charAt(index);
-    }
+    /**
+     *
+     * Método público asere que procesa la solicitud de placas para un vehículo.
+     *
+     * Verifica si el vehículo ya tiene placas registradas, genera una nueva
+     * placa aleatoria,
+     *
+     * crea una nueva instancia de Placa con los datos de la solicitud, la
+     * agrega a través de la interfaz
+     *
+     * de acceso a datos de placas, y muestra una ventana de reporte con los
+     * datos de la persona y la placa.
+     */
+    public void asere() {
+        int precio = 1500;
+        Vehiculo vehiculo = (Vehiculo) cbxVehiculos.getSelectedItem();
 
-    return placa;
-}
-    
-    
-    
-    public void asere(){
-        int precio=1500;
-        Vehiculo vehiculo= (Vehiculo)cbxVehiculos.getSelectedItem();
-        
         Calendar cal = Calendar.getInstance();
-        
+
         Date fechaActual = cal.getTime();
-        if (placa.verificarPlaca(vehiculo.getId_vehiculo())){
+        if (placa.verificarPlaca(vehiculo.getId_vehiculo())) {
             JOptionPane.showMessageDialog(this, "Este vehiculo ya tiene unas placas registradas.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         String numeroPlaca = generarPlacaAleatoria();
-        
-        
-        
-       Placa placanueva= new Placa();
-       
-       placanueva.setNum_placa(numeroPlaca);
-       placanueva.setEstado("Activa");
-       placanueva.setVehiculo(vehiculo);
-       placanueva.setPersona(persona);
-       placanueva.setFecha_solicitud(fechaActual);
-       placanueva.setPrecio(precio);
-       Placa placaa=placa.agregar(placanueva);
-       if(placaa==null){
-            JOptionPane.showMessageDialog(null,"No se pudo comprar la placa");
-       }else{
-           JOptionPane.showMessageDialog(null,"La placa ha sido comprada con exito ");
-            Reporte r = new Reporte(persona,placanueva);
-                r.setVisible(true);
-                this.dispose();
-       }
-       
+
+        Placa placanueva = new Placa();
+
+        placanueva.setNum_placa(numeroPlaca);
+        placanueva.setEstado("Activa");
+        placanueva.setVehiculo(vehiculo);
+        placanueva.setPersona(persona);
+        placanueva.setFecha_solicitud(fechaActual);
+        placanueva.setPrecio(precio);
+        Placa placaa = placa.agregar(placanueva);
+        if (placaa == null) {
+            JOptionPane.showMessageDialog(null, "No se pudo comprar la placa");
+        } else {
+            JOptionPane.showMessageDialog(null, "La placa ha sido comprada con exito ");
+            Reporte r = new Reporte(persona, placanueva);
+            r.setVisible(true);
+            this.dispose();
+        }
+
     }
-    
-     public void llenarCombo(){
-      cbxVehiculos.removeAllItems();
-         List<Vehiculo> llenaCb=vehiculo.listaAutosCliente(persona.getRfc());
+
+    /**
+     * Metodo para llenar el combobox
+     */
+    public void llenarCombo() {
+        cbxVehiculos.removeAllItems();
+        List<Vehiculo> llenaCb = vehiculo.listaAutosCliente(persona.getRfc());
         System.out.println(llenaCb.size());
-        if(llenaCb==null){
-           
-            
-        }else{
-            Iterator rp= llenaCb.iterator();
-            while(rp.hasNext()){
-                Vehiculo vehi=(Vehiculo)rp.next();
+        if (llenaCb == null) {
+
+        } else {
+            Iterator rp = llenaCb.iterator();
+            while (rp.hasNext()) {
+                Vehiculo vehi = (Vehiculo) rp.next();
                 this.cbxVehiculos.addItem(vehi);
             }
         }
     }
 
-    
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar1;
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<Vehiculo> cbxVehiculos;
     private javax.swing.JLabel jLabel1;

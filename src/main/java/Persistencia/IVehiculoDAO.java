@@ -4,7 +4,7 @@ import Entidades.Vehiculo;
 import java.util.List;
 
 /**
- *
+ *Clase para los metodos de los vehiculos
  * @author IVAN
  */
 public interface IVehiculoDAO {

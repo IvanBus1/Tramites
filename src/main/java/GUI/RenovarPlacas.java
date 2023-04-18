@@ -17,22 +17,43 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *Clase para renovar placas
  * @author IVAN
  */
 public class RenovarPlacas extends javax.swing.JFrame {
 
-       private Persona persona;
-       private IPlacaDAO placa;
-       private IVehiculoDAO vehiculo;
-    public RenovarPlacas(Persona persona,IVehiculoDAO vehiculo, IPlacaDAO placa) {
-       this.persona=persona;
-       this.vehiculo=vehiculo;
-       this.placa=placa;
+    /**
+     * Objeto de tipo persona
+     */
+    private Persona persona;
+    /**
+     * Objeto de tipo IPlacaDAO
+     */
+    private IPlacaDAO placa;
+    /**
+     * Objeto de tipo IVehiculoDAO
+     */
+    private IVehiculoDAO vehiculo;
+
+    /**
+     *
+     * Constructor de la clase RenovarPlacas
+     *
+     * @param persona Objeto de la clase Persona que representa al propietario
+     * del vehículo
+     * @param vehiculo Objeto de la interfaz IVehiculoDAO que maneja los datos
+     * del vehículo
+     * @param placa Objeto de la interfaz IPlacaDAO que maneja los datos de las
+     * placas del vehículo
+     */
+    public RenovarPlacas(Persona persona, IVehiculoDAO vehiculo, IPlacaDAO placa) {
+        this.persona = persona;
+        this.vehiculo = vehiculo;
+        this.placa = placa;
         initComponents();
-          lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
-           llenarCombo();
-          
+        lblperso.setText(persona.getNombre() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
+        llenarCombo();
+
     }
 
     /**
@@ -126,11 +147,6 @@ public class RenovarPlacas extends javax.swing.JFrame {
         });
         jPanel1.add(btnAceptar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 88, 37));
 
-        cbxVehiculos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxVehiculosActionPerformed(evt);
-            }
-        });
         jPanel1.add(cbxVehiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 250, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -197,122 +213,141 @@ public class RenovarPlacas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+/**
+     *
+     * Método que se ejecuta cuando se presiona el botón "Cancelar". Este método
+     * establece el valor de texto del campo "txtFolio2" a una cadena vacía.
+     *
+     * @param evt El evento de acción que se generó al presionar el botón
+     * "Cancelar"
+     */
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        txtFolio2.setText("");
     }//GEN-LAST:event_btnCancelarActionPerformed
+    /**
+     *
+     * Método que se ejecuta cuando se presiona el botón "Aceptar1". Este método
+     * llama al método "asere()" para realizar una acción específica.
+     *
+     * @param evt El evento de acción que se generó al presionar el botón
+     * "Aceptar1"
+     */
 
     private void btnAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar1ActionPerformed
         asere();
     }//GEN-LAST:event_btnAceptar1ActionPerformed
+/**
 
+Método que se ejecuta cuando se presiona el botón "Volver".
+Este método crea una instancia de la clase "Menu" y hace visible la ventana correspondiente,
+y después cierra la ventana actual.
+@param evt El evento de acción que se generó al presionar el botón "Volver"
+*/
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-   Menu m= new Menu(persona);
-      m.setVisible(true);
+        Menu m = new Menu(persona);
+        m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
-    private void cbxVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxVehiculosActionPerformed
-   
-    }//GEN-LAST:event_cbxVehiculosActionPerformed
-
-    
+/**
+ * Metotodo para generar placas
+ * @return placas
+ */
     public String generarPlacaAleatoria() {
-    String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    String numeros = "0123456789";
-    String placa = "";
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String numeros = "0123456789";
+        String placa = "";
 
-    // Agregar tres letras aleatorias
-    for (int i = 0; i < 3; i++) {
-        int index = (int) (Math.random() * letras.length());
-        placa += letras.charAt(index);
+        // Agregar tres letras aleatorias
+        for (int i = 0; i < 3; i++) {
+            int index = (int) (Math.random() * letras.length());
+            placa += letras.charAt(index);
+        }
+
+        // Agregar cuatro números aleatorios
+        for (int i = 0; i < 4; i++) {
+            int index = (int) (Math.random() * numeros.length());
+            placa += numeros.charAt(index);
+        }
+
+        return placa;
     }
+    /**
+     * Metodo para renovar placas
+     */
+    public void asere() {
 
-    // Agregar cuatro números aleatorios
-    for (int i = 0; i < 4; i++) {
-        int index = (int) (Math.random() * numeros.length());
-        placa += numeros.charAt(index);
-    }
+        String placaAnt = txtPlacaAnt.getText();
 
-    return placa;
-}
-    
-    
-    
-    
-     public void asere(){
-         
-         String placaAnt = txtPlacaAnt.getText();
-         
         if (!placaAnt.matches("[a-zA-Z0-9]+")) {
             JOptionPane.showMessageDialog(null, "El campo numero de placa solo puede contener letras y números");
             return;
         }
-         
-         Calendar cal = Calendar.getInstance();
-        
+
+        Calendar cal = Calendar.getInstance();
+
         Date fechaActual = cal.getTime();
-         
-         
-        int precio=0;
-        Vehiculo vehiculo= (Vehiculo)cbxVehiculos.getSelectedItem();
-        
-       if(placa.verificarPlaca(vehiculo.getId_vehiculo())){
-           
-           Placa placaencon = placa.buscarNumPlacayEstado(txtPlacaAnt.getText());
-        
-        if(placaencon==null){
-            JOptionPane.showMessageDialog(null, "No se encontró la placa con ese de numero de placa o ya se encuentra inactiva");
+
+        int precio = 0;
+        Vehiculo vehiculo = (Vehiculo) cbxVehiculos.getSelectedItem();
+
+        if (placa.verificarPlaca(vehiculo.getId_vehiculo())) {
+
+            Placa placaencon = placa.buscarNumPlacayEstado(txtPlacaAnt.getText());
+
+            if (placaencon == null) {
+                JOptionPane.showMessageDialog(null, "No se encontró la placa con ese de numero de placa o ya se encuentra inactiva");
+            } else {
+                placa.desactivarPlaca(placaencon);
+
+                precio = 1000;
+
+                String numeroPlaca = generarPlacaAleatoria();
+
+                Placa placanueva = new Placa();
+
+                placanueva.setNum_placa(numeroPlaca);
+                placanueva.setEstado("Activa");
+                placanueva.setVehiculo(vehiculo);
+                placanueva.setPersona(persona);
+                placanueva.setFecha_solicitud(fechaActual);
+                placanueva.setPrecio(precio);
+
+                Placa placaa = placa.agregar(placanueva);
+                if (placaa == null) {
+                    JOptionPane.showMessageDialog(null, "No se pudo renovar la placa");
+                } else {
+                    JOptionPane.showMessageDialog(null, "La placa ha sido renovada con exito ");
+                    Reporte r = new Reporte(persona, placanueva);
+                    r.setVisible(true);
+                    this.dispose();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Este vehiculo no cuenta con placas registradas");
         }
-        else{
-           placa.desactivarPlaca(placaencon);
-            
-           precio=1000;
-           
-           String numeroPlaca = generarPlacaAleatoria();
-           
-           Placa placanueva= new Placa();
-       
-       placanueva.setNum_placa(numeroPlaca);
-       placanueva.setEstado("Activa");
-       placanueva.setVehiculo(vehiculo);
-       placanueva.setPersona(persona);
-       placanueva.setFecha_solicitud(fechaActual);
-       placanueva.setPrecio(precio);
-       
-       Placa placaa=placa.agregar(placanueva);
-       if(placaa==null){
-            JOptionPane.showMessageDialog(null,"No se pudo renovar la placa");
-       }else{
-           JOptionPane.showMessageDialog(null,"La placa ha sido renovada con exito ");
-            Reporte r = new Reporte(persona,placanueva);
-                r.setVisible(true);
-                this.dispose();
-       }
-        }  
-    }else{
-           JOptionPane.showMessageDialog(null,"Este vehiculo no cuenta con placas registradas");
-       }
-     }
-    
-    public void llenarCombo(){
-      cbxVehiculos.removeAllItems();
-         List<Vehiculo> llenaCb=vehiculo.listaAutosCliente(persona.getRfc());
+    }
+/**
+ * Metodo para llenar el combobox
+ */
+    public void llenarCombo() {
+        cbxVehiculos.removeAllItems();
+        List<Vehiculo> llenaCb = vehiculo.listaAutosCliente(persona.getRfc());
         System.out.println(llenaCb.size());
-        if(llenaCb==null){
-           
-            
-        }else{
-            Iterator rp= llenaCb.iterator();
-            while(rp.hasNext()){
-                Vehiculo vehi=(Vehiculo)rp.next();
+        if (llenaCb == null) {
+
+        } else {
+            Iterator rp = llenaCb.iterator();
+            while (rp.hasNext()) {
+                Vehiculo vehi = (Vehiculo) rp.next();
                 this.cbxVehiculos.addItem(vehi);
             }
         }
     }
 
-   
-
+/**
+ * Elmentos del frame
+ */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar1;
     private javax.swing.JButton btnCancelar;

@@ -12,14 +12,14 @@ import Persistencia.PersonaDAO;
 import Utilidades.EncriptacionUtils;
 import javax.swing.JOptionPane;
 
-/**
- *
+/*
+ * Clase que sirve para atender a una persona en especifico
  * @author IVAN
  */
 public class APersonaExistente extends javax.swing.JFrame {
 
     /**
-     * Creates new form APersonaExistente
+     * Constructor de la clase
      */
     public APersonaExistente() {
         initComponents();
@@ -62,9 +62,9 @@ public class APersonaExistente extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Atender A:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 180, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 180, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 70));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 70));
 
         btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -116,11 +116,6 @@ public class APersonaExistente extends javax.swing.JFrame {
         txtApellidoM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtApellidoM.setForeground(new java.awt.Color(0, 153, 204));
         txtApellidoM.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtApellidoM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidoMActionPerformed(evt);
-            }
-        });
         txtApellidoM.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtApellidoMKeyTyped(evt);
@@ -136,11 +131,6 @@ public class APersonaExistente extends javax.swing.JFrame {
         txtNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(0, 153, 204));
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreKeyTyped(evt);
@@ -205,6 +195,13 @@ public class APersonaExistente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Este método se ejecuta cuando se activa el botón "btnCancelar". Borra el
+     * texto de los campos de texto txtApellidoM, txtApellidoP, txtNombre y
+     * txtRfc en la interfaz de usuario.
+     *
+     * @param evt El evento de acción que activó el botón.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         txtApellidoM.setText("");
         txtApellidoP.setText("");
@@ -212,25 +209,36 @@ public class APersonaExistente extends javax.swing.JFrame {
         txtRfc.setText("");
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void txtApellidoMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoMActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoMActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
+    /**
+     * Este método se ejecuta cuando se activa el botón "btnVolver". Crea una
+     * nueva instancia de la clase "Inicial" y la hace visible en la interfaz de
+     * usuario. Luego, cierra la ventana actual.
+     *
+     * @param evt El evento de acción que activó el botón.
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Inicial a = new Inicial();
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    /**
+     * Este método se ejecuta cuando se activa el botón "btnAceptar". Invoca al
+     * método "buscarperso()" para realizar una búsqueda de personas.
+     *
+     * @param evt El evento de acción que activó el botón.
+     */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
         buscarperso();
     }//GEN-LAST:event_btnAceptarActionPerformed
-
+    /**
+     * Este método se ejecuta cuando se presiona una tecla en el campo de texto
+     * "txtNombre". Verifica si la tecla presionada es una letra o un espacio en
+     * blanco. Si no es una letra o un espacio en blanco, consume el evento,
+     * evitando que se muestre en el campo de texto.
+     *
+     * @param evt El evento de teclado que se activó al presionar una tecla.
+     */
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
 
         char c = evt.getKeyChar();
@@ -238,7 +246,14 @@ public class APersonaExistente extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombreKeyTyped
-
+    /**
+     * Este método se ejecuta cuando se presiona una tecla en el campo de texto
+     * "txtApellidoM". Verifica si la tecla presionada es una letra o un espacio
+     * en blanco. Si no es una letra o un espacio en blanco, consume el evento,
+     * evitando que se muestre en el campo de texto.
+     *
+     * @param evt El evento de teclado que se activó al presionar una tecla.
+     */
     private void txtApellidoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoMKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
@@ -250,7 +265,14 @@ public class APersonaExistente extends javax.swing.JFrame {
     private void txtRfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRfcActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRfcActionPerformed
-
+    /**
+     * Este método se ejecuta cuando se presiona una tecla en el campo de texto
+     * "txtRfc". Verifica si la tecla presionada es un carácter alfanumérico o
+     * un espacio en blanco. Si no es un carácter alfanumérico o un espacio en
+     * blanco, consume el evento, evitando que se muestre en el campo de texto.
+     *
+     * @param evt El evento de teclado que se activó al presionar una tecla.
+     */
     private void txtRfcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRfcKeyTyped
 
         char c = evt.getKeyChar();
@@ -264,13 +286,28 @@ public class APersonaExistente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoPActionPerformed
 
+    /**
+     * Este método se ejecuta cuando se presiona una tecla en el campo de texto
+     * "txtApellidoP". Verifica si la tecla presionada es una letra o un espacio
+     * en blanco. Si no es una letra o un espacio en blanco, consume el evento,
+     * evitando que se muestre en el campo de texto.
+     *
+     * @param evt El evento de teclado que se activó al presionar una tecla.
+     */
     private void txtApellidoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoPKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtApellidoPKeyTyped
-
+    /**
+     * Este método realiza una búsqueda de una persona en la base de datos
+     * encriptando y desencriptando los nombres y apellidos proporcionados en
+     * los campos de texto correspondientes. Luego, muestra un mensaje indicando
+     * si la persona fue encontrada o no. Si la persona es encontrada, crea una
+     * instancia de la clase "Menu" con los datos desencriptados de la persona y
+     * la muestra en pantalla, cerrando la ventana actual.
+     */
     public void buscarperso() {
         IConexionBD conexionbd = new ConexionBD();
         IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
@@ -299,8 +336,9 @@ public class APersonaExistente extends javax.swing.JFrame {
 
     }
 
-    
-
+   /**
+    * Elementos del frame
+    */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;

@@ -13,7 +13,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
- *
+ *Clase para la licencia
  * @author icedo
  */
 public class LicenciaDAO implements ILicenciaDAO {

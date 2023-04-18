@@ -13,7 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
- *
+ *Clase para las personas
  * @author IVAN
  */
 public class PersonaDAO implements IPersonaDAO {

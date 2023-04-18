@@ -3,7 +3,7 @@ package Persistencia;
 import javax.persistence.EntityManager;
 
 /**
- *
+ *Clase para la conexion a la bd
  * @author IVAN
  */
 public interface IConexionBD {

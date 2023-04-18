@@ -15,21 +15,44 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Clase para el historial
  *
  * @author IVAN
  */
 public class Historial extends javax.swing.JFrame {
 
+    /**
+     * Objetivo de tipo persona
+     */
     private Persona persona;
+
+    /**
+     * objeto de tipo tramite dao
+     */
     private ITramiteDAO tramite;
+
+    /**
+     * atributo que representa el tipo
+     */
     private String tipot = "";
 
+    /**
+     * Constructor de la clase Historial. Crea una nueva instancia de la ventana
+     * Historial con la persona y el objeto ITramiteDAO como parámetros.
+     * Inicializa los componentes de la ventana y llena la tabla con los datos
+     * de los trámites realizados por la persona.
+     *
+     * @param persona Objeto de la clase Persona que representa la persona para
+     * la cual se mostrará el historial de trámites.
+     * @param tramite Objeto de la interfaz ITramiteDAO que permite acceder a
+     * los datos de los trámites en la base de datos.
+     */
     public Historial(Persona persona, ITramiteDAO tramite) {
         this.persona = persona;
         this.tramite = tramite;
 
         initComponents();
-        
+
         llenarTabla();
 
     }
@@ -232,37 +255,79 @@ public class Historial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción realizada al hacer clic en el botón "Volver" en la ventana
+     * Historial. Crea una nueva instancia de la ventana Menu con la persona
+     * como parámetro, la hace visible y cierra la ventana Historial actual.
+     *
+     * @param evt Objeto de la clase ActionEvent que representa el evento de
+     * clic en el botón "Volver".
+     */
     private void btnVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolver1ActionPerformed
 
         Menu m = new Menu(persona);
         m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolver1ActionPerformed
-
+    /**
+     * Acción realizada al hacer clic en el botón "Llenar" en la ventana
+     * Historial. Limpia la tabla de historial de trámites, y luego la llena con
+     * los datos actualizados.
+     *
+     * @param evt Objeto de la clase ActionEvent que representa el evento de
+     * clic en el botón "Llenar".
+     */
     private void btnllenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnllenarActionPerformed
-       limpiarTabla();
+        limpiarTabla();
         llenarTabla();
     }//GEN-LAST:event_btnllenarActionPerformed
-
+    /**
+     * Acción realizada al hacer clic en el botón "Limpiar" en la ventana
+     * Historial. Limpia la tabla de historial de trámites.
+     *
+     * @param evt Objeto de la clase ActionEvent que representa el evento de
+     * clic en el botón "Limpiar".
+     */
     private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
         limpiarTabla();
     }//GEN-LAST:event_btnlimpiarActionPerformed
-
+    /**
+     * Acción realizada al hacer clic en el botón "Placas" en la ventana
+     * Historial. Limpia la tabla de historial de trámites, y luego la llena con
+     * los datos de trámites que corresponden a "Placa" como tipo de trámite.
+     *
+     * @param evt Objeto de la clase ActionEvent que representa el evento de
+     * clic en el botón "Placas".
+     */
     private void btnPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlacasActionPerformed
         limpiarTabla();
         tipot = "Placa";
         llenarTablaTipo();
     }//GEN-LAST:event_btnPlacasActionPerformed
-
+    /**
+     * Acción realizada al hacer clic en el botón "Licencia" en la ventana
+     * Historial. Limpia la tabla de historial de trámites, y luego la llena con
+     * los datos de trámites que corresponden a "Licencia" como tipo de trámite.
+     *
+     * @param evt Objeto de la clase ActionEvent que representa el evento de
+     * clic en el botón "Licencia".
+     */
     private void btnLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicenciaActionPerformed
         limpiarTabla();
         tipot = "Licencia";
         llenarTablaTipo();
     }//GEN-LAST:event_btnLicenciaActionPerformed
-
+    /**
+     * Acción realizada al hacer clic en el botón "Fecha" en la ventana
+     * Historial. Limpia la tabla de historial de trámites, y luego la llena con
+     * los datos de trámites que corresponden al rango de fechas seleccionado.
+     * Muestra un mensaje de error si no se han seleccionado ambas fechas.
+     *
+     * @param evt Objeto de la clase ActionEvent que representa el evento de
+     * clic en el botón "Fecha".
+     */
     private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
-      
-        
+
         if (txtFechaInicio.getDate() != null && txtFechaFin.getDate() != null) {
             limpiarTabla();
             llenarTablaFechas();
@@ -271,7 +336,11 @@ public class Historial extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnFechaActionPerformed
-
+    /**
+     * Limpia la tabla de historial de trámites.
+     *
+     * @see DefaultTableModel
+     */
     public void limpiarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
         modelo.setRowCount(0);
@@ -279,6 +348,10 @@ public class Historial extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Llena la tabla jtHistorial con los datos de los trámites realizados por
+     * la persona actual.
+     */
     public void llenarTabla() {
 
         List<Tramite> tramites = tramite.tramitesPersona(persona.getId_persona());
@@ -286,9 +359,9 @@ public class Historial extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
 
         for (Tramite tramite : tramites) {
-            
-        String nombreEncriptado = tramite.getPersona().getNombre();
-        String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
+
+            String nombreEncriptado = tramite.getPersona().getNombre();
+            String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
             String tipoTramite;
             int precio = tramite.getPrecio();
             String fecha = tramite.getFecha_solicitud().toString();
@@ -306,14 +379,18 @@ public class Historial extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Llena la tabla jtHistorial con los datos de los trámites de un tipo
+     * específico (Placa o Licencia) realizados por la persona actual.
+     */
     public void llenarTablaTipo() {
 
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
         List<Tramite> tramites = tramite.tramitesPersonaP(persona.getId_persona(), tipot);
 
         for (Tramite tramite : tramites) {
-        String nombreEncriptado = tramite.getPersona().getNombre();
-        String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
+            String nombreEncriptado = tramite.getPersona().getNombre();
+            String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
             int precio = tramite.getPrecio();
             String fecha = tramite.getFecha_solicitud().toString();
 
@@ -322,24 +399,25 @@ public class Historial extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Llena la tabla jtHistorial con los datos de los trámites realizados por
+     * la persona actual dentro de un rango de fechas específico.
+     */
     public void llenarTablaFechas() {
         long date = this.txtFechaInicio.getDate().getTime();
         java.sql.Date fechaInicioDate = new java.sql.Date(date);
-      
 
         long date2 = this.txtFechaFin.getDate().getTime();
         java.sql.Date fechaFin = new java.sql.Date(date2);
 
-
         List<Tramite> tramites = tramite.tramitesPersonaEnRangoFechas(persona.getId_persona(), fechaInicioDate, fechaFin);
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
         System.out.println(tramites.size());
-                
-        
+
         for (Tramite tramite : tramites) {
             String nombreEncriptado = tramite.getPersona().getNombre();
-        String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
-            String tipoTramite=null;
+            String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
+            String tipoTramite = null;
             int precio = tramite.getPrecio();
             String fecha = tramite.getFecha_solicitud().toString();
 
@@ -347,16 +425,16 @@ public class Historial extends javax.swing.JFrame {
                 tipoTramite = "Placa";
             } else if (tramite instanceof Licencia) {
                 tipoTramite = "Licencia";
-            } 
+            }
 
             modelo.addRow(new Object[]{nombre, tipoTramite, precio, fecha});
         }
 
-
     }
 
-   
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFecha;
     private javax.swing.JButton btnLicencia;

@@ -8,7 +8,7 @@ import Entidades.Licencia;
 import java.util.List;
 
 /**
- *
+ *Clase para los metodos de la licencia
  * @author icedo
  */
 public interface ILicenciaDAO {

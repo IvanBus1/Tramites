@@ -16,15 +16,36 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ *Clase para las placas del vehiculo
  * @author IVAN
  */
 public class PlacasVehiculo extends javax.swing.JFrame {
 
+    /**
+     * Objeto de tipo persona
+     */
     private Persona persona;
+    /**
+     * Objeto de tipo IPlacaDAO
+     */
     private IPlacaDAO placa;
+
+    /**
+     * Objeto de tipo IVehiculoDAO
+     */
     private IVehiculoDAO vehiculo;
 
+    /**
+     *
+     * Clase para solicitar placas de vehículo.
+     *
+     * @param persona objeto de la clase Persona que representa al usuario que
+     * realiza la solicitud.
+     * @param vehiculo objeto de la clase IVehiculoDAO que permite el acceso a
+     * la información de vehículos.
+     * @param placa objeto de la clase IPlacaDAO que permite el acceso a la
+     * información de placas de vehículos.
+     */
     public PlacasVehiculo(Persona persona, IVehiculoDAO vehiculo, IPlacaDAO placa) {
         this.persona = persona;
         this.vehiculo = vehiculo;
@@ -119,11 +140,6 @@ public class PlacasVehiculo extends javax.swing.JFrame {
         });
         jPanel1.add(btnAceptar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 560, 110, 37));
 
-        cbxVehiculos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxVehiculosActionPerformed(evt);
-            }
-        });
         jPanel1.add(cbxVehiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 250, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -204,25 +220,52 @@ public class PlacasVehiculo extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     *
+     * Método que se ejecuta cuando se presiona el botón "Volver". Crea una
+     * instancia de la clase Menu con el objeto de la clase Persona y la muestra
+     * en pantalla. Cierra la ventana actual.
+     *
+     * @param evt objeto de la clase ActionEvent que representa el evento de
+     * presionar el botón "Volver".
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Menu m = new Menu(persona);
         m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    /**
+     *
+     * Método que se ejecuta cuando se presiona el botón "Aceptar1". Limpia la
+     * tabla del historial.
+     *
+     * @param evt objeto de la clase ActionEvent que representa el evento de
+     * presionar el botón "Aceptar1".
+     */
     private void btnAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar1ActionPerformed
         limpiarTabla();
     }//GEN-LAST:event_btnAceptar1ActionPerformed
-
-    private void cbxVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxVehiculosActionPerformed
-
-    }//GEN-LAST:event_cbxVehiculosActionPerformed
-
+    /**
+     *
+     * Método que se ejecuta cuando se presiona el botón "Aceptar2". Llena la
+     * tabla del historial con los datos del vehículo seleccionado en el combo
+     * de vehículos.
+     *
+     * @param evt objeto de la clase ActionEvent que representa el evento de
+     * presionar el botón "Aceptar2".
+     */
     private void btnAceptar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar2ActionPerformed
         llenarTabla();
     }//GEN-LAST:event_btnAceptar2ActionPerformed
-
+    /**
+     *
+     * Método que llena el combo de vehículos con los datos de los vehículos del
+     * cliente.
+     *
+     * Elimina todos los elementos del combo previamente.
+     *
+     * @see IVehiculoDAO#listaAutosCliente(String)
+     */
     public void llenarCombo() {
         cbxVehiculos.removeAllItems();
         List<Vehiculo> llenaCb = vehiculo.listaAutosCliente(persona.getRfc());
@@ -238,6 +281,13 @@ public class PlacasVehiculo extends javax.swing.JFrame {
         }
     }
 
+    /**
+     *
+     * Método que llena la tabla del historial con los datos de las placas del
+     * vehículo seleccionado.
+     *
+     * @see IPlacaDAO#listaPlacasAutoSinEstado(int)
+     */
     public void llenarTabla() {
         Vehiculo vehiculo = (Vehiculo) cbxVehiculos.getSelectedItem();
         List<Placa> placas = placa.listaPlacasAutoSinEstado(vehiculo.getId_vehiculo());
@@ -254,7 +304,7 @@ public class PlacasVehiculo extends javax.swing.JFrame {
             String estado = placa.getEstado();
 
             if (placa.getFecha_inactividad() == null) {
-                fecha= placa.getFecha_solicitud().toString();
+                fecha = placa.getFecha_solicitud().toString();
             } else {
                 fecha = placa.getFecha_inactividad().toString();
             }
@@ -267,6 +317,9 @@ public class PlacasVehiculo extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo para limpiar la tabla
+     */
     public void limpiarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
         modelo.setRowCount(0);
@@ -274,8 +327,9 @@ public class PlacasVehiculo extends javax.swing.JFrame {
 
     }
 
-    
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar1;
     private javax.swing.JButton btnAceptar2;

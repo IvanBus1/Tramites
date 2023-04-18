@@ -19,7 +19,14 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Hector e Ivan
+ * Esta clase representa un trámite y utiliza el patrón de diseño "Joined
+ * Inheritance". Se utiliza la anotación @Entity para indicar que es una entidad
+ * en la base de datos. La anotación @Inheritance se utiliza para definir la
+ * estrategia de herencia, en este caso Joined. La anotación
+ * @DiscriminatorColumn se utiliza para especificar el nombre de la columna que
+ * se utilizará para diferenciar entre las subclases en la tabla de la
+ * superclase. La anotación @Table se utiliza para especificar el nombre de la
+ * tabla en la base de datos que contendrá los datos de esta entidad.
  */
 @Entity(name = "Tramite")
 @Inheritance(strategy = InheritanceType.JOINED)

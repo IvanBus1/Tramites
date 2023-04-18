@@ -16,8 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- *
- * @author Hector e Ivan
+ * Clase que representa  los vehiculos
  */
 @Entity
 @Table(name = "Vehiculo")

@@ -12,13 +12,21 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *Clase para registar a una persona
  * @author IVAN
  */
 public class Registrar_Persona extends javax.swing.JFrame {
 
+    /**
+     * Objeto de tipo IPersonaDAO
+     */
     IPersonaDAO personaDAO;
 
+    /**
+     * Constructor de la clase Registrar_Persona
+     *
+     * @param personaDAO objeto de tipo IPersonaDAO
+     */
     public Registrar_Persona(IPersonaDAO personaDAO) {
         initComponents();
         this.personaDAO = personaDAO;
@@ -79,11 +87,6 @@ public class Registrar_Persona extends javax.swing.JFrame {
         txtTelefono.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtTelefono.setForeground(new java.awt.Color(0, 153, 204));
         txtTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
-            }
-        });
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTelefonoKeyTyped(evt);
@@ -161,11 +164,6 @@ public class Registrar_Persona extends javax.swing.JFrame {
         txtAPaterno.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtAPaterno.setForeground(new java.awt.Color(0, 153, 204));
         txtAPaterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtAPaterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAPaternoActionPerformed(evt);
-            }
-        });
         txtAPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtAPaternoKeyTyped(evt);
@@ -230,62 +228,100 @@ public class Registrar_Persona extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
-
+/**
+     * Método invocado cuando se presiona el botón "Volver". Crea una nueva
+     * instancia de la clase "Inicial" y la hace visible, luego cierra la
+     * ventana actual.
+     *
+     * @param evt Objeto de evento de acción que desencadena este método
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Inicial a = new Inicial();
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    /**
+     * Método invocado cuando se presiona el botón "Aceptar". Llama al método
+     * "guardarPersona()" para guardar la información de la persona.
+     *
+     * @param evt Objeto de evento de acción que desencadena este método
+     */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
         guardarPersona();
-       
+
     }//GEN-LAST:event_btnAceptarActionPerformed
-
-    private void txtAPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAPaternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAPaternoActionPerformed
-
+    /**
+     * Método invocado cuando se detecta una pulsación de tecla en el campo de
+     * texto "txtTelefono". Verifica si la tecla pulsada es un dígito, de lo
+     * contrario, consume el evento.
+     *
+     * @param evt Objeto de evento de tecla que desencadena este método
+     */
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         char c = evt.getKeyChar();
 
         if (c < '0' || c > '9')
             evt.consume();
     }//GEN-LAST:event_txtTelefonoKeyTyped
-
+    /**
+     * Método invocado cuando se detecta una pulsación de tecla en el campo de
+     * texto "txtNombre". Verifica si la tecla pulsada es una letra o un espacio
+     * en blanco, de lo contrario, consume el evento.
+     *
+     * @param evt Objeto de evento de tecla que desencadena este método
+     */
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char c = evt.getKeyChar();
 
         if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && c != ' ')
-        evt.consume();
+            evt.consume();
     }//GEN-LAST:event_txtNombreKeyTyped
-
+    /**
+     * Método invocado cuando se detecta una pulsación de tecla en el campo de
+     * texto "txtAPaterno". Verifica si la tecla pulsada es una letra, de lo
+     * contrario, consume el evento.
+     *
+     * @param evt Objeto de evento de tecla que desencadena este método
+     */
     private void txtAPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAPaternoKeyTyped
         char c = evt.getKeyChar();
 
         if ((c < 'a' || c > 'z') && (c < 'A') | c > 'Z')
             evt.consume();
     }//GEN-LAST:event_txtAPaternoKeyTyped
-
+    /**
+     * Método invocado cuando se detecta una pulsación de tecla en el campo de
+     * texto "txtAMaterno". Verifica si la tecla pulsada es una letra, de lo
+     * contrario, consume el evento.
+     *
+     * @param evt Objeto de evento de tecla que desencadena este método
+     */
     private void txtAMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAMaternoKeyTyped
         char c = evt.getKeyChar();
 
         if ((c < 'a' || c > 'z') && (c < 'A') | c > 'Z')
             evt.consume();
     }//GEN-LAST:event_txtAMaternoKeyTyped
-
+    /**
+     * Método invocado cuando se detecta una pulsación de tecla en el campo de
+     * texto "txtRFC". Verifica si la tecla pulsada es una letra o un dígito, de
+     * lo contrario, consume el evento.
+     *
+     * @param evt Objeto de evento de tecla que desencadena este método
+     */
     private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtRFCKeyTyped
-
+    /**
+     *
+     * Clears the text fields when the "Cancelar" button is pressed.
+     *
+     * @param evt the ActionEvent triggered by the button press
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         txtAMaterno.setText("");
         txtAPaterno.setText("");
@@ -294,7 +330,9 @@ public class Registrar_Persona extends javax.swing.JFrame {
         txtTelefono.setText("");
 
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    /**
+     * Metodo para guardarPersona
+     */
     public void guardarPersona() {
         try {
             boolean dis = true;
@@ -379,8 +417,9 @@ public class Registrar_Persona extends javax.swing.JFrame {
         }
     }
 
-    
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;

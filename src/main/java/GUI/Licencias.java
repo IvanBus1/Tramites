@@ -17,15 +17,34 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *Clase para las licencias
  * @author IVAN
  */
 public class Licencias extends javax.swing.JFrame {
 
+    /**
+     * Objeto de tipo ILicenciaDAO
+     */
     private ILicenciaDAO licenciaDAO;
+    /**
+     * Objeto de ITramiteDAO
+     */
     private ITramiteDAO tramiteDAO;
+    /**
+     * Objeto de tipo persona
+     */
     private Persona persona;
 
+    /**
+     * Constructor de la clase Licencias.
+     *
+     * @param tramiteDAO Objeto que implementa la interfaz ITramiteDAO para
+     * acceder a los datos de trámites.
+     * @param licenciaDAO Objeto que implementa la interfaz ILicenciaDAO para
+     * acceder a los datos de licencias.
+     * @param persona Objeto de la clase Persona que representa la persona
+     * asociada a la ventana de Licencias.
+     */
     public Licencias(ITramiteDAO tramiteDAO, ILicenciaDAO licenciaDAO, Persona persona) {
         this.persona = persona;
 
@@ -51,7 +70,6 @@ public class Licencias extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         lblperso = new javax.swing.JLabel();
@@ -80,20 +98,6 @@ public class Licencias extends javax.swing.JFrame {
         jLabel3.setText("Años de vigencia:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
 
-        btnCancelar.setBackground(new java.awt.Color(204, 0, 0));
-        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar.setText("Cancelar");
-        btnCancelar.setBorder(null);
-        btnCancelar.setContentAreaFilled(false);
-        btnCancelar.setOpaque(true);
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, 88, 37));
-
         btnAceptar.setBackground(new java.awt.Color(0, 102, 204));
         btnAceptar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,7 +110,7 @@ public class Licencias extends javax.swing.JFrame {
                 btnAceptarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 88, 37));
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 88, 37));
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -120,7 +124,7 @@ public class Licencias extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 88, 37));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, 88, 37));
 
         lblperso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblperso.setForeground(new java.awt.Color(0, 102, 204));
@@ -129,11 +133,6 @@ public class Licencias extends javax.swing.JFrame {
 
         cmbLicencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
         cmbLicencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
-        cmbLicencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbLicenciaActionPerformed(evt);
-            }
-        });
         jPanel1.add(cmbLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 230, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -159,12 +158,14 @@ public class Licencias extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Método para guardar una licencia en el sistema. Este método crea una
+     * instancia de Licencia, establece sus atributos de acuerdo a los valores
+     * seleccionados en la interfaz de usuario, y la guarda en la base de datos
+     * utilizando un objeto de ILicenciaDAO.
+     */
     public void guardarLicencia() {
 
-        
-        
-        
         try {
 
             Licencia licencia = new Licencia();
@@ -225,8 +226,8 @@ public class Licencias extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Se ha registrado la licencia");
                 IConexionBD conexionbd = new ConexionBD();
                 IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
-                
-                Reporte r = new Reporte(persona,licenciaguardar);
+
+                Reporte r = new Reporte(persona, licenciaguardar);
                 r.setVisible(true);
                 this.dispose();
 
@@ -238,21 +239,23 @@ public class Licencias extends javax.swing.JFrame {
 
     }
 
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void cmbLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLicenciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbLicenciaActionPerformed
-
+    /**
+     * Método de evento de acción para el botón "Volver".
+     *
+     * @param evt Objeto de evento de acción que contiene información sobre el
+     * evento de acción que desencadenó este método.
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Menu m = new Menu(persona);
         m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    /**
+     * Método de evento de acción para el botón "Aceptar".
+     *
+     * @param evt Objeto de evento de acción que contiene información sobre el
+     * evento de acción que desencadenó este método.
+     */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
         guardarLicencia();
@@ -260,11 +263,11 @@ public class Licencias extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cmbLicencia;
     private javax.swing.JLabel jLabel1;

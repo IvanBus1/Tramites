@@ -18,16 +18,21 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ *Clase para registrar varios usuarios
  * @author IVAN
  */
 public class RegistrarVariosUsuarios extends javax.swing.JFrame {
 
     /**
-     * Creates new form RegistrarVariosUsuarios
+     * Objeto de tipo IPersonaDAO
      */
     IPersonaDAO personaDAO;
 
+    /**
+     * Constructor de la clase RegistrarVariosUsuarios
+     *
+     * @param personaDAO objeto de tipo IPersonaDAO
+     */
     public RegistrarVariosUsuarios(IPersonaDAO personaDAO) {
         initComponents();
         this.personaDAO = personaDAO;
@@ -101,8 +106,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
 
         jt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Apellido Paterno", "Apellido Materno", "RFC", "Teléfono", "¿Es discapacitado?", "Fecha"
@@ -156,6 +160,9 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo para agregar varias personas
+     */
     public void agregarVariasPersonas() {
         boolean dis = true;
 
@@ -254,28 +261,51 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         }
     }
 
-  
-
+    /**
+     *
+     * Método privado que se ejecuta al hacer clic en el botón "Aceptar" para
+     * agregar varias personas. Realiza la acción de agregar varias personas.
+     *
+     * @param evt Objeto de tipo ActionEvent que representa el evento de clic en
+     * el botón.
+     */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
         agregarVariasPersonas();
 
     }//GEN-LAST:event_btnAceptarActionPerformed
-
+    /**
+     *
+     * Método privado que se ejecuta al hacer clic en el botón "Volver". Crea
+     * una nueva instancia de la clase Inicial y la hace visible, luego cierra
+     * la ventana actual.
+     *
+     * @param evt Objeto de tipo ActionEvent que representa el evento de clic en
+     * el botón.
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Inicial a = new Inicial();
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    /**
+     *
+     * Método que se ejecuta al seleccionar una opción en un combo box llamado
+     * "nClientes". Modifica la cantidad de filas de una tabla en función del
+     * valor seleccionado en el combo box.
+     *
+     * @param evt Objeto de tipo ActionEvent que representa el evento de
+     * selección en el combo box.
+     */
     private void nClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nClientesActionPerformed
-     DefaultTableModel h= (DefaultTableModel) jt.getModel();
-     int filas=Integer.parseInt((String) nClientes.getSelectedItem());
-     h.setRowCount(filas);
+        DefaultTableModel h = (DefaultTableModel) jt.getModel();
+        int filas = Integer.parseInt((String) nClientes.getSelectedItem());
+        h.setRowCount(filas);
     }//GEN-LAST:event_nClientesActionPerformed
 
-   
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnVolver;

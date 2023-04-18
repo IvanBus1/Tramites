@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
+ *Clase para los metodos del tramite
  * @author icedo
  */
 public interface ITramiteDAO {

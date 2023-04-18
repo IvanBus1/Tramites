@@ -22,8 +22,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
- * @author icedo
+ * Clase que representa la clase placas
+ * @author IVAN
  */
 @Entity(name = "Placa")
 @Inheritance(strategy = InheritanceType.JOINED)

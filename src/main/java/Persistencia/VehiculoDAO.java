@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
- *
+ *Clase para los vehiculos
  * @author IVAN
  */
 public class VehiculoDAO implements IVehiculoDAO{

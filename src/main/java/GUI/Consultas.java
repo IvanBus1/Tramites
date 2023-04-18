@@ -23,14 +23,29 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Clase para hacer consultas de clientes
  *
  * @author IVAN
  */
 public class Consultas extends javax.swing.JFrame {
 
+    /**
+     * Lista de personas
+     */
     private List<Persona> personas;
+
+    /**
+     * Objeto de tipo personaDAO
+     */
     IPersonaDAO personaDAO;
 
+    /**
+     * Constructor de la clase "Consultas" que recibe una implementación de la
+     * interfaz IPersonaDAO como parámetro.
+     *
+     * @param personaDAO La implementación de la interfaz IPersonaDAO que se
+     * utiliza para acceder a la capa de acceso a datos (DAO) de personas.
+     */
     public Consultas(IPersonaDAO personaDAO) {
         this.personaDAO = personaDAO;
         initComponents();
@@ -129,11 +144,6 @@ public class Consultas extends javax.swing.JFrame {
         txtNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(0, 153, 204));
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNombreKeyReleased(evt);
@@ -215,50 +225,107 @@ public class Consultas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Este método se ejecuta cuando se hace clic en el botón "Aceptar". Llama
+     * al método "llenarTabla()" para actualizar la tabla de personas con los
+     * filtros de búsqueda proporcionados en los campos de texto de nombre y
+     * RFC.
+     *
+     * @param evt El evento de acción generado por hacer clic en el botón
+     * "Aceptar".
+     */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         llenarTabla();
     }//GEN-LAST:event_btnAceptarActionPerformed
-
+    /**
+     * Este método se ejecuta cuando se hace clic en el botón "Volver". Crea una
+     * nueva instancia de la clase "Inicial" y la muestra, cerrando la ventana
+     * actual.
+     *
+     * @param evt El evento de acción generado por hacer clic en el botón
+     * "Volver".
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Inicial a = new Inicial();
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    /**
+     * Este método se ejecuta cuando se suelta una tecla en el campo de texto de
+     * nombre. Llama al método "llenarTabla()" para actualizar la tabla de
+     * personas con el filtro de búsqueda proporcionado en el campo de texto de
+     * nombre.
+     *
+     * @param evt El evento de teclado generado por soltar una tecla en el campo
+     * de texto de nombre.
+     */
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
         llenarTabla();
     }//GEN-LAST:event_txtNombreKeyReleased
-
+    /**
+     * Este método se ejecuta cuando se suelta una tecla en el campo de texto de
+     * RFC. Llama al método "llenarTabla()" para actualizar la tabla de personas
+     * con el filtro de búsqueda proporcionado en el campo de texto de RFC.
+     *
+     * @param evt El evento de teclado generado por soltar una tecla en el campo
+     * de texto de RFC.
+     */
     private void txtRFCKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyReleased
         llenarTabla();
     }//GEN-LAST:event_txtRFCKeyReleased
-
+    /**
+     * Este método se ejecuta cuando se presiona una tecla en el campo de texto
+     * de nombre. Verifica si la tecla presionada es una letra o un espacio en
+     * blanco, de lo contrario consume el evento para evitar la entrada de
+     * caracteres inválidos.
+     *
+     * @param evt El evento de teclado generado por presionar una tecla en el
+     * campo de texto de nombre.
+     */
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombreKeyTyped
-
+    /**
+     * Este método se ejecuta cuando se hace clic en el botón "Cancelar". Limpia
+     * los campos de texto de RFC y nombre.
+     *
+     * @param evt El evento de acción generado por hacer clic en el botón
+     * "Cancelar".
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         txtRFC.setText("");
         txtNombre.setText("");
 
 
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+    /**
+     * Este método se ejecuta cuando se presiona una tecla en el campo de texto
+     * de RFC. Verifica si la tecla presionada es una letra, un dígito o un
+     * espacio en blanco, de lo contrario consume el evento para evitar la
+     * entrada de caracteres inválidos.
+     *
+     * @param evt El evento de teclado generado por presionar una tecla en el
+     * campo de texto de RFC.
+     */
     private void txtRFCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFCKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isLetterOrDigit(c) || !Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtRFCKeyTyped
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
+    /**
+     * Configura un listener de eventos de mouse en la tabla jtConsultas para
+     * detectar si se hace doble clic en una celda de la tabla. Cuando se
+     * detecta un doble clic, se obtiene la fila y columna seleccionada, se
+     * obtiene la información de la persona correspondiente a esa fila, se crea
+     * una nueva instancia de la clase Historial con la persona y un objeto
+     * TramiteDAO como parámetros, se muestra la ventana Historial, se muestra
+     * un mensaje con el valor de la celda seleccionada y se cierra la ventana
+     * actual.
+     */
     public void acciontabla() {
 
         jtConsultas.addMouseListener(new MouseAdapter() {
@@ -272,9 +339,9 @@ public class Consultas extends javax.swing.JFrame {
                     ITramiteDAO tramite = new TramiteDAO(conexionbd);
                     Historial hs = new Historial(personas.get(row), tramite);
                     hs.setVisible(true);
-                    
+
                     JOptionPane.showMessageDialog(null, target.getValueAt(row, column));
-                     ((Window) SwingUtilities.getRoot(target)).dispose();
+                    ((Window) SwingUtilities.getRoot(target)).dispose();
                 }
 
             }
@@ -282,6 +349,14 @@ public class Consultas extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Llena la tabla jtConsultas con los datos de personas obtenidos de una
+     * base de datos. Aplica filtros de búsqueda por nombre y RFC. Los datos de
+     * la tabla se obtienen de la lista de personas obtenidas de la base de
+     * datos, se desencriptan los nombres y apellidos de las personas, se
+     * aplican filtros de búsqueda por nombre, y se agregan los datos de las
+     * personas filtradas a la tabla jtConsultas.
+     */
     public void llenarTabla() {
 
         String rfc = txtRFC.getText();
@@ -328,8 +403,9 @@ public class Consultas extends javax.swing.JFrame {
 
     }
 
-    
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;

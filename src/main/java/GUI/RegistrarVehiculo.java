@@ -7,22 +7,31 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *Clase para registrar un vehiculo
  * @author IVAN
  */
 public class RegistrarVehiculo extends javax.swing.JFrame {
 
+    /**
+     * Objeto de tipo IVehiculoDAO
+     */
     IVehiculoDAO vehiculoDAO;
-    
-     private Persona persona;
-    
-   
-    
-    public RegistrarVehiculo(IVehiculoDAO vehiculoDAO,Persona persona) {
-       this.persona=persona;
-      
+    /**
+     * Objeto de tipo persona
+     */
+    private Persona persona;
+
+    /**
+     * Constructor de la clase RegistrarVehiculo
+     *
+     * @param vehiculoDAO objeto de tipo vehiculo dao
+     * @param persona objeto de tipo persona
+     */
+    public RegistrarVehiculo(IVehiculoDAO vehiculoDAO, Persona persona) {
+        this.persona = persona;
+
         initComponents();
-          lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
+        lblperso.setText(persona.getNombre() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
         this.vehiculoDAO = vehiculoDAO;
     }
 
@@ -151,11 +160,6 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         txtLinea.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtLinea.setForeground(new java.awt.Color(0, 153, 204));
         txtLinea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtLinea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLineaActionPerformed(evt);
-            }
-        });
         txtLinea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtLineaKeyTyped(evt);
@@ -171,11 +175,6 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         txtModelo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtModelo.setForeground(new java.awt.Color(0, 153, 204));
         txtModelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtModeloKeyTyped(evt);
-            }
-        });
         jPanel1.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 250, 28));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -186,11 +185,6 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         txtColor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtColor.setForeground(new java.awt.Color(0, 153, 204));
         txtColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtColor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtColorActionPerformed(evt);
-            }
-        });
         txtColor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtColorKeyTyped(evt);
@@ -221,55 +215,85 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtColorActionPerformed
-
+/**
+     * Método invocado cuando se presiona el botón "Volver". Crea una nueva
+     * instancia de la clase "Menu" y la hace visible, luego cierra la ventana
+     * actual.
+     *
+     * @param evt Objeto de evento de acción que desencadena este método
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Menu m = new Menu(persona);
         m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    /**
+     * Método invocado cuando se presiona el botón "Aceptar". Llama al método
+     * "guardarVehiculo()" para guardar la información del vehículo.
+     *
+     * @param evt Objeto de evento de acción que desencadena este método
+     */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-       guardarVehiculo();
+        guardarVehiculo();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    /**
+     * Método invocado cuando se detecta una pulsación de tecla en el campo de
+     * texto "txtMarca". Verifica si la tecla pulsada es una letra, de lo
+     * contrario, consume el evento.
+     *
+     * @param evt Objeto de evento de tecla que desencadena este método
+     */
     private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
-    char c = evt.getKeyChar();
-        
-        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A') | c > 'Z')
+            evt.consume();
     }//GEN-LAST:event_txtMarcaKeyTyped
-
-    private void txtLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLineaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLineaActionPerformed
-
+    /**
+     * Método invocado cuando se detecta una pulsación de tecla en el campo de
+     * texto "txtLinea". Verifica si la tecla pulsada es una letra, de lo
+     * contrario, consume el evento.
+     *
+     * @param evt Objeto de evento de tecla que desencadena este método
+     */
     private void txtLineaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyTyped
-      char c = evt.getKeyChar();
-        
-        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
+        char c = evt.getKeyChar();
+
+        if ((c < 'a' || c > 'z') && (c < 'A') | c > 'Z')
+            evt.consume();
     }//GEN-LAST:event_txtLineaKeyTyped
-
-    private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
-  
-    }//GEN-LAST:event_txtModeloKeyTyped
-
+    /**
+     * Método invocado cuando se detecta una pulsación de tecla en el campo de
+     * texto "txtColor". Verifica si la tecla pulsada es una letra, de lo
+     * contrario, consume el evento.
+     *
+     * @param evt Objeto de evento de tecla que desencadena este método
+     */
     private void txtColorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtColorKeyTyped
-     char c = evt.getKeyChar();
-        
-        if((c<'a' || c>'z') && (c<'A' )| c>'Z')evt.consume();
-    }//GEN-LAST:event_txtColorKeyTyped
+        char c = evt.getKeyChar();
 
+        if ((c < 'a' || c > 'z') && (c < 'A') | c > 'Z')
+            evt.consume();
+    }//GEN-LAST:event_txtColorKeyTyped
+    /**
+     * Método invocado cuando se presiona el botón "Cancelar". Limpia los campos
+     * de texto "txtColor", "txtLinea", "txtMarca", "txtModelo" y
+     * "txtNumeroSerie".
+     *
+     * @param evt Objeto de evento de acción que desencadena este método
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-      txtColor.setText("");
-      txtLinea.setText("");
-      txtMarca.setText("");
-      txtModelo.setText("");
-      txtNumeroSerie.setText("");
+        txtColor.setText("");
+        txtLinea.setText("");
+        txtMarca.setText("");
+        txtModelo.setText("");
+        txtNumeroSerie.setText("");
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    /**
+     * Metodo para guardar un vehiculo
+     */
     public void guardarVehiculo() {
         try {
             if (txtColor.getText().isEmpty() || txtLinea.getText().isEmpty()
@@ -280,42 +304,40 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
             }
 
             // Validar que txtNumeroSerie solo acepte letras y números
-        String numeroSerie = txtNumeroSerie.getText();
-        if (!numeroSerie.matches("[a-zA-Z0-9]+")) {
-            JOptionPane.showMessageDialog(null, "El campo Número de Serie solo puede contener letras y números");
-            return;
-        }
-        
-        // Validar que txtMarca solo acepte letras
-        String marca = txtMarca.getText();
-        if (!marca.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(null, "El campo Marca solo puede contener letras");
-            return;
-        }
-        
-        // Validar que txtLinea solo acepte letras
-        String linea = txtLinea.getText();
-        if (!linea.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(null, "El campo Línea solo puede contener letras");
-            return;
-        }
-        
-        // Validar que txtModelo solo acepte números
-        String modelo = txtModelo.getText();
-        if (!modelo.matches("\\d+")) {
-            JOptionPane.showMessageDialog(null, "El campo Modelo solo puede contener números");
-            return;
-        }
-        
-        // Validar que txtColor solo acepte letras
-        String color = txtColor.getText();
-        if (!color.matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(null, "El campo Color solo puede contener letras");
-            return;
-        }
-            
-            
-      
+            String numeroSerie = txtNumeroSerie.getText();
+            if (!numeroSerie.matches("[a-zA-Z0-9]+")) {
+                JOptionPane.showMessageDialog(null, "El campo Número de Serie solo puede contener letras y números");
+                return;
+            }
+
+            // Validar que txtMarca solo acepte letras
+            String marca = txtMarca.getText();
+            if (!marca.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(null, "El campo Marca solo puede contener letras");
+                return;
+            }
+
+            // Validar que txtLinea solo acepte letras
+            String linea = txtLinea.getText();
+            if (!linea.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(null, "El campo Línea solo puede contener letras");
+                return;
+            }
+
+            // Validar que txtModelo solo acepte números
+            String modelo = txtModelo.getText();
+            if (!modelo.matches("\\d+")) {
+                JOptionPane.showMessageDialog(null, "El campo Modelo solo puede contener números");
+                return;
+            }
+
+            // Validar que txtColor solo acepte letras
+            String color = txtColor.getText();
+            if (!color.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(null, "El campo Color solo puede contener letras");
+                return;
+            }
+
             // Buscar si ya existe una persona con el mismo RFC
             Vehiculo vehiculoExistente = vehiculoDAO.buscarPorNumeroSerie(txtNumeroSerie.getText());
             if (vehiculoExistente != null) {
@@ -323,11 +345,8 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
                 return;
             }
 
-            
-            
-            
             Vehiculo vehi = new Vehiculo();
-            
+
             vehi.setNum_serie(txtNumeroSerie.getText());
             vehi.setMarca(txtMarca.getText());
             vehi.setLinea(txtLinea.getText());
@@ -346,8 +365,9 @@ public class RegistrarVehiculo extends javax.swing.JFrame {
         }
     }
 
-    
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;

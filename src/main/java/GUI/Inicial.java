@@ -12,11 +12,14 @@ import Persistencia.IPersonaDAO;
 import Persistencia.ITramiteDAO;
 import Persistencia.PersonaDAO;
 import Persistencia.TramiteDAO;
-
+/**
+ * Clase para el menu inicial
+ * @author IVAN
+ */
 public class Inicial extends javax.swing.JFrame {
 
     /**
-     * Creates new form Inicial
+     * Constructor de la clase inicial
      */
     public Inicial() {
         initComponents();
@@ -143,7 +146,14 @@ public class Inicial extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Método que se ejecuta cuando se hace clic en el botón
+     * btnRegistrarVariasPersonas. Crea una instancia de ConexionBD, PersonaDAO
+     * y RegistrarVariosUsuarios. Hace visible la ventana de
+     * RegistrarVariosUsuarios y cierra la ventana actual.
+     *
+     * @param evt Objeto que representa el evento de acción.
+     */
     private void btnRegistrarVariasPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVariasPersonasActionPerformed
         IConexionBD conexionbd = new ConexionBD();
         IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
@@ -151,7 +161,14 @@ public class Inicial extends javax.swing.JFrame {
         ase.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegistrarVariasPersonasActionPerformed
-
+    /**
+     * Método que se ejecuta cuando se hace clic en el botón
+     * btnRegistrarPersona. Crea una instancia de ConexionBD, PersonaDAO y
+     * Registrar_Persona. Hace visible la ventana de Registrar_Persona y cierra
+     * la ventana actual.
+     *
+     * @param evt Objeto que representa el evento de acción.
+     */
     private void btnRegistrarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPersonaActionPerformed
         IConexionBD conexionbd = new ConexionBD();
         IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
@@ -159,13 +176,27 @@ public class Inicial extends javax.swing.JFrame {
         rp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegistrarPersonaActionPerformed
-
+    /**
+     * Método que se ejecuta cuando se hace clic en el botón btnAceptarPersona.
+     * Crea una instancia de APersonaExistente y hace visible su ventana,
+     * cerrando la ventana actual.
+     *
+     * @param evt Objeto que representa el evento de acción.
+     */
     private void btnAceptarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarPersonaActionPerformed
         APersonaExistente as = new APersonaExistente();
         as.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarPersonaActionPerformed
-
+    /**
+     * Método que se ejecuta cuando se hace clic en el botón btnHistoGeneral.
+     * Crea instancias de ConexionBD, PersonaDAO y TramiteDAO. Luego crea una
+     * instancia de HistorialGeneral pasándole las instancias de PersonaDAO y
+     * TramiteDAO como parámetros. Hace visible la ventana de HistorialGeneral y
+     * cierra la ventana actual.
+     *
+     * @param evt Objeto que representa el evento de acción.
+     */
     private void btnHistoGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoGeneralActionPerformed
         IConexionBD conexionbd = new ConexionBD();
         IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
@@ -175,6 +206,14 @@ public class Inicial extends javax.swing.JFrame {
         co.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHistoGeneralActionPerformed
+    /**
+     * Método que se ejecuta cuando se hace clic en el botón btnAceptar6. Crea
+     * una instancia de ConexionBD y PersonaDAO. Luego crea una instancia de
+     * Consultas pasándole la instancia de PersonaDAO como parámetro. Hace
+     * visible la ventana de Consultas y cierra la ventana actual.
+     *
+     * @param evt Objeto que representa el evento de acción.
+     */
 
     private void btnAceptar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar6ActionPerformed
         IConexionBD conexionbd = new ConexionBD();
@@ -184,8 +223,9 @@ public class Inicial extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAceptar6ActionPerformed
 
-    
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar6;
     private javax.swing.JButton btnAceptarPersona;

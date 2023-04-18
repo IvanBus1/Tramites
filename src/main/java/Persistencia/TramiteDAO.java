@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 /**
- *
+ *Clase para los tramites
  * @author icedo
  */
 public class TramiteDAO implements ITramiteDAO {
@@ -165,7 +165,7 @@ public class TramiteDAO implements ITramiteDAO {
 
     /**
      * Metodo para obtener los tramites de una persona en base al tipo del tramite
-     * @param tipotramite
+     * @param tipotramite tipo del tramite
      * @return tramites lista de tramites
      */
     @Override

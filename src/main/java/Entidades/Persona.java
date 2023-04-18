@@ -22,7 +22,14 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Hector e Ivan
+ * Esta clase representa una persona en la base de datos. Se utiliza la
+ * anotación @Entity para indicar que es una entidad en la base de datos. La
+ * anotación @Table se utiliza para especificar el nombre de la tabla en la base
+ * de datos que contendrá los datos de esta entidad. La implementación de la
+ * interfaz Serializable permite que los objetos de esta clase puedan ser
+ * convertidos a una representación serializada, lo cual es necesario en algunos
+ * contextos, como la serialización en redes o la persistencia en bases de
+ * datos.
  */
 @Entity
 @Table(name = "Persona")
@@ -116,7 +123,7 @@ public class Persona implements Serializable {
     /**
      * metodo que setea el valor del id de la persona
      *
-     * @param id_persona
+     * @param id_persona id de la persona
      */
     public void setId_persona(Integer id_persona) {
         this.id_persona = id_persona;
@@ -134,7 +141,7 @@ public class Persona implements Serializable {
     /**
      * Metodo que setea el valor del rfc de la persona
      *
-     * @param rfc
+     * @param rfc rfc de la persona
      */
     public void setRfc(String rfc) {
         this.rfc = rfc;

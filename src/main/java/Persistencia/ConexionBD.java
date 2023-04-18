@@ -5,23 +5,25 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
+ * Clase para la conexion a la bd
  *
  * @author IVAN
  */
 public class ConexionBD implements IConexionBD {
 
     /**
-     * Método para crear una instancia de EntityManager y establecer conexión
-     * con la base de datos.
+     *
+     * Crea una instancia de EntityManager y establece conexión con la base de
+     * datos.
      *
      * @return Una instancia de EntityManager que representa la conexión con la
-     * base de datos
+     * base de datos.
      */
     @Override
     public EntityManager crearcone() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU"); 
-        EntityManager em = emf.createEntityManager(); 
-        return em; 
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
+        EntityManager em = emf.createEntityManager();
+        return em;
     }
 
 }

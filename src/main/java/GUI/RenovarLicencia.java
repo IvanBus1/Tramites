@@ -17,26 +17,40 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *Clase para renovar una licencia
  * @author IVAN
  */
 public class RenovarLicencia extends javax.swing.JFrame {
 
-    
-
+    /**
+     * Objeto de tipo ILicenciaDAO
+     */
     private ILicenciaDAO licenciaDAO;
+    /**
+     * Objeto de ITramiteDAO
+     */
     private ITramiteDAO tramiteDAO;
+    /**
+     * Objeto de tipo Persona
+     */
     private Persona persona;
-    
+
+    /**
+     * Constructor for the RenovarLicencia class.
+     *
+     * @param tramiteDAO the data access object for trámites
+     * @param licenciaDAO the data access object for licencias
+     * @param persona the persona object for which the license is being renewed
+     */
     public RenovarLicencia(ITramiteDAO tramiteDAO, ILicenciaDAO licenciaDAO, Persona persona) {
-       this.persona=persona;
+        this.persona = persona;
         initComponents();
-        
+
         this.tramiteDAO = tramiteDAO;
         this.licenciaDAO = licenciaDAO;
-       
-          lblperso.setText(persona.getNombre()+" "+persona.getApellidoPaterno()+" "+persona.getApellidoMaterno());
-        
+
+        lblperso.setText(persona.getNombre() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
+
     }
 
     /**
@@ -132,11 +146,6 @@ public class RenovarLicencia extends javax.swing.JFrame {
 
         cmbLicencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
         cmbLicencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 204)));
-        cmbLicencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbLicenciaActionPerformed(evt);
-            }
-        });
         jPanel1.add(cmbLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 230, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -173,135 +182,138 @@ public class RenovarLicencia extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
-    
+    /**
+     * Metodo para guardar la nueva licencia
+     */
     public void guardarnuevaLicencia() {
 
-        
         String licenciaAnt = txtLicenciaAnt.getText();
 
-    
-    if (licenciaAnt == null || !licenciaAnt.matches("\\d+")) {
-        JOptionPane.showMessageDialog(null, "Ingrese un número de licencia anterior válida (solo números)");
-        return;
-    }
-        
-        
-        Licencia licenciaencon = licenciaDAO.buscarIdyEstado(Integer.parseInt(txtLicenciaAnt.getText()));
-        
-        if(licenciaencon==null){
-            JOptionPane.showMessageDialog(null, "No se encontró la licencia con esa id o ya se encuentra inactiva");
+        if (licenciaAnt == null || !licenciaAnt.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Ingrese un número de licencia anterior válida (solo números)");
+            return;
         }
-        
-        else{
-            
+
+        Licencia licenciaencon = licenciaDAO.buscarIdyEstado(Integer.parseInt(txtLicenciaAnt.getText()));
+
+        if (licenciaencon == null) {
+            JOptionPane.showMessageDialog(null, "No se encontró la licencia con esa id o ya se encuentra inactiva");
+        } else {
+
             licenciaDAO.desactivarLicencia(licenciaencon);
-            
-            
+
             try {
 
-            Licencia nuevalicencia = new Licencia();
+                Licencia nuevalicencia = new Licencia();
 
-            Calendar cal = Calendar.getInstance();
+                Calendar cal = Calendar.getInstance();
 
-            Date fechaActual = cal.getTime();
+                Date fechaActual = cal.getTime();
 
-            int precioLicencia = 0;
+                int precioLicencia = 0;
 
-            String opcion = (String) cmbLicencia.getSelectedItem();
-            String estado = "Activa";
-            if (opcion.equals("1")) {
+                String opcion = (String) cmbLicencia.getSelectedItem();
+                String estado = "Activa";
+                if (opcion.equals("1")) {
 
-                cal.add(Calendar.YEAR, 1);
-                Date fechaVigencia = cal.getTime();
-                nuevalicencia.setVigencia(fechaVigencia);
-                precioLicencia = precioLicencia + 600;
+                    cal.add(Calendar.YEAR, 1);
+                    Date fechaVigencia = cal.getTime();
+                    nuevalicencia.setVigencia(fechaVigencia);
+                    precioLicencia = precioLicencia + 600;
 
-            } else if (opcion.equals("2")) {
+                } else if (opcion.equals("2")) {
 
-                cal.add(Calendar.YEAR, 2);
-                Date fechaVigencia = cal.getTime();
-                nuevalicencia.setVigencia(fechaVigencia);
+                    cal.add(Calendar.YEAR, 2);
+                    Date fechaVigencia = cal.getTime();
+                    nuevalicencia.setVigencia(fechaVigencia);
 
-                precioLicencia = precioLicencia + 900;
+                    precioLicencia = precioLicencia + 900;
 
-            } else if (opcion.equals("3")) {
+                } else if (opcion.equals("3")) {
 
-                cal.add(Calendar.YEAR, 3);
-                Date fechaVigencia = cal.getTime();
-                nuevalicencia.setVigencia(fechaVigencia);
+                    cal.add(Calendar.YEAR, 3);
+                    Date fechaVigencia = cal.getTime();
+                    nuevalicencia.setVigencia(fechaVigencia);
 
-                precioLicencia = precioLicencia + 1100;
-            }
+                    precioLicencia = precioLicencia + 1100;
+                }
 
-            if (persona.isDiscapacitado() == true) {
+                if (persona.isDiscapacitado() == true) {
 
-                String tipo = "Discapacitado";
-                nuevalicencia.setTipo(tipo);
-                precioLicencia = precioLicencia - 400;
-            } else {
-                String tipo = "No Discapacitado";
-                nuevalicencia.setTipo(tipo);
-            }
-            nuevalicencia.setEstado(estado);
-            nuevalicencia.setPersona(persona);
+                    String tipo = "Discapacitado";
+                    nuevalicencia.setTipo(tipo);
+                    precioLicencia = precioLicencia - 400;
+                } else {
+                    String tipo = "No Discapacitado";
+                    nuevalicencia.setTipo(tipo);
+                }
+                nuevalicencia.setEstado(estado);
+                nuevalicencia.setPersona(persona);
 
-            nuevalicencia.setFecha_solicitud(fechaActual);
+                nuevalicencia.setFecha_solicitud(fechaActual);
 
-            nuevalicencia.setPrecio(precioLicencia);
+                nuevalicencia.setPrecio(precioLicencia);
 
-            Licencia licenciaguardar = licenciaDAO.agregar(nuevalicencia);
+                Licencia licenciaguardar = licenciaDAO.agregar(nuevalicencia);
 
-            if (licenciaguardar == null) {
+                if (licenciaguardar == null) {
+                    JOptionPane.showMessageDialog(null, "No se ha podido registrar");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha renovado la licencia");
+                    IConexionBD conexionbd = new ConexionBD();
+                    IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
+
+                    Reporte r = new Reporte(persona, licenciaguardar);
+                    r.setVisible(true);
+                    this.dispose();
+
+                }
+
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se ha podido registrar");
-            } else {
-                JOptionPane.showMessageDialog(null, "Se ha renovado la licencia");
-                IConexionBD conexionbd = new ConexionBD();
-                IPersonaDAO personaDAO = new PersonaDAO(conexionbd);
-                
-                Reporte r = new Reporte(persona,licenciaguardar);
-                r.setVisible(true);
-                this.dispose();
-
             }
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se ha podido registrar");
         }
-            
-        }
-            
-        }
-        
-    
 
-    
-    
-    
+    }
+
+    /**
+     * ActionListener for the "Cancelar" button. Clears the text in the
+     * "txtLicenciaAnt" field.
+     *
+     * @param evt the ActionEvent object
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        txtLicenciaAnt.setText("");
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void cmbLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLicenciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbLicenciaActionPerformed
-
+    /**
+     * ActionListener for the "Volver" button. Creates a new Menu object and
+     * sets it visible, while disposing the current window.
+     *
+     * @param evt the ActionEvent object
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-     Menu m= new Menu(persona);
-      m.setVisible(true);
+        Menu m = new Menu(persona);
+        m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    /**
+     * ActionListener for the "Aceptar" button. Calls the
+     * "guardarnuevaLicencia()" method to save the new license information.
+     *
+     * @param evt the ActionEvent object
+     */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        
+
         guardarnuevaLicencia();
-        
-        
+
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    
-
+    /**
+     * Elementos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
