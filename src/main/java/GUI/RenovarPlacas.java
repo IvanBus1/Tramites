@@ -17,7 +17,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- *Clase para renovar placas
+ * Clase para renovar placas
+ *
  * @author IVAN
  */
 public class RenovarPlacas extends javax.swing.JFrame {
@@ -167,6 +168,11 @@ public class RenovarPlacas extends javax.swing.JFrame {
         txtPlacaAnt.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtPlacaAnt.setForeground(new java.awt.Color(0, 153, 204));
         txtPlacaAnt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
+        txtPlacaAnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPlacaAntActionPerformed(evt);
+            }
+        });
         jPanel1.add(txtPlacaAnt, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 250, 30));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -237,22 +243,31 @@ public class RenovarPlacas extends javax.swing.JFrame {
     private void btnAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar1ActionPerformed
         asere();
     }//GEN-LAST:event_btnAceptar1ActionPerformed
-/**
-
-Método que se ejecuta cuando se presiona el botón "Volver".
-Este método crea una instancia de la clase "Menu" y hace visible la ventana correspondiente,
-y después cierra la ventana actual.
-@param evt El evento de acción que se generó al presionar el botón "Volver"
-*/
+    /**
+     *
+     * Método que se ejecuta cuando se presiona el botón "Volver". Este método
+     * crea una instancia de la clase "Menu" y hace visible la ventana
+     * correspondiente, y después cierra la ventana actual.
+     *
+     * @param evt El evento de acción que se generó al presionar el botón
+     * "Volver"
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Menu m = new Menu(persona);
         m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-/**
- * Metotodo para generar placas
- * @return placas
- */
+
+    private void txtPlacaAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaAntActionPerformed
+        
+
+  
+    }//GEN-LAST:event_txtPlacaAntActionPerformed
+    /**
+     * Metotodo para generar placas
+     *
+     * @return placas
+     */
     public String generarPlacaAleatoria() {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String numeros = "0123456789";
@@ -272,6 +287,7 @@ y después cierra la ventana actual.
 
         return placa;
     }
+
     /**
      * Metodo para renovar placas
      */
@@ -327,9 +343,10 @@ y después cierra la ventana actual.
             JOptionPane.showMessageDialog(null, "Este vehiculo no cuenta con placas registradas");
         }
     }
-/**
- * Metodo para llenar el combobox
- */
+
+    /**
+     * Metodo para llenar el combobox
+     */
     public void llenarCombo() {
         cbxVehiculos.removeAllItems();
         List<Vehiculo> llenaCb = vehiculo.listaAutosCliente(persona.getRfc());
@@ -345,9 +362,9 @@ y después cierra la ventana actual.
         }
     }
 
-/**
- * Elmentos del frame
- */
+    /**
+     * Elmentos del frame
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar1;
     private javax.swing.JButton btnCancelar;

@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
  * Inheritance". Se utiliza la anotación @Entity para indicar que es una entidad
  * en la base de datos. La anotación @Inheritance se utiliza para definir la
  * estrategia de herencia, en este caso Joined. La anotación
+ *
  * @DiscriminatorColumn se utiliza para especificar el nombre de la columna que
  * se utilizará para diferenciar entre las subclases en la tabla de la
  * superclase. La anotación @Table se utiliza para especificar el nombre de la
@@ -30,7 +31,14 @@ import javax.persistence.TemporalType;
  */
 @Entity(name = "Tramite")
 @Inheritance(strategy = InheritanceType.JOINED)
+/**
+ *
+ * Especifica el discriminador de la clase
+ *
+ * @param name el tipo de tramite que es
+ */
 @DiscriminatorColumn(name = "Tipo")
+
 @Table(name = "Tramite")
 public class Tramite implements Serializable {
 

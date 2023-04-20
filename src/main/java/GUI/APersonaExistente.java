@@ -151,11 +151,6 @@ public class APersonaExistente extends javax.swing.JFrame {
         txtRfc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtRfc.setForeground(new java.awt.Color(0, 153, 204));
         txtRfc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtRfc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRfcActionPerformed(evt);
-            }
-        });
         txtRfc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtRfcKeyTyped(evt);
@@ -166,11 +161,6 @@ public class APersonaExistente extends javax.swing.JFrame {
         txtApellidoP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtApellidoP.setForeground(new java.awt.Color(0, 153, 204));
         txtApellidoP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204), 2));
-        txtApellidoP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidoPActionPerformed(evt);
-            }
-        });
         txtApellidoP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtApellidoPKeyTyped(evt);
@@ -261,10 +251,6 @@ public class APersonaExistente extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtApellidoMKeyTyped
-
-    private void txtRfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRfcActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRfcActionPerformed
     /**
      * Este método se ejecuta cuando se presiona una tecla en el campo de texto
      * "txtRfc". Verifica si la tecla presionada es un carácter alfanumérico o
@@ -281,10 +267,6 @@ public class APersonaExistente extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtRfcKeyTyped
-
-    private void txtApellidoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoPActionPerformed
 
     /**
      * Este método se ejecuta cuando se presiona una tecla en el campo de texto
@@ -318,14 +300,14 @@ public class APersonaExistente extends javax.swing.JFrame {
 
         Persona personaencon = personaDAO.buscarPorNombresRfc(nombreEncriptado, apellidoPEncriptado, apellidoMEncriptado, txtRfc.getText());
         if (personaencon == null) {
-            JOptionPane.showMessageDialog(null, "no");
+            JOptionPane.showMessageDialog(null, "La persona no ha sido encontrada");
 
         } else {
             String nombreDesencriptado = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
             String apellidoPDesencriptado = EncriptacionUtils.desencriptarApellidoPaterno(apellidoPEncriptado);
             String apellidoMDesencriptado = EncriptacionUtils.desencriptarApellidoMaterno(apellidoMEncriptado);
 
-            JOptionPane.showMessageDialog(null, "si");
+            JOptionPane.showMessageDialog(null, "La persona ha sido ingresada con exito");
             personaencon.setNombre(nombreDesencriptado);
             personaencon.setApellidoPaterno(apellidoPDesencriptado);
             personaencon.setApellidoMaterno(apellidoMDesencriptado);
@@ -336,9 +318,21 @@ public class APersonaExistente extends javax.swing.JFrame {
 
     }
 
-   /**
-    * Elementos del frame
-    */
+    /**
+     * Elementos del frame para la ventana de personas existentes. btnAceptar:
+     * Botón para aceptar la operación. btnCancelar: Botón para cancelar la
+     * operación. btnVolver: Botón para volver a la pantalla anterior. jLabel1:
+     * Etiqueta para mostrar el texto "Nombre". jLabel4: Etiqueta para mostrar
+     * el texto "Apellido Paterno". jLabel5: Etiqueta para mostrar el texto
+     * "Apellido Materno". jLabel6: Etiqueta para mostrar el texto "RFC".
+     * jLabel7: Etiqueta para mostrar el texto "Datos de la persona". jPanel1:
+     * Panel para agrupar los campos de datos personales. jPanel2: Panel para
+     * agrupar los botones de la ventana. txtApellidoM: Campo de texto para
+     * ingresar el apellido materno de la persona. txtApellidoP: Campo de texto
+     * para ingresar el apellido paterno de la persona. txtNombre: Campo de
+     * texto para ingresar el nombre de la persona. txtRfc: Campo de texto para
+     * ingresar el RFC de la persona.
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;

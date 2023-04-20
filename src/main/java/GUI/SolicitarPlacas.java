@@ -214,6 +214,7 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         for (int i = 0; i < 4; i++) {
             int index = (int) (Math.random() * numeros.length());
             placa += numeros.charAt(index);
+          
         }
 
         return placa;

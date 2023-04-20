@@ -65,8 +65,8 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="69" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btnHistorialPlacas" min="-2" pref="130" max="-2" attributes="0"/>
-                      <Component id="btnRegistrarV1" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="btnRV" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="btnHP" min="-2" pref="130" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -113,14 +113,14 @@
                       <Component id="btnSolicitarPlacas" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="btnRenovarPlacas" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="btnHistorial" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="btnHistorialPlacas" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="btnRV" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnSolicitarLicencia" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="btnRenovarLicencia" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="btnAceptar6" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="btnRegistrarV1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="btnHP" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="154" max="32767" attributes="0"/>
               </Group>
@@ -281,7 +281,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRenovarLicenciaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnHistorialPlacas">
+        <Component class="javax.swing.JButton" name="btnRV">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="66" red="0" type="rgb"/>
@@ -300,7 +300,7 @@
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHistorialPlacasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRVActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRenovarPlacas">
@@ -336,7 +336,7 @@
             <Property name="text" type="java.lang.String" value="Nombre cliente:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnRegistrarV1">
+        <Component class="javax.swing.JButton" name="btnHP">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="66" red="0" type="rgb"/>
@@ -355,7 +355,7 @@
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarV1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHPActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

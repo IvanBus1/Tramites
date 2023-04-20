@@ -7,12 +7,14 @@ package GUI;
 import Entidades.Persona;
 import Persistencia.IPersonaDAO;
 import Utilidades.EncriptacionUtils;
+import java.util.Date;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
 
 /**
- *Clase para registar a una persona
+ * Clase para registar a una persona
+ *
  * @author IVAN
  */
 public class Registrar_Persona extends javax.swing.JFrame {
@@ -248,7 +250,30 @@ public class Registrar_Persona extends javax.swing.JFrame {
      */
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
-        guardarPersona();
+        if (txtAMaterno.getText().isEmpty() || txtAPaterno.getText().isEmpty() || txtNombre.getText().isEmpty()
+                || txtRFC.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtFecha == null) {
+            JOptionPane.showMessageDialog(null, "Favor de llenar los campos", "Error", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+
+            // Se obtiene la fecha de nacimiento a partir de la fecha ingresada
+            Date fechaNacimiento = txtFecha.getDate();
+
+            // Se calcula la edad restando la fecha actual menos la fecha de nacimiento
+            long edadEnMilisegundos = new Date().getTime() - fechaNacimiento.getTime();
+            // Se convierte la edad a años
+            int edad = (int) (edadEnMilisegundos / 1000 / 60 / 60 / 24 / 365);
+
+            // Se verifica si la edad es menor que la mayoría de edad
+            if (edad >= 18) {
+                guardarPersona();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Hubo un error debido a que se ingreso a un menor de edad o la fecha ingresada no ha pasado ", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
+
 
     }//GEN-LAST:event_btnAceptarActionPerformed
     /**
@@ -383,7 +408,6 @@ public class Registrar_Persona extends javax.swing.JFrame {
                 return;
             }
 
-          
             String nombreEncriptado = EncriptacionUtils.encriptarNombre(txtNombre.getText());
             String apaternoEncriptado = EncriptacionUtils.encriptarApellidoPaterno(txtAPaterno.getText());
             String amaternoEncriptado = EncriptacionUtils.encriptarApellidoMaterno(txtAMaterno.getText());

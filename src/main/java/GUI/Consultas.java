@@ -340,7 +340,7 @@ public class Consultas extends javax.swing.JFrame {
                     Historial hs = new Historial(personas.get(row), tramite);
                     hs.setVisible(true);
 
-                    JOptionPane.showMessageDialog(null, target.getValueAt(row, column));
+                
                     ((Window) SwingUtilities.getRoot(target)).dispose();
                 }
 
@@ -402,9 +402,20 @@ public class Consultas extends javax.swing.JFrame {
         jtConsultas.setModel(modelo);
 
     }
-
+    
     /**
-     * Elementos del frame
+     * Elementos del frame para la ventana de consultas. btnAceptar: Botón para
+     * ejecutar la consulta. btnCancelar: Botón para cancelar la consulta.
+     * btnVolver: Botón para volver a la pantalla anterior. jLabel1: Etiqueta
+     * para mostrar el texto "Nombre". jLabel4: Etiqueta para mostrar el texto
+     * "RFC". jLabel7: Etiqueta para mostrar el texto "Fecha". jLabel8: Etiqueta
+     * para mostrar el texto "Consulta de facturas". jPanel1: Panel para agrupar
+     * los campos de búsqueda. jPanel2: Panel para agrupar la tabla y los
+     * botones de la ventana. jScrollPane1: Panel con barras de desplazamiento
+     * que contiene la tabla de resultados. jtConsultas: Tabla que muestra los
+     * resultados de la consulta. txtFecha: Campo de fecha para buscar facturas
+     * por fecha. txtNombre: Campo de texto para buscar facturas por nombre de
+     * cliente. txtRFC: Campo de texto para buscar facturas por RFC de cliente.
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;

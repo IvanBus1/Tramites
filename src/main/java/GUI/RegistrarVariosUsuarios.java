@@ -7,6 +7,7 @@ import Utilidades.EncriptacionUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,6 +59,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         prueba1 = new javax.swing.JLabel();
         prueba2 = new javax.swing.JLabel();
         nClientes = new javax.swing.JComboBox<>();
+        prueba3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -88,7 +90,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
                 btnAceptarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 710, 88, 37));
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 540, 88, 37));
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -102,7 +104,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 700, 88, 37));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 540, 88, 37));
 
         jt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,19 +124,19 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jt);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 760, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 770, 350));
 
         prueba1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         prueba1.setForeground(new java.awt.Color(0, 102, 204));
-        prueba1.setText("si/no");
-        jPanel1.add(prueba1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 130, -1, -1));
+        prueba1.setText("yyyy/mm/dd");
+        jPanel1.add(prueba1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, -1, -1));
 
         prueba2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         prueba2.setForeground(new java.awt.Color(0, 102, 204));
         prueba2.setText("Ingrese los datos de las personas:");
         jPanel1.add(prueba2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
-        nClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }));
+        nClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }));
         nClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nClientesActionPerformed(evt);
@@ -142,18 +144,22 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
         });
         jPanel1.add(nClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
 
+        prueba3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        prueba3.setForeground(new java.awt.Color(0, 102, 204));
+        prueba3.setText("si/no");
+        jPanel1.add(prueba3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 814, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
         );
 
         pack();
@@ -186,6 +192,15 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
             String telefono = (String) jt.getValueAt(i, 4);
             String fechaNacimiento = (String) jt.getValueAt(i, 6);
 
+            int edad=0;
+
+    // Verificar si la edad es menor a 18 años
+    if (edad < 18) {
+        JOptionPane.showMessageDialog(null, "No se puede ingresar a un menor de edad", "Error", JOptionPane.ERROR_MESSAGE);
+        continue; // Salir de la iteración actual y pasar a la siguiente persona
+    }
+            
+            
             if ("Si".equalsIgnoreCase((String) jt.getValueAt(i, 5))) {
                 dis = true;
             } else if (jt.getValueAt(i, 5) == null) {
@@ -317,5 +332,6 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> nClientes;
     private javax.swing.JLabel prueba1;
     private javax.swing.JLabel prueba2;
+    private javax.swing.JLabel prueba3;
     // End of variables declaration//GEN-END:variables
 }

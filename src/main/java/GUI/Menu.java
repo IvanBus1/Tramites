@@ -15,7 +15,8 @@ import Utilidades.EncriptacionUtils;
 import javax.swing.JOptionPane;
 
 /**
- *Clase para el menu
+ * Clase para el menu
+ *
  * @author IVAN
  */
 public class Menu extends javax.swing.JFrame {
@@ -25,6 +26,9 @@ public class Menu extends javax.swing.JFrame {
      */
     private Persona persona;
 
+    
+    
+    
     /**
      * Constructor de la clase Menu que crea una nueva instancia de la ventana
      * del menú principal.
@@ -37,7 +41,7 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
 
         lblperso.setText(persona.getNombre() + " " + persona.getApellidoPaterno() + " " + persona.getApellidoMaterno());
-
+       
     }
 
     /**
@@ -59,10 +63,10 @@ public class Menu extends javax.swing.JFrame {
         btnAceptar6 = new javax.swing.JButton();
         lblperso = new javax.swing.JLabel();
         btnRenovarLicencia = new javax.swing.JButton();
-        btnHistorialPlacas = new javax.swing.JButton();
+        btnRV = new javax.swing.JButton();
         btnRenovarPlacas = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        btnRegistrarV1 = new javax.swing.JButton();
+        btnHP = new javax.swing.JButton();
 
         btnVolver.setBackground(new java.awt.Color(0, 102, 204));
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -155,16 +159,16 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnHistorialPlacas.setBackground(new java.awt.Color(0, 102, 204));
-        btnHistorialPlacas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnHistorialPlacas.setForeground(new java.awt.Color(255, 255, 255));
-        btnHistorialPlacas.setText("Registrar Vehiculo");
-        btnHistorialPlacas.setBorder(null);
-        btnHistorialPlacas.setContentAreaFilled(false);
-        btnHistorialPlacas.setOpaque(true);
-        btnHistorialPlacas.addActionListener(new java.awt.event.ActionListener() {
+        btnRV.setBackground(new java.awt.Color(0, 102, 204));
+        btnRV.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnRV.setForeground(new java.awt.Color(255, 255, 255));
+        btnRV.setText("Registrar Vehiculo");
+        btnRV.setBorder(null);
+        btnRV.setContentAreaFilled(false);
+        btnRV.setOpaque(true);
+        btnRV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHistorialPlacasActionPerformed(evt);
+                btnRVActionPerformed(evt);
             }
         });
 
@@ -185,16 +189,16 @@ public class Menu extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("Nombre cliente:");
 
-        btnRegistrarV1.setBackground(new java.awt.Color(0, 102, 204));
-        btnRegistrarV1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnRegistrarV1.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrarV1.setText("Historial Placas");
-        btnRegistrarV1.setBorder(null);
-        btnRegistrarV1.setContentAreaFilled(false);
-        btnRegistrarV1.setOpaque(true);
-        btnRegistrarV1.addActionListener(new java.awt.event.ActionListener() {
+        btnHP.setBackground(new java.awt.Color(0, 102, 204));
+        btnHP.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnHP.setForeground(new java.awt.Color(255, 255, 255));
+        btnHP.setText("Historial Placas");
+        btnHP.setBorder(null);
+        btnHP.setContentAreaFilled(false);
+        btnHP.setOpaque(true);
+        btnHP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarV1ActionPerformed(evt);
+                btnHPActionPerformed(evt);
             }
         });
 
@@ -206,8 +210,8 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnHistorialPlacas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarV1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRV, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHP, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -243,13 +247,13 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(btnSolicitarPlacas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRenovarPlacas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHistorialPlacas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRV, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSolicitarLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRenovarLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAceptar6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarV1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnHP, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(154, Short.MAX_VALUE))
         );
 
@@ -289,10 +293,13 @@ public class Menu extends javax.swing.JFrame {
 
         if (licenciadao.verificarLicencia(persona.getId_persona())) {
 
-            RenovarLicencia li = new RenovarLicencia(tramitedao, licenciadao, persona);
-            li.setVisible(true);
-
-            this.dispose();
+            int respuesta = JOptionPane.showConfirmDialog(this, "El usuario cuenta con una licencia vigente, si continua esta dispuesto a cancelar la licencia actual");
+            if (respuesta == JOptionPane.YES_OPTION) {
+                // Si el usuario acepta, se abre la ventana para renovar la licencia
+                RenovarLicencia li = new RenovarLicencia(tramitedao, licenciadao, persona);
+                li.setVisible(true);
+                this.dispose();
+            }
 
         } else {
             JOptionPane.showMessageDialog(this, "Esta persona no tiene una licencia registrada.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -309,13 +316,13 @@ public class Menu extends javax.swing.JFrame {
      * @param evt Objeto de tipo ActionEvent que representa el evento de clic en
      * el botón HistorialPlacas.
      */
-    private void btnHistorialPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialPlacasActionPerformed
+    private void btnRVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRVActionPerformed
         IConexionBD conexionbd = new ConexionBD();
         IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
         RegistrarVehiculo ve = new RegistrarVehiculo(vehiculodao, persona);
         ve.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnHistorialPlacasActionPerformed
+    }//GEN-LAST:event_btnRVActionPerformed
     /**
      * Acción realizada al hacer clic en el botón RenovarPlacas. Verifica si la
      * persona tiene una licencia registrada en la base de datos, y si es así,
@@ -328,11 +335,17 @@ public class Menu extends javax.swing.JFrame {
      * el botón RenovarPlacas.
      */
     private void btnRenovarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenovarPlacasActionPerformed
+        
+
         IConexionBD conexionbd = new ConexionBD();
         IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
         ILicenciaDAO licenciadao = new LicenciaDAO(conexionbd);
         IPlacaDAO placadao = new PlacaDAO(conexionbd);
-
+        
+        if(vehiculodao.listaAutosCliente(persona.getRfc()).isEmpty()){
+             JOptionPane.showMessageDialog(null, "La persona no tiene vehiculos registrados");
+        }else{
+             
         if (licenciadao.verificarLicencia(persona.getId_persona())) {
 
             RenovarPlacas sp = new RenovarPlacas(persona, vehiculodao, placadao);
@@ -344,6 +357,9 @@ public class Menu extends javax.swing.JFrame {
             return;
         }
 
+        }
+        
+       
 
     }//GEN-LAST:event_btnRenovarPlacasActionPerformed
     /**
@@ -355,12 +371,18 @@ public class Menu extends javax.swing.JFrame {
      * @param evt El evento de acción que desencadenó la invocación del método.
      */
     private void btnSolicitarPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarPlacasActionPerformed
+       
+        
+        
         IConexionBD conexionbd = new ConexionBD();
         IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
         IPlacaDAO placadao = new PlacaDAO(conexionbd);
         ILicenciaDAO licenciadao = new LicenciaDAO(conexionbd);
 
-        if (licenciadao.verificarLicencia(persona.getId_persona())) {
+       if(vehiculodao.listaAutosCliente(persona.getRfc()).isEmpty()){
+           JOptionPane.showMessageDialog(null, "La persona no tiene vehiculos registrados");
+        }else{
+            if (licenciadao.verificarLicencia(persona.getId_persona())) {
 
             SolicitarPlacas pl = new SolicitarPlacas(persona, vehiculodao, placadao);
             pl.setVisible(true);
@@ -370,6 +392,9 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Esta persona no tiene una licencia registrada.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+       }
+        
+       
 
 
     }//GEN-LAST:event_btnSolicitarPlacasActionPerformed
@@ -423,24 +448,35 @@ public class Menu extends javax.swing.JFrame {
      *
      * @param evt El evento de acción que desencadenó la invocación del método.
      */
-    private void btnRegistrarV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarV1ActionPerformed
+    private void btnHPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHPActionPerformed
+        
+        
+        
         IConexionBD conexionbd = new ConexionBD();
         IVehiculoDAO vehiculodao = new VehiculoDAO(conexionbd);
         IPlacaDAO placadao = new PlacaDAO(conexionbd);
 
+                 
+        if(vehiculodao.listaAutosCliente(persona.getRfc()).isEmpty()){
+             JOptionPane.showMessageDialog(null, "La persona no tiene vehiculos registrados");
+        }else{
+            
         PlacasVehiculo pl = new PlacasVehiculo(persona, vehiculodao, placadao);
         pl.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnRegistrarV1ActionPerformed
+        }
+        
+        
+    }//GEN-LAST:event_btnHPActionPerformed
 
     /**
      * Elementos del frame
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar6;
+    private javax.swing.JButton btnHP;
     private javax.swing.JButton btnHistorial;
-    private javax.swing.JButton btnHistorialPlacas;
-    private javax.swing.JButton btnRegistrarV1;
+    private javax.swing.JButton btnRV;
     private javax.swing.JButton btnRenovarLicencia;
     private javax.swing.JButton btnRenovarPlacas;
     private javax.swing.JButton btnSolicitarLicencia;

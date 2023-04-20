@@ -27,6 +27,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * Clase para un historial de todos los tramites
@@ -100,7 +101,6 @@ public class HistorialGeneral extends javax.swing.JFrame {
         txtFechaFin = new com.toedter.calendar.JDateChooser();
         btnllenar = new javax.swing.JButton();
         btnPDF = new javax.swing.JButton();
-        btnlimpiar = new javax.swing.JButton();
         btnFecha = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -232,21 +232,7 @@ public class HistorialGeneral extends javax.swing.JFrame {
                 btnPDFActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 580, 120, 40));
-
-        btnlimpiar.setBackground(new java.awt.Color(0, 102, 204));
-        btnlimpiar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnlimpiar.setForeground(new java.awt.Color(255, 255, 255));
-        btnlimpiar.setText("limpiar");
-        btnlimpiar.setBorder(null);
-        btnlimpiar.setContentAreaFilled(false);
-        btnlimpiar.setOpaque(true);
-        btnlimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnlimpiarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnlimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 580, 88, 37));
+        jPanel1.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 580, 120, 40));
 
         btnFecha.setBackground(new java.awt.Color(0, 102, 204));
         btnFecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -403,7 +389,8 @@ public class HistorialGeneral extends javax.swing.JFrame {
 
                 // Llenar el reporte con los datos
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, beanColDataSource);
-
+                
+              
                 // Visualizar el reporte
                 JasperExportManager.exportReportToPdfFile(jasperPrint, "./ReporteTramites.pdf");
 
@@ -412,14 +399,6 @@ public class HistorialGeneral extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnPDFActionPerformed
-    /**
-     * boton para limpiar la tabla
-     *
-     * @param evt incia al momento de darle click
-     */
-    private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
-        limpiarTabla();
-    }//GEN-LAST:event_btnlimpiarActionPerformed
 
     /**
      * boton para filtar por las dos fechas
@@ -617,7 +596,6 @@ public class HistorialGeneral extends javax.swing.JFrame {
     private javax.swing.JButton btnPDF;
     private javax.swing.JButton btnPlacas1;
     private javax.swing.JButton btnVolver1;
-    private javax.swing.JButton btnlimpiar;
     private javax.swing.JButton btnllenar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
