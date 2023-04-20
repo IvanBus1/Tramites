@@ -385,8 +385,8 @@ public class Registrar_Persona extends javax.swing.JFrame {
                 return;
             }
 
-            if (!txtRFC.getText().matches("^[a-zA-Z0-9]*$")) {
-                JOptionPane.showMessageDialog(null, "El campo de RFC no puede contener caracteres especiales");
+            if (!txtRFC.getText().matches("^[a-zA-Z0-9]*$") || txtRFC.getText().length() != 13) {
+                JOptionPane.showMessageDialog(null, "El campo de RFC solo puede contener 13 numeros y letras");
                 return;
             }
 

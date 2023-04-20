@@ -19,7 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *Clase para registrar varios usuarios
+ * Clase para registrar varios usuarios
+ *
  * @author IVAN
  */
 public class RegistrarVariosUsuarios extends javax.swing.JFrame {
@@ -192,23 +193,14 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
             String telefono = (String) jt.getValueAt(i, 4);
             String fechaNacimiento = (String) jt.getValueAt(i, 6);
 
-            int edad=0;
-
-    // Verificar si la edad es menor a 18 años
-    if (edad < 18) {
-        JOptionPane.showMessageDialog(null, "No se puede ingresar a un menor de edad", "Error", JOptionPane.ERROR_MESSAGE);
-        continue; // Salir de la iteración actual y pasar a la siguiente persona
-    }
-            
-            
             if ("Si".equalsIgnoreCase((String) jt.getValueAt(i, 5))) {
                 dis = true;
-            } else if (jt.getValueAt(i, 5) == null) {
+            } else if ("No".equalsIgnoreCase((String) jt.getValueAt(i, 5))) {
                 dis = false;
             }
 
             // Expresiones regulares
-            String regexRfc = "[a-zA-Z0-9]+";
+            String regexRfc = "^[a-zA-Z0-9]*$";
             String regexTexto = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+";
             String regexTelefono = "\\d{10}";
 
@@ -226,7 +218,7 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
 
             // Validar que no se pueda agregar caracteres especiales a RFC
             if (!rfc.matches(regexRfc)) {
-                JOptionPane.showMessageDialog(null, "RFC solo puede contener letras y números");
+                JOptionPane.showMessageDialog(null, "RFC solo puede contener 13 numeros y letras");
                 continue; // Salir de la iteración actual y pasar a la siguiente persona
             }
 
@@ -250,22 +242,34 @@ public class RegistrarVariosUsuarios extends javax.swing.JFrame {
                 return;
             }
 
-            nuevaPersona.setFechaNacimiento(fecha);
-            nuevaPersona.setDiscapacitado(dis);
+           
 
+           
             // Validar que la persona no tenga el mismo rfc
             List<Persona> personasConMismoRfc = personaDAO.buscarVariosRfc(rfc);
             if (!personasConMismoRfc.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "La persona con RFC " + rfc + " ya ha sido registrada anteriormente");
                 continue; // Salir de la iteración actual y pasar a la siguiente persona
             }
-            // Validar que el telefono no este registrado
-            List<Persona> personasConMismoTelefono = personaDAO.buscarVariosTelefonos(telefono);
-            if (!personasConMismoTelefono.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "El número de teléfono " + telefono + " ya está registrado para otra persona");
-                continue; // Salir de la iteración actual y pasar a la siguiente persona
+            
+            
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(fecha);
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            Calendar now = Calendar.getInstance();
+            now.add(Calendar.YEAR, -18);
+            if (now.get(Calendar.YEAR) < year || (now.get(Calendar.YEAR) == year && now.get(Calendar.MONTH) < month)
+                    || (now.get(Calendar.YEAR) == year && now.get(Calendar.MONTH) == month && now.get(Calendar.DAY_OF_MONTH) < day)) {
+                JOptionPane.showMessageDialog(null, "La persona debe ser mayor de 18 años");
+                return;
             }
 
+            
+            nuevaPersona.setFechaNacimiento(fecha);
+            nuevaPersona.setDiscapacitado(dis);
+            
             Persona personaGuardada = personaDAO.agregar(nuevaPersona);
 
             if (personaGuardada == null) {

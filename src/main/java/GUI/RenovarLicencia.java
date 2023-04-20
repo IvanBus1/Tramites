@@ -17,7 +17,8 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
- *Clase para renovar una licencia
+ * Clase para renovar una licencia
+ *
  * @author IVAN
  */
 public class RenovarLicencia extends javax.swing.JFrame {
@@ -184,9 +185,10 @@ public class RenovarLicencia extends javax.swing.JFrame {
 
     /**
      * Metodo para guardar la nueva licencia
+     * @param persona
      */
     public void guardarnuevaLicencia() {
-
+       
         String licenciaAnt = txtLicenciaAnt.getText();
 
         if (licenciaAnt == null || !licenciaAnt.matches("\\d+")) {
@@ -196,8 +198,9 @@ public class RenovarLicencia extends javax.swing.JFrame {
 
         Licencia licenciaencon = licenciaDAO.buscarIdyEstado(Integer.parseInt(txtLicenciaAnt.getText()));
 
-        if (licenciaencon == null) {
-            JOptionPane.showMessageDialog(null, "No se encontró la licencia con esa id o ya se encuentra inactiva");
+        if (licenciaencon == null || !licenciaencon.getPersona().getId_persona().equals(persona.getId_persona())) {
+            JOptionPane.showMessageDialog(null, "No se encontró la licencia con esa id, ya se encuentra inactiva, pertenece a otra persona o no se ha seleccionado una persona válida");
+
         } else {
 
             licenciaDAO.desactivarLicencia(licenciaencon);

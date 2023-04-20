@@ -259,9 +259,8 @@ public class RenovarPlacas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void txtPlacaAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaAntActionPerformed
-        
 
-  
+
     }//GEN-LAST:event_txtPlacaAntActionPerformed
     /**
      * Metotodo para generar placas
@@ -279,8 +278,11 @@ public class RenovarPlacas extends javax.swing.JFrame {
             placa += letras.charAt(index);
         }
 
+        // Agregar guion
+        placa += "-";
+
         // Agregar cuatro números aleatorios
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             int index = (int) (Math.random() * numeros.length());
             placa += numeros.charAt(index);
         }
@@ -295,8 +297,8 @@ public class RenovarPlacas extends javax.swing.JFrame {
 
         String placaAnt = txtPlacaAnt.getText();
 
-        if (!placaAnt.matches("[a-zA-Z0-9]+")) {
-            JOptionPane.showMessageDialog(null, "El campo numero de placa solo puede contener letras y números");
+        if (!placaAnt.matches("[a-zA-Z0-9-]+")) {
+            JOptionPane.showMessageDialog(null, "El campo número de placa solo puede contener letras, números y guiones");
             return;
         }
 
@@ -307,12 +309,11 @@ public class RenovarPlacas extends javax.swing.JFrame {
         int precio = 0;
         Vehiculo vehiculo = (Vehiculo) cbxVehiculos.getSelectedItem();
 
-        if (placa.verificarPlaca(vehiculo.getId_vehiculo())) {
-
+        
             Placa placaencon = placa.buscarNumPlacayEstado(txtPlacaAnt.getText());
 
-            if (placaencon == null) {
-                JOptionPane.showMessageDialog(null, "No se encontró la placa con ese de numero de placa o ya se encuentra inactiva");
+            if (placaencon == null ||!placaencon.getPersona().getId_persona().equals(persona.getId_persona()) ) {
+                JOptionPane.showMessageDialog(null, "No se encontró las placas con ese numero de placas, ya se encuentra inactiva o pertenecen a otra persona");
             } else {
                 placa.desactivarPlaca(placaencon);
 
@@ -339,9 +340,7 @@ public class RenovarPlacas extends javax.swing.JFrame {
                     this.dispose();
                 }
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Este vehiculo no cuenta con placas registradas");
-        }
+       
     }
 
     /**

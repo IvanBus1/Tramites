@@ -205,19 +205,23 @@ public class SolicitarPlacas extends javax.swing.JFrame {
         String placa = "";
 
         // Agregar tres letras aleatorias
-        for (int i = 0; i < 3; i++) {
-            int index = (int) (Math.random() * letras.length());
-            placa += letras.charAt(index);
-        }
+    for (int i = 0; i < 3; i++) {
+        int index = (int) (Math.random() * letras.length());
+        placa += letras.charAt(index);
+    }
 
-        // Agregar cuatro números aleatorios
-        for (int i = 0; i < 4; i++) {
-            int index = (int) (Math.random() * numeros.length());
-            placa += numeros.charAt(index);
-          
-        }
+    // Agregar guion
+    placa += "-";
 
-        return placa;
+    // Agregar tres números aleatorios
+    for (int i = 0; i < 3; i++) {
+        int index = (int) (Math.random() * numeros.length());
+        placa += numeros.charAt(index);
+    }
+
+    
+
+    return placa;
     }
 
     /**
