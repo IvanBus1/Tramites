@@ -29,7 +29,8 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
- *Clase para un historial de todos los tramites
+ * Clase para un historial de todos los tramites
+ *
  * @author IVAN
  */
 public class HistorialGeneral extends javax.swing.JFrame {
@@ -357,9 +358,19 @@ public class HistorialGeneral extends javax.swing.JFrame {
             for (Tramite tramite : listaTabla) {
                 Reportepdf repor = new Reportepdf();
                 repor.setCosto(String.valueOf((tramite.getPrecio())));
+
+                if (tramite instanceof Placa) {
+                    tipot = "Placa";
+                } else if (tramite instanceof Licencia) {
+                    tipot = "Licencia";
+                } else {
+                    tipot = "baja"; // Agrega un valor por defecto si no es Placa ni Licencia
+                }
+
                 repor.setTipo(tipot);
                 Persona personaa = tramite.getPersona();
 
+                
                 String nombreEncriptado = personaa.getNombre();
                 String nombreDesencriptado = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
 
@@ -370,6 +381,7 @@ public class HistorialGeneral extends javax.swing.JFrame {
                 String apellidoMDesencriptado = EncriptacionUtils.desencriptarApellidoMaterno(apellidoMEncriptado);
 
                 String nombreC = nombreDesencriptado + " " + apellidoPDesencriptado + " " + apellidoMDesencriptado;
+                
 
                 repor.setNombre(nombreC);
 
@@ -456,9 +468,9 @@ public class HistorialGeneral extends javax.swing.JFrame {
 
         llenarTablaTipo();
     }//GEN-LAST:event_btnPlacas1ActionPerformed
-/**
- * Metodo para llenar la tabla en base al tipo de tramite
- */
+    /**
+     * Metodo para llenar la tabla en base al tipo de tramite
+     */
     public void llenarTablaTipo() {
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
         listaTabla = tramite.tramitesPersonaTipo(tipot);
@@ -490,14 +502,13 @@ public class HistorialGeneral extends javax.swing.JFrame {
      * Llena la tabla con todos los registros de tramites obtenidos mediante el
      * método obtenerTodosTramites() de la clase Tramite. Se utiliza la
      * instancia de la clase Tramite para determinar el tipo de trámite.
-
+     *
      */
     public void llenarTabla() {
         listaTabla = tramite.obtenerTodosTramites();
         DefaultTableModel modelo = (DefaultTableModel) jtHistorial.getModel();
 
         for (Tramite tramite : listaTabla) {
-
             String nombreEncriptado = tramite.getPersona().getNombre();
             String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado); // Desencriptar nombre de la persona asociada al tramite
 
@@ -535,7 +546,6 @@ public class HistorialGeneral extends javax.swing.JFrame {
         System.out.println(listaTabla.size());
 
         for (Tramite tramite : listaTabla) {
-
             String nombreEncriptado = tramite.getPersona().getNombre(); // Obtener nombre de la persona asociada al trámite
             String nombre = EncriptacionUtils.desencriptarNombre(nombreEncriptado);
 
@@ -566,9 +576,9 @@ public class HistorialGeneral extends javax.swing.JFrame {
         if (!txtNombre.getText().equalsIgnoreCase("")) {
             for (Tramite tramite : listaTabla) {
                 Persona persona = tramite.getPersona();
-                String nombre = EncriptacionUtils.desencriptarNombre(tramite.getPersona().getNombre()) + " "
-                        + EncriptacionUtils.desencriptarApellidoPaterno(tramite.getPersona().getApellidoPaterno()) + " "
-                        + EncriptacionUtils.desencriptarApellidoMaterno(tramite.getPersona().getApellidoMaterno());
+                String nombre = EncriptacionUtils.desencriptarNombre(persona.getNombre()) + " "
+                        + EncriptacionUtils.desencriptarApellidoPaterno(persona.getApellidoPaterno()) + " "
+                        + EncriptacionUtils.desencriptarApellidoMaterno(persona.getApellidoMaterno());
                 if (nombre.toLowerCase().contains(txtNombre.getText().toLowerCase())) {
                     aux.add(tramite);
                 }
@@ -598,7 +608,6 @@ public class HistorialGeneral extends javax.swing.JFrame {
 
     }
 
-    
     /**
      * Elemento del frame
      */

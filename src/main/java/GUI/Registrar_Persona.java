@@ -383,13 +383,7 @@ public class Registrar_Persona extends javax.swing.JFrame {
                 return;
             }
 
-            // Buscar si ya existe una persona con el mismo teléfono
-            Persona telefonoExistente = personaDAO.buscarTelefono(txtTelefono.getText());
-            if (telefonoExistente != null) {
-                JOptionPane.showMessageDialog(null, "Ese teléfono ya se encuentra registrado");
-                return;
-            }
-
+          
             String nombreEncriptado = EncriptacionUtils.encriptarNombre(txtNombre.getText());
             String apaternoEncriptado = EncriptacionUtils.encriptarApellidoPaterno(txtAPaterno.getText());
             String amaternoEncriptado = EncriptacionUtils.encriptarApellidoMaterno(txtAMaterno.getText());

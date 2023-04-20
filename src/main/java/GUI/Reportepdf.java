@@ -7,6 +7,7 @@ package GUI;
  */
 public class Reportepdf {
 
+
     /**
      * Atributo que representa el nombre de la persona
      */
@@ -34,19 +35,23 @@ public class Reportepdf {
     /**
      *
      * Constructor de la clase Reportepdf que inicializa los datos del reporte.
-     *
      * @param nombre El nombre del reporte
      * @param tipo El tipo del reporte
-     * @param Costo El costo del reporte
+     * @param costo El costo del reporte
      * @param fecha La fecha del reporte
      */
-    public Reportepdf(String nombre, String tipo, String Costo, String fecha) {
+    public Reportepdf(String nombre, String tipo, String costo, String fecha) {  
         this.nombre = nombre;
         this.tipo = tipo;
-        this.costo = Costo;
+        this.costo = costo;
         this.fecha = fecha;
     }
 
+    
+    
+
+    
+    
     /**
      *
      * Método getter para obtener el nombre del reporte.
